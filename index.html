@@ -1,11 +1,229 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Cosmiway Labs</title>
+  <title>Cosmiway | Infinite Intelligence</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #000000;
+      --accent: #8266ff;
+      --text: #ffffff;
+      --text-dim: #94a3b8;
+      --glass: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 255, 255, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; background: var(--bg); }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    .flow-container { max-width: 1200px; margin: 0 auto; padding: 0 80px; }
+
+    /* --- Navigation --- */
+    nav { padding: 50px 0; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.4rem; letter-spacing: -0.04em; }
+    .nav-link { font-size: 0.8rem; font-weight: 600; color: var(--text-dim); text-decoration: none; transition: 0.3s; }
+    .nav-link:hover { color: var(--accent); }
+
+    /* --- Hero --- */
+    .hero { height: 85vh; display: flex; align-items: center; }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(4rem, 12vw, 10rem);
+      font-weight: 700;
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+    }
+
+    /* --- Vision Section --- */
+    .section-v { padding: 150px 0; position: relative; }
+    .flow-line {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+    }
+    
+    h2 { font-family: 'Space Grotesk', sans-serif; font-size: 4.5rem; line-height: 1; margin-bottom: 30px; letter-spacing: -0.04em; }
+    .big-p { font-size: 1.6rem; font-weight: 300; color: var(--text-dim); max-width: 800px; margin-bottom: 60px; }
+
+    /* --- CosmiFlow Integration Highlight --- */
+    .integration-highlight {
+        background: radial-gradient(circle at top left, rgba(130, 102, 255, 0.1), transparent);
+        padding: 80px;
+        border-radius: 40px;
+        border: 1px solid var(--border);
+        margin-bottom: 100px;
+    }
+    .integration-highlight h3 { font-family: 'Space Grotesk'; font-size: 2.5rem; margin-bottom: 20px; }
+
+    /* --- Vertical Lineage --- */
+    .lineage { padding: 80px 0; position: relative; padding-left: 60px; }
+    .v-line { position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--border); }
+    .l-item { position: relative; margin-bottom: 80px; }
+    .l-item::before {
+      content: ''; position: absolute; left: -64.5px; top: 12px;
+      width: 10px; height: 10px; background: var(--accent); border-radius: 50%;
+      box-shadow: 0 0 15px var(--accent);
+    }
+    .l-date { font-size: 0.75rem; font-weight: 800; color: var(--accent); margin-bottom: 5px; display: block; }
+    .l-item h4 { font-family: 'Space Grotesk'; font-size: 1.8rem; margin-bottom: 10px; }
+
+    /* --- Radical Access Grid --- */
+    .radical-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 80px; }
+    .r-box { background: var(--bg); padding: 50px; transition: 0.4s; }
+    .r-box:hover { background: rgba(130, 102, 255, 0.05); }
+    .r-box h4 { font-family: 'Space Grotesk'; font-size: 1.5rem; margin-bottom: 15px; }
+    .r-box p { color: var(--text-dim); font-size: 1rem; }
+
+    /* --- Architect --- */
+    .architect-wrap { padding: 150px 0; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: end; border-top: 1px solid var(--border); }
+    .arch-name { font-size: 5.5rem; font-family: 'Space Grotesk'; font-weight: 700; letter-spacing: -0.05em; line-height: 0.9; }
+    .arch-tags { display: flex; flex-wrap: wrap; gap: 15px; color: var(--accent); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; margin-top: 20px; }
+
+    /* --- Contact Us --- */
+    .contact-section { padding: 100px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .contact-info h3 { font-family: 'Space Grotesk'; font-size: 2rem; }
+    .email-link { color: var(--text); text-decoration: none; font-size: 1.5rem; font-weight: 300; border-bottom: 1px solid var(--accent); }
+
+    /* --- The CTA --- */
+    .join-flow { text-align: center; padding: 150px 0; }
+    .btn-wrap { display: inline-block; position: relative; padding: 2px; background: linear-gradient(90deg, var(--accent), #ff66f0); border-radius: 100px; margin-top: 40px; }
+    .main-btn { 
+      display: block; background: var(--bg); color: white; padding: 20px 60px; 
+      border-radius: 100px; text-decoration: none; font-weight: 700; font-size: 1.2rem;
+      transition: 0.3s;
+    }
+    .main-btn:hover { background: #fff; color: #000; }
+
+    /* --- Animations --- */
+    .reveal { opacity: 0; transform: translateY(30px); transition: 1s cubic-bezier(0.19, 1, 0.22, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    footer { padding: 100px 0; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-dim); text-align: center; }
+
+    @media (max-width: 1000px) {
+      .radical-grid, .architect-wrap, .contact-section { grid-template-columns: 1fr; flex-direction: column; gap: 40px; }
+      .flow-container { padding: 0 40px; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Cosmiway Labs</h1>
-  <p>Cosmiway Labs is an independent software studio founded by <strong>Shaunak Okhde</strong>, a developer from India building tools, apps, and experiments in code, math, and games.</p>
+
+  <div class="flow-container">
+    <nav>
+      <div class="logo">COSMIWAY</div>
+      <a href="#join" class="nav-link" style="color: white; border: 1px solid var(--accent); padding: 8px 20px; border-radius: 50px;">JOIN THE COMMUNITY</a>
+    </nav>
+
+    <header class="hero">
+      <h1 class="reveal">Intelligence<br>unbound.</h1>
+    </header>
+
+    <section class="section-v">
+      <div class="flow-line"></div>
+      <div style="padding-left: 60px;">
+        <h2 class="reveal">The Lab Core.</h2>
+        <p class="big-p reveal">Cosmiway isn't just a collection of tools; it's a unified ecosystem where high-level logic meets radical access.</p>
+        
+        <div class="integration-highlight reveal">
+            <h3>Unified Intelligence</h3>
+            <p style="color: var(--text-dim); margin-bottom: 30px;">CosmiFlow is the neural center of the laboratory. It doesn't just "exist" as a chatbot—it is woven into every tool we build. Whether you are debugging backends or architecting data structures, CosmiFlow provides the personality-driven logic that guides the entire experience.</p>
+            <p style="color: var(--accent); font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">The Starscape Protocol • Legacy Performance • Fluid Execution</p>
+        </div>
+
+        <div class="lineage">
+          <div class="v-line"></div>
+          <div class="l-item reveal">
+            <span class="l-date">JAN 2026</span>
+            <h4>The Spark</h4>
+            <p style="color: var(--text-dim);">Initial exploration into personality-aware logic and custom technical API structures.</p>
+          </div>
+          <div class="l-item reveal">
+            <span class="l-date">FEB 2026</span>
+            <h4>Starscape Legacy</h4>
+            <p style="color: var(--text-dim);">Defining the visual identity—high-contrast, performance-focused interface design.</p>
+          </div>
+          <div class="l-item reveal">
+            <span class="l-date">MAR 2026</span>
+            <h4>Cosmiway Evolution</h4>
+            <p style="color: var(--text-dim);">The birth of the global laboratory. Independent protocols for the community.</p>
+          </div>
+        </div>
+
+        <div class="radical-grid reveal">
+          <div class="r-box">
+            <h4>CosmiFlow</h4>
+            <p>High-performance AI designed for deep technical collaboration and personality-aware execution.</p>
+          </div>
+          <div class="r-box">
+            <h4>Cosmic ID</h4>
+            <p>Unified login. Your settings, history, and tools synced under a single secure identity.</p>
+          </div>
+          <div class="r-box">
+            <h4>Free Access</h4>
+            <p>Optimized architecture allows us to offer premium-grade intelligence at exactly zero cost.</p>
+          </div>
+          <div class="r-box">
+            <h4>Bengaluru Built</h4>
+            <p>Developed in India's tech hub with a mission to empower creators across the globe.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="architect-wrap">
+      <div class="reveal">
+        <h2 style="font-size: 1rem; color: var(--accent); letter-spacing: 0.2em; margin-bottom: 20px;">THE ARCHITECT</h2>
+        <div class="arch-name">Shaunak Okhde.</div>
+        <div class="arch-tags">
+          <span>Python</span> <span>Flask</span> <span>Logic</span> <span>Engineering</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <p style="color: var(--text-dim); font-size: 1.2rem; font-weight: 300;">Focused on the intersection of mathematical logic and fluid user interaction. Building tools that empower the next generation of independent developers.</p>
+      </div>
+    </section>
+
+    <section class="contact-section reveal">
+        <div class="contact-info">
+            <h3>Get in touch</h3>
+            <p style="color: var(--text-dim);">Questions? Feedback? Just want to talk logic?</p>
+        </div>
+        <a href="mailto:yourname@example.com" class="email-link">shaunak@cosmiway.labs</a>
+    </section>
+
+    <section id="join" class="join-flow">
+      <h2 class="reveal" style="font-size: 5rem;">Unlock the Lab.</h2>
+      <p class="reveal" style="color: var(--text-dim);">Join the inner circle. No payments, no hidden tiers—just tools.</p>
+      <div class="btn-wrap reveal">
+        <a href="#" class="main-btn">JOIN THE COSMIWAY COMMUNITY</a>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 Cosmiway Labs • Open Source • Bengaluru, India</p>
+      <p style="margin-top: 10px; font-size: 0.6rem; opacity: 0.5;">DESIGNED FOR FLUID INTELLIGENCE</p>
+    </footer>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
