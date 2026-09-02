@@ -13,27 +13,20 @@
 
 <style>
 
-/* =========================================================
-   FOUNDATION
-========================================================= */
-
 :root {
     --bg: #03040a;
-    --white: #f7f7ff;
-    --muted: rgba(213,216,238,.52);
-    --dim: rgba(213,216,238,.30);
-
-    --purple: #8d79ff;
-    --purple-soft: rgba(126,105,255,.14);
-
+    --text: #f7f7ff;
+    --muted: rgba(207,211,235,.50);
+    --dim: rgba(207,211,235,.29);
     --line: rgba(255,255,255,.085);
-    --glass: rgba(255,255,255,.045);
+    --purple: #8977ff;
+    --blue: #657fff;
 }
 
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 html {
@@ -41,21 +34,16 @@ html {
 }
 
 body {
-    min-height: 100vh;
-
     background: var(--bg);
-    color: var(--white);
-
+    color: var(--text);
     font-family: "Manrope", sans-serif;
-
     overflow-x: hidden;
 }
 
 a,
 a:visited,
 a:hover,
-a:active,
-a:focus {
+a:active {
     color: inherit;
     text-decoration: none;
 }
@@ -66,180 +54,143 @@ button {
 
 
 /* =========================================================
-   BACKGROUND
+   AMBIENT BACKGROUND
 ========================================================= */
 
 .background {
     position: fixed;
     inset: 0;
-
     z-index: -20;
-
     overflow: hidden;
-
-    pointer-events: none;
 
     background:
         radial-gradient(
-            ellipse at 50% -15%,
-            rgba(93,73,255,.17),
+            ellipse at 50% -20%,
+            rgba(102,82,255,.18),
             transparent 43%
         ),
         radial-gradient(
-            ellipse at -10% 48%,
-            rgba(29,102,255,.09),
+            ellipse at -10% 50%,
+            rgba(43,90,255,.09),
             transparent 38%
         ),
         radial-gradient(
-            ellipse at 110% 68%,
-            rgba(157,68,255,.09),
+            ellipse at 110% 70%,
+            rgba(151,70,255,.10),
             transparent 40%
         ),
         #03040a;
 }
 
-
-/* =========================================================
-   STARS
-========================================================= */
-
 .stars {
     position: absolute;
-
     inset: -15%;
 
-    opacity: .58;
+    opacity: .55;
 
     background-image:
         radial-gradient(
             circle,
             rgba(255,255,255,.75) 0 1px,
-            transparent 1.25px
+            transparent 1.2px
         ),
         radial-gradient(
             circle,
-            rgba(255,255,255,.42) 0 1px,
-            transparent 1.25px
+            rgba(255,255,255,.40) 0 1px,
+            transparent 1.2px
         ),
         radial-gradient(
             circle,
-            rgba(255,255,255,.25) 0 1px,
-            transparent 1.25px
+            rgba(255,255,255,.23) 0 1px,
+            transparent 1.2px
         );
 
     background-size:
-        175px 175px,
-        285px 285px,
-        390px 390px;
+        180px 180px,
+        290px 290px,
+        410px 410px;
 
     background-position:
         0 0,
-        70px 35px,
-        150px 100px;
+        80px 35px,
+        140px 110px;
 
     animation:
-        starDrift 110s linear infinite;
+        stars 110s linear infinite;
 }
 
-@keyframes starDrift {
-
+@keyframes stars {
     from {
-        transform:
-            translate3d(0,0,0);
+        transform: translate3d(0,0,0);
     }
 
     to {
-        transform:
-            translate3d(-130px,90px,0);
+        transform: translate3d(-140px,95px,0);
     }
-
 }
 
-
-/* =========================================================
-   AMBIENT LIGHT CLOUDS
-========================================================= */
-
-.light {
+.ambient {
     position: absolute;
-
     border-radius: 50%;
-
-    filter: blur(115px);
-
-    mix-blend-mode: screen;
+    filter: blur(110px);
+    pointer-events: none;
 }
 
-.light-a {
-    width: 580px;
-    height: 580px;
-
-    left: -250px;
+.ambient.one {
+    width: 600px;
+    height: 600px;
+    left: -300px;
     top: 15%;
-
-    background:
-        rgba(57,92,255,.12);
+    background: rgba(55,87,255,.12);
 
     animation:
-        lightA 21s ease-in-out infinite alternate;
+        driftOne 20s ease-in-out infinite alternate;
 }
 
-.light-b {
-    width: 630px;
-    height: 630px;
-
-    right: -290px;
-    top: 32%;
-
-    background:
-        rgba(142,70,255,.12);
+.ambient.two {
+    width: 650px;
+    height: 650px;
+    right: -320px;
+    top: 35%;
+    background: rgba(141,67,255,.11);
 
     animation:
-        lightB 25s ease-in-out infinite alternate;
+        driftTwo 25s ease-in-out infinite alternate;
 }
 
-.light-c {
-    width: 450px;
-    height: 450px;
-
+.ambient.three {
+    width: 500px;
+    height: 500px;
     left: 35%;
-    bottom: -270px;
-
-    background:
-        rgba(65,86,255,.08);
+    bottom: -300px;
+    background: rgba(74,82,255,.09);
 
     animation:
-        lightC 20s ease-in-out infinite alternate;
+        driftThree 22s ease-in-out infinite alternate;
 }
 
-@keyframes lightA {
-
+@keyframes driftOne {
     to {
         transform:
-            translate3d(170px,100px,0)
+            translate3d(180px,100px,0)
             scale(1.2);
     }
-
 }
 
-@keyframes lightB {
-
+@keyframes driftTwo {
     to {
         transform:
-            translate3d(-160px,-80px,0)
+            translate3d(-160px,-90px,0)
             scale(1.18);
     }
-
 }
 
-@keyframes lightC {
-
+@keyframes driftThree {
     to {
         transform:
-            translate3d(90px,-100px,0)
-            scale(1.18);
+            translate3d(90px,-120px,0)
+            scale(1.2);
     }
-
 }
 
 
@@ -249,62 +200,31 @@ button {
 
 .grain {
     position: fixed;
-
     inset: -50%;
-
-    z-index: 1000;
-
+    z-index: 100;
     pointer-events: none;
-
-    opacity: .025;
+    opacity: .022;
 
     background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-
-    animation:
-        grainMove .25s steps(2) infinite;
-}
-
-@keyframes grainMove {
-
-    0% {
-        transform: translate(0,0);
-    }
-
-    25% {
-        transform: translate(2%,-2%);
-    }
-
-    50% {
-        transform: translate(-2%,2%);
-    }
-
-    75% {
-        transform: translate(2%,2%);
-    }
-
-    100% {
-        transform: translate(-2%,-2%);
-    }
-
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 
 /* =========================================================
-   CURSOR ATMOSPHERE
+   CURSOR GLOW
 ========================================================= */
 
-.cursor-light {
+.cursor-glow {
     position: fixed;
 
-    width: 500px;
-    height: 500px;
+    width: 480px;
+    height: 480px;
 
     border-radius: 50%;
 
     pointer-events: none;
 
-    z-index: -5;
+    z-index: -3;
 
     transform:
         translate(-50%,-50%);
@@ -312,7 +232,7 @@ button {
     background:
         radial-gradient(
             circle,
-            rgba(114,91,255,.07),
+            rgba(117,96,255,.065),
             transparent 68%
         );
 
@@ -321,243 +241,89 @@ button {
 
 
 /* =========================================================
-   NAVIGATION
-========================================================= */
-
-.nav-shell {
-    position: fixed;
-
-    top: 18px;
-    left: 50%;
-
-    width:
-        min(1180px, calc(100% - 36px));
-
-    transform:
-        translateX(-50%);
-
-    z-index: 500;
-}
-
-nav {
-    height: 62px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 22px;
-
-    border:
-        1px solid rgba(255,255,255,.095);
-
-    border-radius: 17px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.065),
-            rgba(255,255,255,.025)
-        );
-
-    backdrop-filter:
-        blur(25px);
-
-    -webkit-backdrop-filter:
-        blur(25px);
-
-    box-shadow:
-        0 20px 70px rgba(0,0,0,.30),
-        inset 0 1px 0 rgba(255,255,255,.055);
-}
-
-.nav-brand {
-    font-family: "Syne", sans-serif;
-
-    font-size: 14px;
-
-    font-weight: 800;
-
-    letter-spacing: -.025em;
-}
-
-.nav-brand span {
-    color:
-        rgba(255,255,255,.36);
-}
-
-.nav-links {
-    display: flex;
-
-    gap: 27px;
-}
-
-.nav-links a {
-    position: relative;
-
-    color:
-        rgba(230,232,250,.48);
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    transition:
-        color .25s ease;
-}
-
-.nav-links a:hover {
-    color: white;
-}
-
-.nav-links a::after {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    bottom: -7px;
-
-    width: 0;
-    height: 1px;
-
-    background: white;
-
-    transition:
-        width .25s ease;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-
-/* =========================================================
    HERO
 ========================================================= */
 
 .hero {
-    min-height: 100vh;
+    min-height: 100svh;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    position: relative;
-
     padding:
-        125px 25px
-        70px;
+        70px 24px;
 
     text-align: center;
+
+    position: relative;
 }
 
 .hero-inner {
     width:
-        min(1180px, 100%);
-
-    margin: auto;
+        min(1180px,100%);
 }
-
-
-/* =========================================================
-   BRAND
-========================================================= */
 
 .brand {
     font-family: "Syne", sans-serif;
 
-    font-size:
-        clamp(25px, 3vw, 40px);
-
-    line-height: 1;
-
     font-weight: 800;
+
+    font-size:
+        clamp(25px,3vw,40px);
 
     letter-spacing: -.055em;
 
-    color: white;
+    line-height: 1;
 
     text-shadow:
-        0 0 40px rgba(119,96,255,.15);
-
-    animation:
-        brandGlow 7s ease-in-out infinite;
+        0 0 45px rgba(123,101,255,.13);
 }
 
-@keyframes brandGlow {
-
-    0%,100% {
-        text-shadow:
-            0 0 28px rgba(119,96,255,.08);
-    }
-
-    50% {
-        text-shadow:
-            0 0 48px rgba(119,96,255,.24);
-    }
-
-}
-
-
-/* =========================================================
-   HERO DIVIDER
-========================================================= */
-
-.hero-divider {
-    width: 70px;
+.divider {
+    width: 75px;
     height: 1px;
 
     margin:
-        25px auto
+        27px auto
         30px;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            rgba(145,125,255,.8),
+            rgba(143,124,255,.9),
             transparent
         );
 
     box-shadow:
-        0 0 18px rgba(145,125,255,.5);
+        0 0 20px rgba(132,111,255,.5);
 }
 
-
-/* =========================================================
-   HERO TITLE
-========================================================= */
-
 .hero-title {
-    font-family: "Syne", sans-serif;
+    width:
+        min(1100px,100%);
+
+    margin: 0 auto;
+
+    font-family:
+        "Syne", sans-serif;
 
     font-weight: 800;
+
+    font-size:
+        clamp(52px,7vw,108px);
 
     line-height: .86;
 
     letter-spacing: -.075em;
 
     text-transform: uppercase;
-
-    width:
-        min(1100px, 100%);
-
-    margin: auto;
-
-    /*
-       Deliberately conservative sizing.
-       The title is huge without being allowed
-       to escape the viewport.
-    */
-    font-size:
-        clamp(52px, 7vw, 108px);
 }
 
 .hero-title span {
     display: block;
-
-    width: 100%;
+    white-space: nowrap;
 }
 
 .hero-title .explore {
@@ -565,9 +331,9 @@ nav {
         linear-gradient(
             105deg,
             #ffffff 0%,
-            #e8e5ff 33%,
-            #9e91ff 70%,
-            #7663ff 100%
+            #e8e5ff 35%,
+            #a095ff 70%,
+            #7664ff 100%
         );
 
     -webkit-background-clip: text;
@@ -577,32 +343,26 @@ nav {
 
     filter:
         drop-shadow(
-            0 0 25px rgba(116,95,255,.08)
+            0 0 25px rgba(119,97,255,.10)
         );
 }
 
 .hero-title .cosmos {
-    color: #f7f7ff;
+    color: #f6f6ff;
 
     text-shadow:
-        0 0 45px rgba(115,95,255,.08);
+        0 0 50px rgba(105,88,255,.08);
 }
-
-
-/* =========================================================
-   HERO COPY
-========================================================= */
 
 .hero-copy {
     width:
-        min(620px, 100%);
+        min(650px,100%);
 
     margin:
-        36px auto
-        0;
+        36px auto 0;
 
     color:
-        rgba(199,203,225,.50);
+        rgba(198,202,225,.50);
 
     font-size: 14px;
 
@@ -610,6 +370,8 @@ nav {
 }
 
 .hero-meta {
+    margin-top: 21px;
+
     display: flex;
 
     justify-content: center;
@@ -617,17 +379,15 @@ nav {
 
     gap: 11px;
 
-    margin-top: 20px;
-
     color:
-        rgba(200,204,225,.27);
+        rgba(187,192,217,.27);
 
     font-family:
         "DM Mono", monospace;
 
     font-size: 8px;
 
-    letter-spacing: .15em;
+    letter-spacing: .18em;
 }
 
 .hero-meta i {
@@ -637,7 +397,7 @@ nav {
     border-radius: 50%;
 
     background:
-        #8977ff;
+        var(--purple);
 
     box-shadow:
         0 0 12px rgba(137,119,255,.9);
@@ -645,12 +405,12 @@ nav {
 
 
 /* =========================================================
-   SECTIONS
+   GENERAL SECTIONS
 ========================================================= */
 
 section {
     width:
-        min(1180px, calc(100% - 40px));
+        min(1180px,calc(100% - 40px));
 
     margin:
         0 auto;
@@ -658,7 +418,7 @@ section {
 
 .section {
     padding:
-        145px 0;
+        150px 0;
 }
 
 .section-header {
@@ -667,7 +427,7 @@ section {
     grid-template-columns:
         .8fr 1.2fr;
 
-    gap: 65px;
+    gap: 60px;
 
     align-items: end;
 
@@ -678,14 +438,14 @@ section {
     font-family:
         "DM Mono", monospace;
 
+    color:
+        rgba(180,185,210,.32);
+
     font-size: 9px;
 
     letter-spacing: .20em;
 
     text-transform: uppercase;
-
-    color:
-        rgba(187,192,216,.34);
 }
 
 .section-title {
@@ -695,7 +455,7 @@ section {
         "Syne", sans-serif;
 
     font-size:
-        clamp(42px, 6vw, 75px);
+        clamp(43px,6vw,76px);
 
     line-height: .9;
 
@@ -703,7 +463,7 @@ section {
 }
 
 .section-copy {
-    max-width: 520px;
+    max-width: 540px;
 
     color:
         rgba(190,195,217,.48);
@@ -733,36 +493,32 @@ section {
 
     gap: 20px;
 
-    will-change:
-        transform;
+    will-change: transform;
 }
 
 .app-card {
     flex:
-        0 0 340px;
+        0 0 330px;
 
-    width: 340px;
-
-    height: 450px;
+    width: 330px;
+    height: 445px;
 
     overflow: hidden;
-
-    position: relative;
 
     border-radius: 25px;
 
     border:
-        1px solid rgba(255,255,255,.09);
+        1px solid rgba(255,255,255,.085);
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,.065),
-            rgba(255,255,255,.022)
+            rgba(255,255,255,.060),
+            rgba(255,255,255,.021)
         );
 
     box-shadow:
-        0 30px 90px rgba(0,0,0,.33),
+        0 30px 90px rgba(0,0,0,.32),
         inset 0 1px 0 rgba(255,255,255,.055);
 
     transition:
@@ -776,335 +532,384 @@ section {
         translateY(-7px);
 
     border-color:
-        rgba(156,141,255,.27);
+        rgba(151,137,255,.25);
 
     box-shadow:
-        0 40px 110px rgba(0,0,0,.42),
-        0 0 55px rgba(107,87,255,.06),
-        inset 0 1px 0 rgba(255,255,255,.09);
+        0 40px 105px rgba(0,0,0,.40),
+        0 0 60px rgba(106,87,255,.055);
+}
+
+.app-visual {
+    height: 255px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(111,91,255,.075),
+            transparent 65%
+        );
+
+    border-bottom:
+        1px solid rgba(255,255,255,.07);
 }
 
 
 /* =========================================================
-   APP VISUAL AREA
+   COSMIFLOW — AI
 ========================================================= */
 
-.app-visual {
-    position: relative;
-
-    height: 260px;
-
-    overflow: hidden;
-
-    border-bottom:
-        1px solid rgba(255,255,255,.07);
-
-    background:
-        #070912;
-}
-
-.app-visual::before {
-    content: "";
-
+.flow-ai {
     position: absolute;
 
-    width: 260px;
-    height: 260px;
+    width: 225px;
+    height: 195px;
 
     left: 50%;
     top: 50%;
 
     transform:
         translate(-50%,-50%);
+
+    padding: 15px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: 16px;
+
+    background:
+        rgba(8,9,18,.76);
+
+    box-shadow:
+        0 25px 65px rgba(0,0,0,.45);
+}
+
+.ai-top {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 14px;
+}
+
+.ai-brand {
+    font-family:
+        "Space Grotesk", sans-serif;
+
+    font-weight: 700;
+
+    font-size: 10px;
+
+    letter-spacing: -.02em;
+}
+
+.ai-status {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background:
+        #8d7cff;
+
+    box-shadow:
+        0 0 12px #8d7cff;
+}
+
+.ai-prompt {
+    padding:
+        10px 11px;
+
+    min-height: 42px;
+
+    border:
+        1px solid rgba(255,255,255,.055);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,.028);
+
+    color:
+        rgba(218,220,241,.45);
+
+    font-size: 7px;
+
+    line-height: 1.5;
+}
+
+.ai-response {
+    margin-top: 10px;
+
+    padding:
+        10px;
+
+    border-radius: 9px;
+
+    background:
+        rgba(118,99,255,.065);
+
+    border:
+        1px solid rgba(130,110,255,.10);
+}
+
+.ai-response-title {
+    width: 44px;
+    height: 5px;
+
+    border-radius: 3px;
+
+    background:
+        rgba(255,255,255,.18);
+
+    margin-bottom: 8px;
+}
+
+.ai-response-line {
+    height: 4px;
+
+    border-radius: 2px;
+
+    background:
+        rgba(255,255,255,.075);
+
+    margin-bottom: 6px;
+}
+
+.ai-response-line.mid {
+    width: 82%;
+}
+
+.ai-response-line.short {
+    width: 58%;
+}
+
+.ai-send {
+    position: absolute;
+
+    bottom: 13px;
+    right: 14px;
+
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b78ff,
+            #5e77ff
+        );
+
+    color: white;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   COSMICHAT — WHATSAPP STYLE
+========================================================= */
+
+.chat-phone {
+    position: absolute;
+
+    width: 195px;
+    height: 220px;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    overflow: hidden;
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    border-radius: 17px;
+
+    background:
+        #080b12;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.48);
+}
+
+.chat-header {
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        0 12px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.055);
+
+    background:
+        rgba(255,255,255,.025);
+}
+
+.chat-avatar {
+    width: 22px;
+    height: 22px;
 
     border-radius: 50%;
 
     background:
         radial-gradient(
-            circle,
-            rgba(111,91,255,.13),
-            transparent 70%
-        );
-
-    filter: blur(10px);
-}
-
-
-/* =========================================================
-   COSMIFLOW
-========================================================= */
-
-.flow-ui {
-    position: absolute;
-
-    inset: 35px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 12px;
-}
-
-.flow-node {
-    width: 65px;
-    height: 48px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border:
-        1px solid rgba(140,122,255,.27);
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(129,109,255,.15),
-            rgba(255,255,255,.025)
-        );
-
-    box-shadow:
-        0 0 25px rgba(110,90,255,.08);
-
-    color:
-        rgba(239,238,255,.65);
-
-    font-family:
-        "DM Mono", monospace;
-
-    font-size: 8px;
-}
-
-.flow-node:nth-child(1) {
-    transform:
-        translateY(-20px);
-}
-
-.flow-node:nth-child(5) {
-    transform:
-        translateY(20px);
-}
-
-.flow-connector {
-    width: 25px;
-    height: 1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(126,106,255,.2),
-            rgba(126,106,255,.75)
-        );
-
-    box-shadow:
-        0 0 12px rgba(126,106,255,.4);
-}
-
-
-/* =========================================================
-   COSMIC LOGIN
-========================================================= */
-
-.login-ui {
-    position: absolute;
-
-    width: 195px;
-    height: 190px;
-
-    left: 50%;
-    top: 50%;
-
-    transform:
-        translate(-50%,-50%);
-
-    padding: 23px;
-
-    border:
-        1px solid rgba(255,255,255,.10);
-
-    border-radius: 17px;
-
-    background:
-        rgba(255,255,255,.045);
-
-    box-shadow:
-        0 25px 70px rgba(0,0,0,.4),
-        inset 0 1px 0 rgba(255,255,255,.065);
-}
-
-.login-logo {
-    width: 31px;
-    height: 31px;
-
-    border-radius: 9px;
-
-    background:
-        radial-gradient(
             circle at 35% 30%,
-            #eeeeff,
-            #7868ff 48%,
-            #292343
-        );
-
-    box-shadow:
-        0 0 24px rgba(120,100,255,.28);
-
-    margin-bottom: 17px;
-}
-
-.login-line {
-    height: 7px;
-
-    width: 100%;
-
-    border-radius: 4px;
-
-    background:
-        rgba(255,255,255,.08);
-
-    margin-bottom: 8px;
-}
-
-.login-line.short {
-    width: 61%;
-}
-
-.login-field {
-    height: 29px;
-
-    border:
-        1px solid rgba(255,255,255,.055);
-
-    border-radius: 7px;
-
-    background:
-        rgba(255,255,255,.025);
-
-    margin-top: 10px;
-}
-
-.login-button {
-    height: 28px;
-
-    border-radius: 7px;
-
-    margin-top: 11px;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(126,106,255,.58),
-            rgba(83,132,255,.45)
+            #efefff,
+            #6d67ad 55%,
+            #29253d
         );
 }
 
+.chat-user {
+    display: flex;
 
-/* =========================================================
-   COSMICHAT
-========================================================= */
+    flex-direction: column;
 
-.chat-ui {
-    position: absolute;
+    gap: 2px;
+}
 
-    inset: 30px;
+.chat-user strong {
+    font-size: 7px;
+}
+
+.chat-user small {
+    color:
+        rgba(173,183,199,.38);
+
+    font-size: 5px;
+}
+
+.chat-body {
+    padding:
+        11px 9px;
 
     display: flex;
 
     flex-direction: column;
 
-    justify-content: center;
-
-    gap: 9px;
+    gap: 6px;
 }
 
-.chat-message {
-    max-width: 72%;
+.message {
+    max-width: 73%;
 
     padding:
-        10px 12px;
+        6px 8px;
 
-    border-radius: 13px;
+    border-radius: 9px;
+
+    color:
+        rgba(231,233,245,.57);
+
+    font-size: 6px;
+
+    line-height: 1.45;
+
+    background:
+        rgba(255,255,255,.045);
+}
+
+.message.me {
+    align-self: flex-end;
+
+    background:
+        rgba(94,118,255,.19);
+
+    border:
+        1px solid rgba(105,127,255,.10);
+}
+
+.chat-compose {
+    position: absolute;
+
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+
+    height: 25px;
 
     border:
         1px solid rgba(255,255,255,.06);
 
+    border-radius: 8px;
+
     background:
-        rgba(255,255,255,.04);
+        rgba(255,255,255,.035);
 
     color:
-        rgba(230,232,249,.53);
+        rgba(255,255,255,.20);
 
-    font-size: 8px;
+    font-size: 6px;
 
-    line-height: 1.5;
-}
+    display: flex;
 
-.chat-message.right {
-    align-self: flex-end;
+    align-items: center;
 
-    background:
-        rgba(111,91,255,.12);
-
-    border-color:
-        rgba(133,114,255,.14);
-}
-
-.chat-input {
-    height: 31px;
-
-    margin-top: 6px;
-
-    border:
-        1px solid rgba(255,255,255,.065);
-
-    border-radius: 9px;
-
-    background:
-        rgba(255,255,255,.03);
+    padding-left: 9px;
 }
 
 
 /* =========================================================
-   COSMIMAIL
+   MAIL
 ========================================================= */
 
 .mail-ui {
     position: absolute;
 
-    inset: 29px;
+    inset: 30px;
 
     display: grid;
 
     grid-template-columns:
-        68px 1fr;
+        64px 1fr;
 
-    gap: 10px;
+    gap: 9px;
 }
 
 .mail-sidebar {
-    padding: 11px 8px;
+    padding: 10px 8px;
 
     border:
-        1px solid rgba(255,255,255,.06);
+        1px solid rgba(255,255,255,.055);
 
-    border-radius: 12px;
+    border-radius: 11px;
 
     background:
         rgba(255,255,255,.025);
 }
 
-.mail-sidebar-line {
-    height: 6px;
+.mail-sidebar span {
+    display: block;
+
+    width: 100%;
+    height: 5px;
 
     border-radius: 3px;
 
     background:
-        rgba(255,255,255,.075);
+        rgba(255,255,255,.07);
 
     margin-bottom: 10px;
 }
@@ -1114,52 +919,45 @@ section {
 
     flex-direction: column;
 
-    gap: 8px;
+    gap: 7px;
 }
 
-.mail-item {
-    height: 43px;
+.mail-row {
+    height: 39px;
 
-    padding:
-        9px 12px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    gap: 6px;
+    padding: 8px 10px;
 
     border:
-        1px solid rgba(255,255,255,.055);
+        1px solid rgba(255,255,255,.05);
 
-    border-radius: 9px;
+    border-radius: 8px;
 
     background:
-        rgba(255,255,255,.028);
+        rgba(255,255,255,.025);
 }
 
-.mail-item.active {
+.mail-row.active {
     background:
-        rgba(112,93,255,.08);
+        rgba(111,92,255,.075);
 
     border-color:
-        rgba(133,115,255,.17);
+        rgba(133,113,255,.14);
 }
 
-.mail-item span {
+.mail-line {
     width: 58%;
-    height: 5px;
+    height: 4px;
 
     border-radius: 3px;
 
     background:
         rgba(255,255,255,.11);
+
+    margin-bottom: 6px;
 }
 
-.mail-item span:last-child {
-    width: 78%;
+.mail-line.small {
+    width: 77%;
 
     background:
         rgba(255,255,255,.05);
@@ -1167,7 +965,7 @@ section {
 
 
 /* =========================================================
-   COSMIMEET
+   MEET
 ========================================================= */
 
 .meet-ui {
@@ -1180,32 +978,32 @@ section {
     grid-template-columns:
         repeat(2,1fr);
 
-    gap: 9px;
+    gap: 8px;
 }
 
-.meet-person {
+.meet-tile {
     position: relative;
 
     overflow: hidden;
 
-    border-radius: 12px;
+    border-radius: 11px;
 
     border:
-        1px solid rgba(255,255,255,.065);
+        1px solid rgba(255,255,255,.055);
 
     background:
         radial-gradient(
-            circle at 50% 35%,
-            rgba(125,109,255,.16),
-            rgba(255,255,255,.025) 55%
+            circle at 50% 30%,
+            rgba(117,101,255,.16),
+            rgba(255,255,255,.025) 65%
         );
 }
 
 .meet-head {
     position: absolute;
 
-    width: 30px;
-    height: 30px;
+    width: 27px;
+    height: 27px;
 
     left: 50%;
     top: 34%;
@@ -1218,17 +1016,17 @@ section {
     background:
         radial-gradient(
             circle at 35% 30%,
-            rgba(240,240,255,.9),
-            rgba(103,95,170,.6) 55%,
-            rgba(30,30,55,.9)
+            #efefff,
+            #7770ad 55%,
+            #25233a
         );
 }
 
 .meet-body {
     position: absolute;
 
-    width: 65px;
-    height: 34px;
+    width: 60px;
+    height: 31px;
 
     left: 50%;
     top: 64%;
@@ -1237,15 +1035,15 @@ section {
         translateX(-50%);
 
     border-radius:
-        30px 30px 8px 8px;
+        25px 25px 7px 7px;
 
     background:
-        rgba(111,101,192,.38);
+        rgba(103,94,180,.40);
 }
 
 
 /* =========================================================
-   COSMIDRIVE
+   DRIVE
 ========================================================= */
 
 .drive-ui {
@@ -1256,32 +1054,34 @@ section {
     display: grid;
 
     grid-template-columns:
-        68px 1fr;
+        64px 1fr;
 
-    gap: 10px;
+    gap: 9px;
 }
 
 .drive-sidebar {
-    padding: 11px 8px;
+    padding: 10px 8px;
 
     border:
-        1px solid rgba(255,255,255,.06);
+        1px solid rgba(255,255,255,.055);
 
-    border-radius: 12px;
+    border-radius: 11px;
 
     background:
         rgba(255,255,255,.025);
 }
 
-.drive-folder {
-    height: 6px;
+.drive-sidebar span {
+    display: block;
+
+    height: 5px;
+
+    margin-bottom: 11px;
 
     border-radius: 3px;
 
     background:
         rgba(255,255,255,.07);
-
-    margin-bottom: 11px;
 }
 
 .drive-files {
@@ -1294,37 +1094,37 @@ section {
 }
 
 .drive-file {
-    height: 76px;
+    height: 70px;
 
-    padding: 11px;
+    padding: 10px;
 
     border:
         1px solid rgba(255,255,255,.055);
 
-    border-radius: 10px;
+    border-radius: 9px;
 
     background:
-        rgba(255,255,255,.03);
+        rgba(255,255,255,.025);
 }
 
-.file-icon {
-    width: 21px;
-    height: 25px;
-
-    border:
-        1px solid rgba(136,117,255,.20);
+.drive-icon {
+    width: 20px;
+    height: 24px;
 
     border-radius: 4px;
 
-    background:
-        rgba(119,99,255,.09);
+    border:
+        1px solid rgba(132,112,255,.19);
 
-    margin-bottom: 10px;
+    background:
+        rgba(112,92,255,.08);
+
+    margin-bottom: 9px;
 }
 
-.file-line {
+.drive-line {
     width: 70%;
-    height: 5px;
+    height: 4px;
 
     border-radius: 3px;
 
@@ -1334,7 +1134,7 @@ section {
 
 
 /* =========================================================
-   COSMINOTES
+   NOTES
 ========================================================= */
 
 .notes-ui {
@@ -1345,9 +1145,9 @@ section {
     display: grid;
 
     grid-template-columns:
-        75px 1fr;
+        72px 1fr;
 
-    gap: 10px;
+    gap: 9px;
 }
 
 .notes-list {
@@ -1355,34 +1155,34 @@ section {
 
     flex-direction: column;
 
-    gap: 8px;
+    gap: 7px;
 }
 
-.note-item {
-    height: 44px;
+.note {
+    height: 42px;
 
     padding: 9px;
 
     border:
-        1px solid rgba(255,255,255,.055);
+        1px solid rgba(255,255,255,.05);
 
-    border-radius: 9px;
+    border-radius: 8px;
 
     background:
-        rgba(255,255,255,.028);
+        rgba(255,255,255,.025);
 }
 
-.note-item.active {
+.note.active {
     background:
-        rgba(112,92,255,.09);
+        rgba(112,92,255,.08);
 
     border-color:
-        rgba(134,115,255,.17);
+        rgba(135,115,255,.14);
 }
 
 .note-line {
-    width: 72%;
-    height: 5px;
+    width: 70%;
+    height: 4px;
 
     border-radius: 3px;
 
@@ -1393,26 +1193,26 @@ section {
 }
 
 .note-line.short {
-    width: 46%;
+    width: 45%;
 }
 
 .note-editor {
-    padding: 18px;
+    padding: 17px;
 
     border:
-        1px solid rgba(255,255,255,.06);
+        1px solid rgba(255,255,255,.055);
 
-    border-radius: 12px;
+    border-radius: 11px;
 
     background:
         rgba(255,255,255,.025);
 }
 
-.note-heading {
-    width: 65%;
-    height: 10px;
+.note-title-line {
+    width: 63%;
+    height: 8px;
 
-    border-radius: 4px;
+    border-radius: 3px;
 
     background:
         rgba(255,255,255,.12);
@@ -1422,14 +1222,14 @@ section {
 
 .note-text {
     width: 100%;
-    height: 5px;
+    height: 4px;
 
     border-radius: 3px;
 
     background:
         rgba(255,255,255,.06);
 
-    margin-bottom: 9px;
+    margin-bottom: 8px;
 }
 
 .note-text.mid {
@@ -1437,24 +1237,24 @@ section {
 }
 
 .note-text.short {
-    width: 60%;
+    width: 57%;
 }
 
 
 /* =========================================================
-   CARD TEXT
+   CARD INFO
 ========================================================= */
 
 .card-info {
     padding:
-        22px 23px;
+        22px 22px;
 }
 
 .card-top {
     display: flex;
 
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 }
 
 .card-name {
@@ -1469,8 +1269,8 @@ section {
 }
 
 .card-arrow {
-    width: 34px;
-    height: 34px;
+    width: 33px;
+    height: 33px;
 
     display: flex;
 
@@ -1478,7 +1278,7 @@ section {
     justify-content: center;
 
     border:
-        1px solid rgba(255,255,255,.08);
+        1px solid rgba(255,255,255,.075);
 
     border-radius: 50%;
 
@@ -1503,7 +1303,7 @@ section {
     margin-top: 10px;
 
     color:
-        rgba(190,194,216,.49);
+        rgba(190,194,216,.48);
 
     font-size: 12px;
 
@@ -1519,7 +1319,7 @@ section {
         "DM Mono", monospace;
 
     color:
-        rgba(157,163,191,.35);
+        rgba(157,163,191,.32);
 
     font-size: 8px;
 
@@ -1538,20 +1338,18 @@ section {
 
     align-items: center;
     justify-content: space-between;
-
-    margin-top: 5px;
 }
 
 .carousel-count {
     font-family:
         "DM Mono", monospace;
 
+    color:
+        rgba(173,178,204,.28);
+
     font-size: 9px;
 
     letter-spacing: .15em;
-
-    color:
-        rgba(173,178,204,.28);
 }
 
 .carousel-buttons {
@@ -1564,24 +1362,19 @@ section {
     width: 49px;
     height: 49px;
 
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
     border:
-        1px solid rgba(255,255,255,.11);
+        1px solid rgba(255,255,255,.10);
 
     border-radius: 50%;
 
     background:
-        rgba(255,255,255,.045);
+        rgba(255,255,255,.04);
 
     color: white;
 
     cursor: pointer;
 
-    font-size: 19px;
+    font-size: 18px;
 
     transition:
         transform .2s ease,
@@ -1594,15 +1387,15 @@ section {
         translateY(-3px);
 
     background:
-        rgba(255,255,255,.10);
+        rgba(255,255,255,.09);
 
     border-color:
-        rgba(255,255,255,.22);
+        rgba(255,255,255,.20);
 }
 
 .carousel-button:active {
     transform:
-        scale(.92);
+        scale(.91);
 }
 
 
@@ -1622,47 +1415,23 @@ section {
 .start-card {
     position: relative;
 
-    min-height: 420px;
+    min-height: 415px;
 
     padding: 36px;
 
     overflow: hidden;
 
     border:
-        1px solid rgba(255,255,255,.08);
+        1px solid rgba(255,255,255,.075);
 
     border-radius: 25px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,.055),
-            rgba(255,255,255,.02)
+            rgba(255,255,255,.050),
+            rgba(255,255,255,.018)
         );
-}
-
-.start-card::after {
-    content: "";
-
-    position: absolute;
-
-    width: 300px;
-    height: 300px;
-
-    right: -170px;
-    bottom: -170px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(110,90,255,.16),
-            transparent 70%
-        );
-
-    filter:
-        blur(25px);
 }
 
 .start-index {
@@ -1678,7 +1447,7 @@ section {
 }
 
 .start-card h3 {
-    margin-top: 25px;
+    margin-top: 24px;
 
     font-family:
         "Syne", sans-serif;
@@ -1689,11 +1458,11 @@ section {
 }
 
 .steps {
-    margin-top: 25px;
-
     display: grid;
 
     gap: 12px;
+
+    margin-top: 24px;
 }
 
 .step {
@@ -1728,136 +1497,219 @@ section {
     background:
         rgba(255,255,255,.035);
 
-    color:
-        rgba(255,255,255,.66);
-
     font-family:
         "DM Mono", monospace;
 
     font-size: 8px;
+
+    color:
+        rgba(255,255,255,.65);
 }
 
 
 /* =========================================================
-   FOUNDER
+   FOUNDER — MUCH BIGGER
 ========================================================= */
 
-.founder-card {
+.founder-section {
+    position: relative;
+}
+
+.founder-main {
     position: relative;
 
-    display: grid;
-
-    grid-template-columns:
-        230px 1fr;
-
-    gap: 55px;
-
-    align-items: center;
-
-    padding: 58px;
-
     overflow: hidden;
+
+    padding:
+        65px;
 
     border:
         1px solid rgba(255,255,255,.085);
 
-    border-radius: 28px;
+    border-radius: 30px;
 
     background:
         radial-gradient(
-            circle at 8% 50%,
-            rgba(106,87,255,.10),
-            transparent 35%
+            circle at 15% 50%,
+            rgba(105,86,255,.11),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 90% 0%,
+            rgba(80,100,255,.07),
+            transparent 30%
         ),
         rgba(255,255,255,.025);
+
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.25);
 }
 
-.founder-wordmark {
+.founder-main::before {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    right: -280px;
+    bottom: -330px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(128,105,255,.12),
+            transparent 68%
+        );
+
+    filter: blur(25px);
+}
+
+.founder-top {
+    display: grid;
+
+    grid-template-columns:
+        .72fr 1.28fr;
+
+    gap: 65px;
+
+    align-items: center;
+}
+
+.founder-label {
     font-family:
-        "Syne", sans-serif;
+        "DM Mono", monospace;
 
-    font-size: 42px;
+    font-size: 9px;
 
-    font-weight: 800;
-
-    line-height: .9;
-
-    letter-spacing: -.075em;
+    letter-spacing: .19em;
 
     color:
-        rgba(255,255,255,.10);
+        rgba(190,195,218,.29);
 
-    text-align: center;
+    text-transform: uppercase;
 }
 
 .founder-name {
+    margin-top: 18px;
+
     font-family:
         "Syne", sans-serif;
 
     font-size:
-        clamp(37px,5vw,61px);
+        clamp(48px,6vw,78px);
 
-    line-height: .9;
+    line-height: .87;
 
-    letter-spacing: -.07em;
+    letter-spacing: -.075em;
 }
 
 .founder-role {
-    margin-top: 11px;
+    margin-top: 17px;
+
+    color:
+        rgba(190,195,218,.38);
 
     font-family:
         "DM Mono", monospace;
 
     font-size: 9px;
 
-    letter-spacing: .17em;
+    letter-spacing: .16em;
 
     text-transform: uppercase;
-
-    color:
-        rgba(180,185,210,.38);
 }
 
 .founder-copy {
-    max-width: 730px;
+    color:
+        rgba(195,199,221,.54);
 
-    margin-top: 23px;
+    font-size: 14px;
+
+    line-height: 1.9;
+}
+
+.founder-copy + .founder-copy {
+    margin-top: 19px;
+}
+
+.founder-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    margin-top: 60px;
+
+    border-top:
+        1px solid rgba(255,255,255,.07);
+
+    padding-top: 30px;
+}
+
+.founder-stat {
+    padding-right: 25px;
+
+    border-right:
+        1px solid rgba(255,255,255,.06);
+}
+
+.founder-stat:last-child {
+    border-right: 0;
+
+    padding-left: 25px;
+}
+
+.founder-stat:nth-child(2) {
+    padding-left: 25px;
+}
+
+.stat-number {
+    font-family:
+        "Syne", sans-serif;
+
+    font-size: 31px;
+
+    font-weight: 800;
+
+    letter-spacing: -.06em;
+}
+
+.stat-label {
+    margin-top: 5px;
+
+    font-family:
+        "DM Mono", monospace;
+
+    font-size: 8px;
+
+    letter-spacing: .13em;
 
     color:
-        rgba(190,195,217,.53);
+        rgba(180,185,210,.32);
 
-    font-size: 13px;
-
-    line-height: 1.85;
+    text-transform: uppercase;
 }
 
 
 /* =========================================================
-   TIMELINE — NEW, ROBUST DESIGN
+   TIMELINE
 ========================================================= */
 
 .timeline {
     position: relative;
-
-    display: grid;
-
-    gap: 0;
+    padding-bottom: 10px;
 }
 
-
-/*
-   One continuous central line.
-*/
-
-.timeline::before {
-    content: "";
-
+.timeline-line {
     position: absolute;
 
     left: 50%;
-
     top: 0;
-    bottom: 0;
+    bottom: 65px;
 
     width: 1px;
 
@@ -1868,64 +1720,49 @@ section {
         linear-gradient(
             to bottom,
             transparent,
-            rgba(255,255,255,.13) 5%,
-            rgba(255,255,255,.13) 95%,
-            transparent
+            rgba(255,255,255,.13) 7%,
+            rgba(255,255,255,.13) 91%,
+            rgba(137,119,255,.30)
         );
 }
 
-
-/*
-   Every timeline entry occupies one full row.
-*/
-
 .timeline-item {
-    position: relative;
+    min-height: 180px;
 
     display: grid;
 
     grid-template-columns:
         1fr 70px 1fr;
 
-    min-height: 170px;
-
     align-items: center;
+
+    position: relative;
 }
 
+.timeline-content {
+    grid-row: 1;
+}
 
-/*
-   Left-side entries.
-*/
-
-.timeline-item:nth-child(odd) .timeline-content {
+.timeline-item:nth-child(odd)
+.timeline-content {
     grid-column: 1;
 
     text-align: right;
 
-    padding-right: 35px;
+    padding-right: 40px;
 }
 
-
-/*
-   Right-side entries.
-*/
-
-.timeline-item:nth-child(even) .timeline-content {
+.timeline-item:nth-child(even)
+.timeline-content {
     grid-column: 3;
 
     text-align: left;
 
-    padding-left: 35px;
+    padding-left: 40px;
 }
-
-
-/*
-   The centre marker.
-*/
 
 .timeline-marker {
     grid-column: 2;
-
     grid-row: 1;
 
     justify-self: center;
@@ -1936,19 +1773,14 @@ section {
     border-radius: 50%;
 
     background:
-        #dedbff;
+        #e7e4ff;
 
     box-shadow:
-        0 0 0 6px rgba(126,106,255,.055),
-        0 0 25px rgba(126,106,255,.48);
+        0 0 0 7px rgba(127,107,255,.05),
+        0 0 27px rgba(127,107,255,.55);
 
     z-index: 2;
 }
-
-
-/*
-   Date.
-*/
 
 .timeline-date {
     font-family:
@@ -1961,13 +1793,8 @@ section {
     text-transform: uppercase;
 
     color:
-        rgba(161,167,195,.32);
+        rgba(161,167,195,.31);
 }
-
-
-/*
-   Heading.
-*/
 
 .timeline-title {
     margin-top: 8px;
@@ -1975,29 +1802,134 @@ section {
     font-family:
         "Space Grotesk", sans-serif;
 
-    font-size: 24px;
-
-    font-weight: 600;
+    font-size: 25px;
 
     letter-spacing: -.045em;
 }
 
-
-/*
-   Description.
-*/
-
 .timeline-text {
-    max-width: 480px;
+    max-width: 470px;
 
     margin-top: 9px;
 
     color:
-        rgba(185,190,213,.49);
+        rgba(185,190,213,.48);
 
     font-size: 13px;
 
     line-height: 1.75;
+}
+
+
+/* =========================================================
+   TIMELINE FINISH
+========================================================= */
+
+.timeline-finish {
+    position: relative;
+
+    margin-top: 30px;
+
+    text-align: center;
+
+    padding-top: 35px;
+}
+
+.timeline-finish::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 0;
+
+    width: 1px;
+    height: 35px;
+
+    transform:
+        translateX(-50%);
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(137,119,255,.40),
+            transparent
+        );
+}
+
+.finish-orb {
+    width: 11px;
+    height: 11px;
+
+    margin: 0 auto 23px;
+
+    border-radius: 50%;
+
+    background:
+        #9b8cff;
+
+    box-shadow:
+        0 0 0 8px rgba(126,105,255,.045),
+        0 0 30px rgba(126,105,255,.65);
+}
+
+.finish-label {
+    font-family:
+        "DM Mono", monospace;
+
+    font-size: 8px;
+
+    letter-spacing: .22em;
+
+    color:
+        rgba(171,176,204,.29);
+
+    text-transform: uppercase;
+}
+
+.finish-title {
+    margin-top: 12px;
+
+    font-family:
+        "Syne", sans-serif;
+
+    font-size:
+        clamp(31px,4vw,48px);
+
+    letter-spacing: -.06em;
+}
+
+.finish-copy {
+    width:
+        min(520px,100%);
+
+    margin:
+        13px auto 0;
+
+    color:
+        rgba(183,188,211,.42);
+
+    font-size: 12px;
+
+    line-height: 1.75;
+}
+
+.finish-glow {
+    width: 220px;
+    height: 70px;
+
+    margin: 25px auto 0;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(124,103,255,.14),
+            transparent 70%
+        );
+
+    filter: blur(12px);
 }
 
 
@@ -2007,14 +1939,12 @@ section {
 
 footer {
     width:
-        min(1180px, calc(100% - 40px));
+        min(1180px,calc(100% - 40px));
 
-    margin:
-        auto;
+    margin: 0 auto;
 
     padding:
-        50px 0
-        55px;
+        55px 0;
 
     border-top:
         1px solid rgba(255,255,255,.07);
@@ -2023,10 +1953,8 @@ footer {
 
     justify-content: space-between;
 
-    gap: 20px;
-
     color:
-        rgba(161,167,192,.30);
+        rgba(161,167,192,.28);
 
     font-family:
         "DM Mono", monospace;
@@ -2040,10 +1968,10 @@ footer {
     font-family:
         "Syne", sans-serif;
 
-    font-weight: 700;
-
     color:
-        rgba(255,255,255,.5);
+        rgba(255,255,255,.48);
+
+    font-weight: 700;
 }
 
 
@@ -2055,10 +1983,10 @@ footer {
     opacity: 0;
 
     transform:
-        translateY(30px);
+        translateY(28px);
 
     transition:
-        opacity .9s ease,
+        opacity .85s ease,
         transform 1s cubic-bezier(.2,.8,.2,1);
 }
 
@@ -2078,7 +2006,6 @@ footer {
 
     .section-header {
         grid-template-columns: 1fr;
-
         gap: 25px;
     }
 
@@ -2086,33 +2013,38 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    .founder-card {
+    .founder-main {
+        padding: 45px 30px;
+    }
+
+    .founder-top {
         grid-template-columns: 1fr;
+        gap: 35px;
+    }
 
-        text-align: center;
+    .founder-stats {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
 
+    .founder-stat,
+    .founder-stat:nth-child(2),
+    .founder-stat:last-child {
         padding:
-            45px 30px;
+            0 0 20px;
+
+        border-right: 0;
+
+        border-bottom:
+            1px solid rgba(255,255,255,.06);
     }
 
-    .founder-copy {
-        margin-left: auto;
-        margin-right: auto;
+    .founder-stat:last-child {
+        border-bottom: 0;
     }
 
-    .app-card {
-        flex-basis: 310px;
-
-        width: 310px;
-    }
-
-    /*
-       Timeline becomes a single-side timeline.
-    */
-
-    .timeline::before {
+    .timeline-line {
         left: 7px;
-
         transform: none;
     }
 
@@ -2122,8 +2054,7 @@ footer {
         min-height: 0;
 
         padding:
-            0 0 45px
-            35px;
+            0 0 48px 35px;
     }
 
     .timeline-marker {
@@ -2131,13 +2062,13 @@ footer {
 
         left: 1px;
         top: 3px;
-
-        width: 13px;
-        height: 13px;
     }
 
-    .timeline-item:nth-child(odd) .timeline-content,
-    .timeline-item:nth-child(even) .timeline-content {
+    .timeline-item:nth-child(odd)
+    .timeline-content,
+
+    .timeline-item:nth-child(even)
+    .timeline-content {
         padding: 0;
 
         text-align: left;
@@ -2147,55 +2078,41 @@ footer {
         max-width: 600px;
     }
 
+    .timeline-finish {
+        text-align: left;
+
+        margin-left: 35px;
+    }
+
+    .timeline-finish::before {
+        left: -28px;
+    }
+
+    .finish-orb {
+        margin-left: -34px;
+    }
+
 }
 
 
 @media (max-width: 650px) {
 
-    .nav-shell {
-        top: 10px;
-
-        width:
-            calc(100% - 20px);
-    }
-
-    nav {
-        height: 58px;
-
-        padding:
-            0 16px;
-    }
-
-    .nav-links {
-        gap: 15px;
-    }
-
-    .nav-links a:nth-child(n+3) {
-        display: none;
-    }
-
     .hero {
-        padding-top: 120px;
+        padding:
+            65px 18px;
     }
-
-    /*
-       Still two lines.
-       Still fully visible.
-    */
 
     .hero-title {
         font-size:
-            clamp(48px, 14vw, 82px);
+            clamp(45px,13vw,80px);
+    }
 
-        letter-spacing: -.075em;
+    .hero-title span {
+        white-space: nowrap;
     }
 
     .hero-copy {
         font-size: 13px;
-    }
-
-    .hero-meta {
-        flex-wrap: wrap;
     }
 
     .section {
@@ -2205,14 +2122,12 @@ footer {
 
     .app-card {
         flex-basis: 285px;
-
         width: 285px;
-
-        height: 430px;
+        height: 425px;
     }
 
     .app-visual {
-        height: 245px;
+        height: 240px;
     }
 
     .carousel-controls {
@@ -2225,33 +2140,11 @@ footer {
 
     footer {
         flex-direction: column;
+        gap: 15px;
     }
 
 }
 
-
-@media (max-width: 430px) {
-
-    .brand {
-        font-size: 25px;
-    }
-
-    .hero-title {
-        font-size: 45px;
-
-        letter-spacing: -.068em;
-    }
-
-    .section-title {
-        font-size: 43px;
-    }
-
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -2260,8 +2153,8 @@ footer {
     *::after {
         animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
         transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
     }
 
 }
@@ -2273,66 +2166,19 @@ footer {
 <body>
 
 
-<!-- =========================================================
-     BACKGROUND
-========================================================= -->
-
 <div class="background">
 
     <div class="stars"></div>
 
-    <div class="light light-a"></div>
-    <div class="light light-b"></div>
-    <div class="light light-c"></div>
+    <div class="ambient one"></div>
+    <div class="ambient two"></div>
+    <div class="ambient three"></div>
 
 </div>
 
 <div class="grain"></div>
 
-<div
-    class="cursor-light"
-    id="cursorLight"
-></div>
-
-
-<!-- =========================================================
-     NAVIGATION
-========================================================= -->
-
-<div class="nav-shell">
-
-    <nav>
-
-        <a
-            href="#top"
-            class="nav-brand"
-        >
-            COSMIWAY <span>LABS</span>
-        </a>
-
-        <div class="nav-links">
-
-            <a href="#tools">
-                Tools
-            </a>
-
-            <a href="#start">
-                Get Started
-            </a>
-
-            <a href="#founder">
-                Founder
-            </a>
-
-            <a href="#timeline">
-                Timeline
-            </a>
-
-        </div>
-
-    </nav>
-
-</div>
+<div class="cursor-glow" id="cursorGlow"></div>
 
 
 <!-- =========================================================
@@ -2349,9 +2195,7 @@ footer {
             COSMIWAY LABS
         </div>
 
-
-        <div class="hero-divider"></div>
-
+        <div class="divider"></div>
 
         <h1 class="hero-title">
 
@@ -2365,24 +2209,18 @@ footer {
 
         </h1>
 
-
         <p class="hero-copy">
             A growing collection of digital tools,
             built one project at a time and brought
             together in one place.
         </p>
 
-
         <div class="hero-meta">
 
             <span>TOOLS</span>
-
             <i></i>
-
             <span>PROJECTS</span>
-
             <i></i>
-
             <span>2026</span>
 
         </div>
@@ -2396,10 +2234,7 @@ footer {
      TOOLS
 ========================================================= -->
 
-<section
-    class="section reveal"
-    id="tools"
->
+<section class="section reveal" id="tools">
 
     <div class="section-header">
 
@@ -2416,11 +2251,10 @@ footer {
 
         </div>
 
-
         <p class="section-copy">
             Explore the current Cosmiway collection.
-            Each project has its own purpose and interface,
-            with direct access from its card.
+            Every project has its own purpose, interface
+            and experience.
         </p>
 
     </div>
@@ -2428,15 +2262,10 @@ footer {
 
     <div class="carousel-window">
 
-        <div
-            class="carousel-track"
-            id="carouselTrack"
-        >
+        <div class="carousel-track" id="carouselTrack">
 
 
-            <!-- =================================================
-                 COSMIFLOW
-            ================================================== -->
+            <!-- COSMIFLOW -->
 
             <article class="app-card">
 
@@ -2448,22 +2277,35 @@ footer {
 
                     <div class="app-visual">
 
-                        <div class="flow-ui">
+                        <div class="flow-ai">
 
-                            <div class="flow-node">
-                                START
+                            <div class="ai-top">
+
+                                <div class="ai-brand">
+                                    COSMIFLOW
+                                </div>
+
+                                <div class="ai-status"></div>
+
                             </div>
 
-                            <div class="flow-connector"></div>
-
-                            <div class="flow-node">
-                                TASK
+                            <div class="ai-prompt">
+                                Ask CosmiFlow anything...
                             </div>
 
-                            <div class="flow-connector"></div>
+                            <div class="ai-response">
 
-                            <div class="flow-node">
-                                DONE
+                                <div class="ai-response-title"></div>
+
+                                <div class="ai-response-line"></div>
+                                <div class="ai-response-line mid"></div>
+                                <div class="ai-response-line"></div>
+                                <div class="ai-response-line short"></div>
+
+                            </div>
+
+                            <div class="ai-send">
+                                ↗
                             </div>
 
                         </div>
@@ -2486,12 +2328,12 @@ footer {
                         </div>
 
                         <p class="card-description">
-                            A visual workspace for moving through
-                            tasks and workflows.
+                            An AI-powered space for asking,
+                            creating and working through ideas.
                         </p>
 
                         <span class="card-type">
-                            Workflow
+                            Artificial Intelligence
                         </span>
 
                     </div>
@@ -2501,9 +2343,7 @@ footer {
             </article>
 
 
-            <!-- =================================================
-                 COSMIC LOGIN
-            ================================================== -->
+            <!-- COSMIC LOGIN -->
 
             <article class="app-card">
 
@@ -2515,19 +2355,40 @@ footer {
 
                     <div class="app-visual">
 
-                        <div class="login-ui">
+                        <div class="flow-ai">
 
-                            <div class="login-logo"></div>
+                            <div class="ai-top">
 
-                            <div class="login-line"></div>
+                                <div class="ai-brand">
+                                    COSMIC LOGIN
+                                </div>
 
-                            <div class="login-line short"></div>
+                                <div class="ai-status"></div>
 
-                            <div class="login-field"></div>
+                            </div>
 
-                            <div class="login-field"></div>
+                            <div class="ai-prompt">
+                                Email ID
+                            </div>
 
-                            <div class="login-button"></div>
+                            <div class="ai-prompt" style="margin-top:8px;">
+                                Password
+                            </div>
+
+                            <div
+                                class="ai-response"
+                                style="
+                                    height:36px;
+                                    margin-top:10px;
+                                    background:rgba(118,99,255,.11);
+                                "
+                            >
+                                <div class="ai-response-title"></div>
+                            </div>
+
+                            <div class="ai-send">
+                                →
+                            </div>
 
                         </div>
 
@@ -2549,12 +2410,12 @@ footer {
                         </div>
 
                         <p class="card-description">
-                            The entry point for creating an account
+                            The account gateway for creating an ID
                             and signing into the ecosystem.
                         </p>
 
                         <span class="card-type">
-                            Account
+                            Identity
                         </span>
 
                     </div>
@@ -2564,9 +2425,7 @@ footer {
             </article>
 
 
-            <!-- =================================================
-                 COSMICHAT
-            ================================================== -->
+            <!-- COSMICHAT -->
 
             <article class="app-card">
 
@@ -2578,25 +2437,51 @@ footer {
 
                     <div class="app-visual">
 
-                        <div class="chat-ui">
+                        <div class="chat-phone">
 
-                            <div class="chat-message">
-                                Welcome back.
+                            <div class="chat-header">
+
+                                <div class="chat-avatar"></div>
+
+                                <div class="chat-user">
+
+                                    <strong>
+                                        Alex
+                                    </strong>
+
+                                    <small>
+                                        online
+                                    </small>
+
+                                </div>
+
                             </div>
 
-                            <div class="chat-message right">
-                                Hey!
+
+                            <div class="chat-body">
+
+                                <div class="message">
+                                    hey, you there?
+                                </div>
+
+                                <div class="message me">
+                                    yeah 😭
+                                </div>
+
+                                <div class="message">
+                                    what are you working on?
+                                </div>
+
+                                <div class="message me">
+                                    Cosmiway lol
+                                </div>
+
                             </div>
 
-                            <div class="chat-message">
-                                What are we working on?
-                            </div>
 
-                            <div class="chat-message right">
-                                Let's build.
+                            <div class="chat-compose">
+                                Message...
                             </div>
-
-                            <div class="chat-input"></div>
 
                         </div>
 
@@ -2618,12 +2503,12 @@ footer {
                         </div>
 
                         <p class="card-description">
-                            A dedicated conversational space
-                            inside the Cosmiway ecosystem.
+                            A messaging experience inspired by
+                            the familiar simplicity of modern chat apps.
                         </p>
 
                         <span class="card-type">
-                            Communication
+                            Messaging
                         </span>
 
                     </div>
@@ -2633,9 +2518,7 @@ footer {
             </article>
 
 
-            <!-- =================================================
-                 COSMIMAIL
-            ================================================== -->
+            <!-- COSMIMAIL -->
 
             <article class="app-card">
 
@@ -2651,42 +2534,33 @@ footer {
 
                             <div class="mail-sidebar">
 
-                                <div class="mail-sidebar-line"></div>
-                                <div class="mail-sidebar-line"></div>
-                                <div class="mail-sidebar-line"></div>
-                                <div class="mail-sidebar-line"></div>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
 
                             </div>
 
-
                             <div class="mail-list">
 
-                                <div class="mail-item active">
-
-                                    <span></span>
-                                    <span></span>
-
+                                <div class="mail-row active">
+                                    <div class="mail-line"></div>
+                                    <div class="mail-line small"></div>
                                 </div>
 
-                                <div class="mail-item">
-
-                                    <span></span>
-                                    <span></span>
-
+                                <div class="mail-row">
+                                    <div class="mail-line"></div>
+                                    <div class="mail-line small"></div>
                                 </div>
 
-                                <div class="mail-item">
-
-                                    <span></span>
-                                    <span></span>
-
+                                <div class="mail-row">
+                                    <div class="mail-line"></div>
+                                    <div class="mail-line small"></div>
                                 </div>
 
-                                <div class="mail-item">
-
-                                    <span></span>
-                                    <span></span>
-
+                                <div class="mail-row">
+                                    <div class="mail-line"></div>
+                                    <div class="mail-line small"></div>
                                 </div>
 
                             </div>
@@ -2711,8 +2585,8 @@ footer {
                         </div>
 
                         <p class="card-description">
-                            A focused mail experience for keeping
-                            communication organized.
+                            A dedicated mail experience for
+                            keeping communication organized.
                         </p>
 
                         <span class="card-type">
@@ -2726,9 +2600,7 @@ footer {
             </article>
 
 
-            <!-- =================================================
-                 COSMIMEET
-            ================================================== -->
+            <!-- COSMIMEET -->
 
             <article class="app-card">
 
@@ -2742,22 +2614,22 @@ footer {
 
                         <div class="meet-ui">
 
-                            <div class="meet-person">
+                            <div class="meet-tile">
                                 <div class="meet-head"></div>
                                 <div class="meet-body"></div>
                             </div>
 
-                            <div class="meet-person">
+                            <div class="meet-tile">
                                 <div class="meet-head"></div>
                                 <div class="meet-body"></div>
                             </div>
 
-                            <div class="meet-person">
+                            <div class="meet-tile">
                                 <div class="meet-head"></div>
                                 <div class="meet-body"></div>
                             </div>
 
-                            <div class="meet-person">
+                            <div class="meet-tile">
                                 <div class="meet-head"></div>
                                 <div class="meet-body"></div>
                             </div>
@@ -2782,8 +2654,8 @@ footer {
                         </div>
 
                         <p class="card-description">
-                            A meeting-focused space for bringing
-                            people together.
+                            A space for bringing people together
+                            through online meetings.
                         </p>
 
                         <span class="card-type">
@@ -2797,9 +2669,7 @@ footer {
             </article>
 
 
-            <!-- =================================================
-                 COSMIDRIVE
-            ================================================== -->
+            <!-- COSMIDRIVE -->
 
             <article class="app-card">
 
@@ -2815,42 +2685,33 @@ footer {
 
                             <div class="drive-sidebar">
 
-                                <div class="drive-folder"></div>
-                                <div class="drive-folder"></div>
-                                <div class="drive-folder"></div>
-                                <div class="drive-folder"></div>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
 
                             </div>
-
 
                             <div class="drive-files">
 
                                 <div class="drive-file">
-
-                                    <div class="file-icon"></div>
-                                    <div class="file-line"></div>
-
+                                    <div class="drive-icon"></div>
+                                    <div class="drive-line"></div>
                                 </div>
 
                                 <div class="drive-file">
-
-                                    <div class="file-icon"></div>
-                                    <div class="file-line"></div>
-
+                                    <div class="drive-icon"></div>
+                                    <div class="drive-line"></div>
                                 </div>
 
                                 <div class="drive-file">
-
-                                    <div class="file-icon"></div>
-                                    <div class="file-line"></div>
-
+                                    <div class="drive-icon"></div>
+                                    <div class="drive-line"></div>
                                 </div>
 
                                 <div class="drive-file">
-
-                                    <div class="file-icon"></div>
-                                    <div class="file-line"></div>
-
+                                    <div class="drive-icon"></div>
+                                    <div class="drive-line"></div>
                                 </div>
 
                             </div>
@@ -2890,9 +2751,7 @@ footer {
             </article>
 
 
-            <!-- =================================================
-                 COSMINOTES
-            ================================================== -->
+            <!-- COSMINOTES -->
 
             <article class="app-card">
 
@@ -2908,40 +2767,31 @@ footer {
 
                             <div class="notes-list">
 
-                                <div class="note-item active">
-
+                                <div class="note active">
                                     <div class="note-line"></div>
                                     <div class="note-line short"></div>
-
                                 </div>
 
-                                <div class="note-item">
-
+                                <div class="note">
                                     <div class="note-line"></div>
                                     <div class="note-line short"></div>
-
                                 </div>
 
-                                <div class="note-item">
-
+                                <div class="note">
                                     <div class="note-line"></div>
                                     <div class="note-line short"></div>
-
                                 </div>
 
-                                <div class="note-item">
-
+                                <div class="note">
                                     <div class="note-line"></div>
                                     <div class="note-line short"></div>
-
                                 </div>
 
                             </div>
 
-
                             <div class="note-editor">
 
-                                <div class="note-heading"></div>
+                                <div class="note-title-line"></div>
 
                                 <div class="note-text"></div>
                                 <div class="note-text mid"></div>
@@ -2971,8 +2821,8 @@ footer {
                         </div>
 
                         <p class="card-description">
-                            A straightforward space for capturing
-                            ideas and keeping notes.
+                            A focused place for capturing ideas,
+                            writing and keeping notes.
                         </p>
 
                         <span class="card-type">
@@ -2994,24 +2844,17 @@ footer {
     <div class="carousel-controls">
 
         <div class="carousel-count">
-
-            <span id="currentNumber">
-                01
-            </span>
-
+            <span id="currentNumber">01</span>
             &nbsp;/&nbsp;
-
             07
-
         </div>
-
 
         <div class="carousel-buttons">
 
             <button
                 class="carousel-button"
                 id="prevButton"
-                aria-label="Previous tool"
+                aria-label="Previous project"
             >
                 ←
             </button>
@@ -3019,7 +2862,7 @@ footer {
             <button
                 class="carousel-button"
                 id="nextButton"
-                aria-label="Next tool"
+                aria-label="Next project"
             >
                 →
             </button>
@@ -3035,10 +2878,7 @@ footer {
      GET STARTED
 ========================================================= -->
 
-<section
-    class="section reveal"
-    id="start"
->
+<section class="section reveal" id="start">
 
     <div class="section-header">
 
@@ -3055,18 +2895,16 @@ footer {
 
         </div>
 
-
         <p class="section-copy">
-            New to Cosmiway? Start with Cosmic Login.
-            Once your account is ready, return to the
-            portal and explore the tools.
+            New to Cosmiway? Begin with Cosmic Login,
+            create your account and then return to the
+            portal to explore the tools.
         </p>
 
     </div>
 
 
     <div class="start-grid">
-
 
         <div class="start-card">
 
@@ -3077,7 +2915,6 @@ footer {
             <h3>
                 Create your Cosmic ID
             </h3>
-
 
             <div class="steps">
 
@@ -3128,9 +2965,8 @@ footer {
             </div>
 
             <h3>
-                Already signed in?
+                Already have an ID?
             </h3>
-
 
             <div class="steps">
 
@@ -3156,13 +2992,12 @@ footer {
 
                 <div class="step">
                     <span class="step-number">05</span>
-                    You're ready to explore the tools.
+                    You're ready to explore.
                 </div>
 
             </div>
 
         </div>
-
 
     </div>
 
@@ -3174,7 +3009,7 @@ footer {
 ========================================================= -->
 
 <section
-    class="section reveal"
+    class="section reveal founder-section"
     id="founder"
 >
 
@@ -3187,45 +3022,113 @@ footer {
             </div>
 
             <h2 class="section-title">
-                Behind<br>
-                the build.
+                The person<br>
+                behind it.
             </h2>
 
         </div>
 
+        <p class="section-copy">
+            Cosmiway isn't a collection that appeared out of
+            nowhere. It is the result of one person continually
+            turning ideas into things that can actually be used.
+        </p>
+
     </div>
 
 
-    <div class="founder-card">
+    <div class="founder-main">
+
+        <div class="founder-top">
+
+            <div>
+
+                <div class="founder-label">
+                    Founder
+                </div>
+
+                <h3 class="founder-name">
+                    Shaunak<br>
+                    Okhde
+                </h3>
+
+                <div class="founder-role">
+                    Founder · Builder · Architect
+                </div>
+
+            </div>
 
 
-        <div class="founder-wordmark">
-            COSMIWAY
+            <div>
+
+                <p class="founder-copy">
+                    Shaunak Okhde is the founder and builder
+                    behind Cosmiway Labs. The ecosystem grew
+                    from the idea of creating useful digital
+                    tools and giving each of them its own
+                    purpose and identity.
+                </p>
+
+                <p class="founder-copy">
+                    Instead of treating every project as a
+                    completely separate thing, Cosmiway brings
+                    them together into one larger universe.
+                    AI, communication, accounts, mail,
+                    meetings, storage and notes can all become
+                    parts of that growing collection.
+                </p>
+
+                <p class="founder-copy">
+                    The projects are built iteratively.
+                    An idea becomes a prototype, the prototype
+                    becomes a real tool, and the tools gradually
+                    become an ecosystem.
+                </p>
+
+            </div>
+
         </div>
 
 
-        <div>
+        <div class="founder-stats">
 
-            <h3 class="founder-name">
-                Shaunak Okhde
-            </h3>
+            <div class="founder-stat">
 
-            <div class="founder-role">
-                Founder · Builder · Architect
+                <div class="stat-number">
+                    01
+                </div>
+
+                <div class="stat-label">
+                    Founder
+                </div>
+
             </div>
 
-            <p class="founder-copy">
-                Cosmiway Labs is built around the idea of creating
-                useful digital tools and bringing them together into
-                a connected ecosystem. Shaunak Okhde founded Cosmiway
-                Labs and continues to shape its projects, direction
-                and growing collection of tools.
-            </p>
 
-            <p class="founder-copy">
-                What started as individual projects continues to
-                expand into a larger universe of digital experiences.
-            </p>
+            <div class="founder-stat">
+
+                <div class="stat-number">
+                    07+
+                </div>
+
+                <div class="stat-label">
+                    Projects in the collection
+                </div>
+
+            </div>
+
+
+            <div class="founder-stat">
+
+                <div class="stat-number">
+                    2026
+                </div>
+
+                <div class="stat-label">
+                    Current chapter
+                </div>
+
+            </div>
 
         </div>
 
@@ -3258,10 +3161,10 @@ footer {
 
         </div>
 
-
         <p class="section-copy">
-            From the first spark to the growing collection of
-            projects, the Cosmiway story is still unfolding.
+            The Cosmiway story is still being written.
+            Every project adds another piece to the
+            larger ecosystem.
         </p>
 
     </div>
@@ -3269,8 +3172,8 @@ footer {
 
     <div class="timeline">
 
+        <div class="timeline-line"></div>
 
-        <!-- JANUARY -->
 
         <div class="timeline-item">
 
@@ -3295,8 +3198,6 @@ footer {
         </div>
 
 
-        <!-- FEBRUARY -->
-
         <div class="timeline-item">
 
             <div class="timeline-marker"></div>
@@ -3312,16 +3213,14 @@ footer {
                 </h3>
 
                 <p class="timeline-text">
-                    The visual identity and wider direction of
-                    the ecosystem begin developing.
+                    The visual identity and wider direction
+                    of the ecosystem begin developing.
                 </p>
 
             </div>
 
         </div>
 
-
-        <!-- MARCH -->
 
         <div class="timeline-item">
 
@@ -3336,8 +3235,8 @@ footer {
                 </h3>
 
                 <p class="timeline-text">
-                    Individual projects begin becoming part of
-                    a broader ecosystem.
+                    Individual projects begin becoming part
+                    of a broader ecosystem.
                 </p>
 
             </div>
@@ -3346,8 +3245,6 @@ footer {
 
         </div>
 
-
-        <!-- APRIL -->
 
         <div class="timeline-item">
 
@@ -3360,20 +3257,18 @@ footer {
                 </div>
 
                 <h3 class="timeline-title">
-                    More tools take shape
+                    More ideas become tools
                 </h3>
 
                 <p class="timeline-text">
-                    New ideas begin turning into additional
-                    digital tools.
+                    New concepts begin turning into actual
+                    digital experiences.
                 </p>
 
             </div>
 
         </div>
 
-
-        <!-- MAY -->
 
         <div class="timeline-item">
 
@@ -3384,12 +3279,12 @@ footer {
                 </div>
 
                 <h3 class="timeline-title">
-                    The ecosystem grows
+                    The collection grows
                 </h3>
 
                 <p class="timeline-text">
-                    More utility, communication and productivity
-                    projects expand the collection.
+                    More projects expand the range of things
+                    available inside the Cosmiway ecosystem.
                 </p>
 
             </div>
@@ -3398,8 +3293,6 @@ footer {
 
         </div>
 
-
-        <!-- JUNE -->
 
         <div class="timeline-item">
 
@@ -3412,20 +3305,18 @@ footer {
                 </div>
 
                 <h3 class="timeline-title">
-                    The portal takes shape
+                    Connecting the pieces
                 </h3>
 
                 <p class="timeline-text">
-                    The growing collection begins coming together
-                    around a central experience.
+                    The projects begin coming together around
+                    a more unified experience.
                 </p>
 
             </div>
 
         </div>
 
-
-        <!-- JULY -->
 
         <div class="timeline-item">
 
@@ -3436,12 +3327,12 @@ footer {
                 </div>
 
                 <h3 class="timeline-title">
-                    Connecting the pieces
+                    The portal takes shape
                 </h3>
 
                 <p class="timeline-text">
-                    More Cosmiway projects come together into
-                    a more unified ecosystem.
+                    The growing collection gets a central
+                    place to discover and access its tools.
                 </p>
 
             </div>
@@ -3450,8 +3341,6 @@ footer {
 
         </div>
 
-
-        <!-- AUGUST -->
 
         <div class="timeline-item">
 
@@ -3468,9 +3357,9 @@ footer {
                 </h3>
 
                 <p class="timeline-text">
-                    The collection continues growing, bringing
-                    more tools and a stronger portal experience
-                    together.
+                    Cosmiway continues evolving as more tools,
+                    ideas and experiences become part of the
+                    growing universe.
                 </p>
 
             </div>
@@ -3478,31 +3367,29 @@ footer {
         </div>
 
 
-        <!-- SEPTEMBER -->
+        <!-- PROPER END -->
 
-        <div class="timeline-item">
+        <div class="timeline-finish">
 
-            <div class="timeline-content">
+            <div class="finish-orb"></div>
 
-                <div class="timeline-date">
-                    September 2026
-                </div>
-
-                <h3 class="timeline-title">
-                    Still building
-                </h3>
-
-                <p class="timeline-text">
-                    The next part of the Cosmiway story is
-                    already underway.
-                </p>
-
+            <div class="finish-label">
+                Current chapter
             </div>
 
-            <div class="timeline-marker"></div>
+            <h3 class="finish-title">
+                To be continued.
+            </h3>
+
+            <p class="finish-copy">
+                August 2026 isn't the end of the story.
+                It's simply where the timeline currently stops.
+                The next part is still being built.
+            </p>
+
+            <div class="finish-glow"></div>
 
         </div>
-
 
     </div>
 
@@ -3531,13 +3418,11 @@ footer {
 <script>
 
 /* =========================================================
-   CURSOR LIGHT
+   CURSOR
 ========================================================= */
 
-const cursorLight =
-    document.getElementById(
-        "cursorLight"
-    );
+const cursor =
+    document.getElementById("cursorGlow");
 
 let mouseX =
     window.innerWidth / 2;
@@ -3545,10 +3430,10 @@ let mouseX =
 let mouseY =
     window.innerHeight / 2;
 
-let lightX =
+let currentX =
     mouseX;
 
-let lightY =
+let currentY =
     mouseY;
 
 window.addEventListener(
@@ -3564,27 +3449,26 @@ window.addEventListener(
     }
 );
 
-function animateCursor() {
+function cursorLoop() {
 
-    lightX +=
-        (mouseX - lightX) * .075;
+    currentX +=
+        (mouseX - currentX) * .075;
 
-    lightY +=
-        (mouseY - lightY) * .075;
+    currentY +=
+        (mouseY - currentY) * .075;
 
-    cursorLight.style.left =
-        lightX + "px";
+    cursor.style.left =
+        currentX + "px";
 
-    cursorLight.style.top =
-        lightY + "px";
+    cursor.style.top =
+        currentY + "px";
 
     requestAnimationFrame(
-        animateCursor
+        cursorLoop
     );
-
 }
 
-animateCursor();
+cursorLoop();
 
 
 /* =========================================================
@@ -3596,49 +3480,40 @@ const track =
         "carouselTrack"
     );
 
-const previous =
-    document.getElementById(
-        "prevButton"
-    );
-
-const next =
+const nextButton =
     document.getElementById(
         "nextButton"
     );
 
-const number =
+const previousButton =
+    document.getElementById(
+        "prevButton"
+    );
+
+const currentNumber =
     document.getElementById(
         "currentNumber"
     );
 
-
-const originalCards =
+const originals =
     Array.from(
         track.children
     );
 
 const TOTAL =
-    originalCards.length;
+    originals.length;
 
 
 /*
-   Clone three cards on either side.
+   Clone three cards on each side.
 */
 
 const leftClones =
-    originalCards
+    originals
         .slice(-3)
         .map(card =>
             card.cloneNode(true)
         );
-
-const rightClones =
-    originalCards
-        .slice(0,3)
-        .map(card =>
-            card.cloneNode(true)
-        );
-
 
 leftClones
     .reverse()
@@ -3652,14 +3527,17 @@ leftClones
     });
 
 
-rightClones
-    .forEach(card => {
-
-        track.appendChild(
-            card
+const rightClones =
+    originals
+        .slice(0,3)
+        .map(card =>
+            card.cloneNode(true)
         );
 
-    });
+rightClones.forEach(
+    card =>
+        track.appendChild(card)
+);
 
 
 const cards =
@@ -3674,15 +3552,11 @@ let current =
 let moving =
     false;
 
-let autoTimer =
+let timer =
     null;
 
 
-/* =========================================================
-   POSITION
-========================================================= */
-
-function getCardWidth() {
+function cardWidth() {
 
     return cards[0]
         .getBoundingClientRect()
@@ -3691,14 +3565,14 @@ function getCardWidth() {
 }
 
 
-function getStep() {
+function stepWidth() {
 
-    return getCardWidth() + 20;
+    return cardWidth() + 20;
 
 }
 
 
-function getPosition(index) {
+function positionFor(index) {
 
     const viewport =
         track.parentElement;
@@ -3707,36 +3581,30 @@ function getPosition(index) {
         viewport.clientWidth;
 
     const width =
-        getCardWidth();
+        cardWidth();
 
     /*
-       Three cards occupy the visible group.
+       Keep three cards as the main visible group.
     */
 
-    const groupWidth =
+    const threeCardWidth =
         width * 3 + 40;
 
-    const groupStart =
+    const groupOffset =
         Math.max(
             0,
-            (viewportWidth - groupWidth) / 2
+            (viewportWidth - threeCardWidth) / 2
         );
 
     return (
-        groupStart -
-        ((index - 1) * getStep())
+        groupOffset -
+        (index - 1) * stepWidth()
     );
 
 }
 
 
-/* =========================================================
-   RENDER
-========================================================= */
-
-function render(
-    instant = false
-) {
+function render(instant = false) {
 
     track.style.transition =
         instant
@@ -3745,26 +3613,22 @@ function render(
             "transform 680ms cubic-bezier(.16,.86,.24,1)";
 
     track.style.transform =
-        `translate3d(${getPosition(current)}px,0,0)`;
+        `translate3d(${positionFor(current)}px,0,0)`;
 
 
-    const realIndex =
+    const real =
         (
             (current - 3) % TOTAL
             + TOTAL
         ) % TOTAL;
 
 
-    number.textContent =
-        String(realIndex + 1)
+    currentNumber.textContent =
+        String(real + 1)
             .padStart(2,"0");
 
 }
 
-
-/* =========================================================
-   MOVE
-========================================================= */
 
 function move(direction) {
 
@@ -3778,13 +3642,8 @@ function move(direction) {
 
     render(false);
 
-
     setTimeout(
         () => {
-
-            /*
-               Silent reset after clone region.
-            */
 
             if (
                 current >=
@@ -3797,7 +3656,6 @@ function move(direction) {
 
             }
 
-
             if (
                 current < 3
             ) {
@@ -3809,21 +3667,20 @@ function move(direction) {
 
             }
 
-
             moving = false;
 
         },
-        700
+        710
     );
 
 }
 
 
 /* =========================================================
-   BUTTONS
+   CONTROLS
 ========================================================= */
 
-next.addEventListener(
+nextButton.addEventListener(
     "click",
     () => {
 
@@ -3836,8 +3693,7 @@ next.addEventListener(
     }
 );
 
-
-previous.addEventListener(
+previousButton.addEventListener(
     "click",
     () => {
 
@@ -3859,7 +3715,7 @@ function startAuto() {
 
     stopAuto();
 
-    autoTimer =
+    timer =
         setInterval(
             () => {
 
@@ -3873,21 +3729,17 @@ function startAuto() {
 
 }
 
-
 function stopAuto() {
 
-    if (autoTimer) {
+    if (timer) {
 
-        clearInterval(
-            autoTimer
-        );
+        clearInterval(timer);
 
-        autoTimer = null;
+        timer = null;
 
     }
 
 }
-
 
 const carousel =
     document.querySelector(
@@ -3920,29 +3772,10 @@ window.addEventListener(
 
 
 /* =========================================================
-   INITIALIZE
+   REVEALS
 ========================================================= */
 
-window.addEventListener(
-    "load",
-    () => {
-
-        render(true);
-
-        setTimeout(
-            startAuto,
-            1000
-        );
-
-    }
-);
-
-
-/* =========================================================
-   SECTION REVEALS
-========================================================= */
-
-const revealElements =
+const reveals =
     document.querySelectorAll(
         ".reveal"
     );
@@ -3979,11 +3812,25 @@ const observer =
     );
 
 
-revealElements.forEach(
-    element => {
+reveals.forEach(
+    element =>
+        observer.observe(element)
+);
 
-        observer.observe(
-            element
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        render(true);
+
+        setTimeout(
+            startAuto,
+            1000
         );
 
     }
