@@ -1,229 +1,1544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Cosmiway | Infinite Intelligence</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg: #000000;
-      --accent: #8266ff;
-      --text: #ffffff;
-      --text-dim: #94a3b8;
-      --glass: rgba(255, 255, 255, 0.03);
-      --border: rgba(255, 255, 255, 0.08);
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cosmiway Labs — Explore the Cosmos</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --bg: #03030a;
+    --bg2: #070712;
+    --text: #f7f7ff;
+    --muted: #9494aa;
+
+    --purple: #8b5cf6;
+    --purple2: #a78bfa;
+    --blue: #38bdf8;
+    --pink: #ec4899;
+
+    --border: rgba(255,255,255,.09);
+    --glass: rgba(255,255,255,.035);
+
+    --max: 1240px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background:
+        radial-gradient(circle at 50% -10%, rgba(139,92,246,.14), transparent 35%),
+        var(--bg);
+
+    color: var(--text);
+    font-family: Inter, sans-serif;
+
+    overflow-x: hidden;
+}
+
+/* =========================
+   STARFIELD
+========================= */
+
+#stars {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -5;
+    pointer-events: none;
+}
+
+.space-glow {
+    position: fixed;
+    width: 700px;
+    height: 700px;
+
+    left: 50%;
+    top: 20%;
+
+    transform: translate(-50%, -50%);
+
+    background: radial-gradient(
+        circle,
+        rgba(124,58,237,.12),
+        transparent 65%
+    );
+
+    filter: blur(20px);
+    pointer-events: none;
+    z-index: -4;
+}
+
+/* =========================
+   GLOBAL
+========================= */
+
+.container {
+    width: min(var(--max), calc(100% - 48px));
+    margin: auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.section {
+    padding: 150px 0;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    color: var(--purple2);
+
+    font-size: .72rem;
+    font-weight: 700;
+
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.eyebrow::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--purple2);
+
+    box-shadow:
+        0 0 10px var(--purple),
+        0 0 25px var(--purple);
+}
+
+.section-title {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(3rem, 6vw, 6rem);
+
+    line-height: .95;
+    letter-spacing: -.06em;
+
+    margin-top: 20px;
+}
+
+.section-description {
+    max-width: 680px;
+
+    color: var(--muted);
+
+    font-size: 1.1rem;
+    line-height: 1.8;
+
+    margin-top: 28px;
+}
+
+/* =========================
+   NAV
+========================= */
+
+nav {
+    height: 92px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 1.15rem;
+    font-weight: 700;
+
+    letter-spacing: -.04em;
+}
+
+.logo span {
+    color: var(--purple2);
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+
+    color: var(--muted);
+
+    font-size: .85rem;
+}
+
+.nav-links a {
+    transition: .25s ease;
+}
+
+.nav-links a:hover {
+    color: white;
+}
+
+.nav-button {
+    padding: 11px 18px;
+
+    border: 1px solid var(--border);
+    border-radius: 999px;
+
+    background: rgba(255,255,255,.035);
+
+    font-size: .78rem;
+    font-weight: 600;
+
+    transition: .3s ease;
+}
+
+.nav-button:hover {
+    border-color: rgba(167,139,250,.5);
+
+    background: rgba(139,92,246,.12);
+
+    transform: translateY(-2px);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: calc(100vh - 92px);
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+}
+
+.hero-content {
+    max-width: 1050px;
+}
+
+.hero-kicker {
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    border: 1px solid rgba(167,139,250,.2);
+    border-radius: 999px;
+
+    background: rgba(139,92,246,.06);
+
+    color: #c4b5fd;
+
+    font-size: .72rem;
+    font-weight: 600;
+
+    letter-spacing: .12em;
+    text-transform: uppercase;
+
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(4rem, 11vw, 9.5rem);
+
+    line-height: .84;
+
+    letter-spacing: -.075em;
+
+    max-width: 1100px;
+}
+
+.gradient-text {
+    background:
+        linear-gradient(
+            100deg,
+            #fff 10%,
+            #c4b5fd 45%,
+            #60a5fa 80%
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+.hero-subtitle {
+    margin-top: 38px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+
+    color: #c9c9d8;
+
+    letter-spacing: -.02em;
+}
+
+.hero-description {
+    max-width: 650px;
+
+    margin-top: 18px;
+
+    color: var(--muted);
+
+    line-height: 1.8;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 14px;
+
+    margin-top: 38px;
+
+    flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+    padding: 15px 23px;
+
+    border-radius: 999px;
+
+    font-size: .86rem;
+    font-weight: 700;
+
+    transition: .3s ease;
+}
+
+.primary-btn {
+    background: white;
+    color: black;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 40px rgba(255,255,255,.12);
+}
+
+.secondary-btn {
+    border: 1px solid var(--border);
+
+    background: rgba(255,255,255,.035);
+
+    color: white;
+}
+
+.secondary-btn:hover {
+    background: rgba(139,92,246,.1);
+    border-color: rgba(167,139,250,.4);
+
+    transform: translateY(-3px);
+}
+
+/* =========================
+   ORBIT
+========================= */
+
+.orbit {
+    position: absolute;
+
+    width: 600px;
+    height: 600px;
+
+    right: -180px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    border: 1px solid rgba(139,92,246,.09);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+.orbit::before,
+.orbit::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 80px;
+
+    border: 1px solid rgba(56,189,248,.07);
+
+    border-radius: 50%;
+}
+
+.orbit::after {
+    inset: 170px;
+
+    border-color: rgba(236,72,153,.07);
+}
+
+.orbit-core {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 100px;
+    height: 100px;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #ddd6fe,
+            #8b5cf6 35%,
+            #4c1d95 70%,
+            transparent 72%
+        );
+
+    box-shadow:
+        0 0 40px rgba(139,92,246,.5),
+        0 0 120px rgba(139,92,246,.18);
+}
+
+/* =========================
+   PROJECTS
+========================= */
+
+.projects-section {
+    position: relative;
+}
+
+.projects-header {
+    margin-bottom: 65px;
+}
+
+.project-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(12, 1fr);
+
+    gap: 18px;
+}
+
+.project-card {
+    position: relative;
+
+    min-height: 340px;
+
+    padding: 32px;
+
+    border: 1px solid var(--border);
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.015)
+        );
+
+    overflow: hidden;
+
+    transition:
+        transform .45s cubic-bezier(.2,.8,.2,1),
+        border-color .35s ease,
+        background .35s ease;
+}
+
+.project-card:nth-child(1),
+.project-card:nth-child(4) {
+    grid-column: span 7;
+}
+
+.project-card:nth-child(2),
+.project-card:nth-child(3) {
+    grid-column: span 5;
+}
+
+.project-card:nth-child(5) {
+    grid-column: span 12;
+    min-height: 280px;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+
+    border-color: rgba(167,139,250,.32);
+
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(139,92,246,.12),
+            transparent 35%
+        ),
+        rgba(255,255,255,.045);
+}
+
+.card-glow {
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    right: -100px;
+    bottom: -100px;
+
+    background: rgba(139,92,246,.13);
+
+    filter: blur(60px);
+
+    pointer-events: none;
+}
+
+.project-number {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: .75rem;
+
+    color: #77778c;
+
+    letter-spacing: .15em;
+}
+
+.project-icon {
+    width: 52px;
+    height: 52px;
+
+    display: grid;
+    place-items: center;
+
+    margin-top: 40px;
+
+    border-radius: 16px;
+
+    background: rgba(139,92,246,.1);
+
+    border: 1px solid rgba(167,139,250,.14);
+
+    font-size: 1.35rem;
+}
+
+.project-card h3 {
+    margin-top: 24px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 2rem;
+
+    letter-spacing: -.04em;
+}
+
+.project-card p {
+    max-width: 540px;
+
+    margin-top: 12px;
+
+    color: var(--muted);
+
+    line-height: 1.7;
+}
+
+.project-link {
+    position: absolute;
+
+    right: 28px;
+    bottom: 28px;
+
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--border);
+    border-radius: 50%;
+
+    color: #bbb;
+
+    transition: .3s ease;
+}
+
+.project-card:hover .project-link {
+    background: white;
+    color: black;
+
+    transform: rotate(45deg);
+}
+
+/* =========================
+   COSMIC FLOW
+========================= */
+
+.flow-section {
+    position: relative;
+
+    padding: 160px 0;
+}
+
+.flow-map {
+    position: relative;
+
+    height: 520px;
+
+    margin-top: 80px;
+
+    border: 1px solid var(--border);
+    border-radius: 35px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(139,92,246,.08),
+            transparent 50%
+        );
+
+    overflow: hidden;
+}
+
+.flow-map::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    mask-image: radial-gradient(
+        circle,
+        black,
+        transparent 75%
+    );
+}
+
+.node {
+    position: absolute;
+
+    padding: 15px 19px;
+
+    border: 1px solid rgba(167,139,250,.2);
+    border-radius: 999px;
+
+    background: rgba(5,5,15,.85);
+
+    backdrop-filter: blur(12px);
+
+    font-size: .8rem;
+    font-weight: 600;
+
+    box-shadow: 0 0 35px rgba(139,92,246,.08);
+}
+
+.node.main {
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    padding: 23px 30px;
+
+    border-color: rgba(167,139,250,.4);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(139,92,246,.22),
+            rgba(10,8,20,.95)
+        );
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 1rem;
+}
+
+.node.one {
+    left: 17%;
+    top: 22%;
+}
+
+.node.two {
+    right: 15%;
+    top: 20%;
+}
+
+.node.three {
+    left: 13%;
+    bottom: 20%;
+}
+
+.node.four {
+    right: 16%;
+    bottom: 18%;
+}
+
+.node.five {
+    left: 50%;
+    top: 13%;
+    transform: translateX(-50%);
+}
+
+.connection {
+    position: absolute;
+
+    height: 1px;
+
+    transform-origin: left center;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(139,92,246,.5),
+            transparent
+        );
+}
+
+.line-one {
+    width: 280px;
+
+    left: 25%;
+    top: 32%;
+
+    transform: rotate(20deg);
+}
+
+.line-two {
+    width: 300px;
+
+    left: 50%;
+    top: 42%;
+
+    transform: rotate(-25deg);
+}
+
+.line-three {
+    width: 280px;
+
+    left: 25%;
+    top: 63%;
+
+    transform: rotate(-20deg);
+}
+
+.line-four {
+    width: 300px;
+
+    left: 50%;
+    top: 58%;
+
+    transform: rotate(25deg);
+}
+
+/* =========================
+   PHILOSOPHY
+========================= */
+
+.philosophy {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 80px;
+
+    align-items: center;
+}
+
+.philosophy h2 {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(3rem, 5vw, 5rem);
+
+    letter-spacing: -.06em;
+
+    line-height: .95;
+}
+
+.philosophy-copy {
+    color: var(--muted);
+
+    font-size: 1.05rem;
+
+    line-height: 1.9;
+}
+
+.philosophy-copy p + p {
+    margin-top: 25px;
+}
+
+/* =========================
+   CTA
+========================= */
+
+.cta {
+    position: relative;
+
+    padding: 130px 40px;
+
+    text-align: center;
+
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+
+    overflow: hidden;
+}
+
+.cta::before {
+    content: "";
+
+    position: absolute;
+
+    width: 600px;
+    height: 300px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: radial-gradient(
+        ellipse,
+        rgba(139,92,246,.16),
+        transparent 70%
+    );
+
+    filter: blur(30px);
+}
+
+.cta h2 {
+    position: relative;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(3.5rem, 8vw, 8rem);
+
+    line-height: .9;
+
+    letter-spacing: -.07em;
+}
+
+.cta p {
+    position: relative;
+
+    margin-top: 25px;
+
+    color: var(--muted);
+}
+
+.cta .primary-btn {
+    position: relative;
+
+    display: inline-block;
+
+    margin-top: 35px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 55px 0;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    color: #686879;
+
+    font-size: .75rem;
+}
+
+.footer-links {
+    display: flex;
+    gap: 22px;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(25px);
+
+    transition:
+        opacity .9s ease,
+        transform .9s cubic-bezier(.2,.8,.2,1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 850px) {
+
+    .container {
+        width: min(100% - 30px, var(--max));
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; background: var(--bg); }
-
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.8;
-      overflow-x: hidden;
+    .nav-links {
+        display: none;
     }
 
-    .flow-container { max-width: 1200px; margin: 0 auto; padding: 0 80px; }
+    .hero {
+        min-height: 80vh;
+    }
 
-    /* --- Navigation --- */
-    nav { padding: 50px 0; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.4rem; letter-spacing: -0.04em; }
-    .nav-link { font-size: 0.8rem; font-weight: 600; color: var(--text-dim); text-decoration: none; transition: 0.3s; }
-    .nav-link:hover { color: var(--accent); }
-
-    /* --- Hero --- */
-    .hero { height: 85vh; display: flex; align-items: center; }
     .hero h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(4rem, 12vw, 10rem);
-      font-weight: 700;
-      line-height: 0.9;
-      letter-spacing: -0.06em;
+        font-size: clamp(4rem, 17vw, 7rem);
     }
 
-    /* --- Vision Section --- */
-    .section-v { padding: 150px 0; position: relative; }
-    .flow-line {
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 1px;
-      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+    .orbit {
+        opacity: .35;
+
+        width: 450px;
+        height: 450px;
+
+        right: -260px;
     }
-    
-    h2 { font-family: 'Space Grotesk', sans-serif; font-size: 4.5rem; line-height: 1; margin-bottom: 30px; letter-spacing: -0.04em; }
-    .big-p { font-size: 1.6rem; font-weight: 300; color: var(--text-dim); max-width: 800px; margin-bottom: 60px; }
 
-    /* --- CosmiFlow Integration Highlight --- */
-    .integration-highlight {
-        background: radial-gradient(circle at top left, rgba(130, 102, 255, 0.1), transparent);
-        padding: 80px;
-        border-radius: 40px;
-        border: 1px solid var(--border);
-        margin-bottom: 100px;
+    .project-grid {
+        grid-template-columns: 1fr;
     }
-    .integration-highlight h3 { font-family: 'Space Grotesk'; font-size: 2.5rem; margin-bottom: 20px; }
 
-    /* --- Vertical Lineage --- */
-    .lineage { padding: 80px 0; position: relative; padding-left: 60px; }
-    .v-line { position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--border); }
-    .l-item { position: relative; margin-bottom: 80px; }
-    .l-item::before {
-      content: ''; position: absolute; left: -64.5px; top: 12px;
-      width: 10px; height: 10px; background: var(--accent); border-radius: 50%;
-      box-shadow: 0 0 15px var(--accent);
+    .project-card,
+    .project-card:nth-child(1),
+    .project-card:nth-child(2),
+    .project-card:nth-child(3),
+    .project-card:nth-child(4),
+    .project-card:nth-child(5) {
+        grid-column: span 1;
+
+        min-height: 320px;
     }
-    .l-date { font-size: 0.75rem; font-weight: 800; color: var(--accent); margin-bottom: 5px; display: block; }
-    .l-item h4 { font-family: 'Space Grotesk'; font-size: 1.8rem; margin-bottom: 10px; }
 
-    /* --- Radical Access Grid --- */
-    .radical-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 80px; }
-    .r-box { background: var(--bg); padding: 50px; transition: 0.4s; }
-    .r-box:hover { background: rgba(130, 102, 255, 0.05); }
-    .r-box h4 { font-family: 'Space Grotesk'; font-size: 1.5rem; margin-bottom: 15px; }
-    .r-box p { color: var(--text-dim); font-size: 1rem; }
-
-    /* --- Architect --- */
-    .architect-wrap { padding: 150px 0; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: end; border-top: 1px solid var(--border); }
-    .arch-name { font-size: 5.5rem; font-family: 'Space Grotesk'; font-weight: 700; letter-spacing: -0.05em; line-height: 0.9; }
-    .arch-tags { display: flex; flex-wrap: wrap; gap: 15px; color: var(--accent); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; margin-top: 20px; }
-
-    /* --- Contact Us --- */
-    .contact-section { padding: 100px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-    .contact-info h3 { font-family: 'Space Grotesk'; font-size: 2rem; }
-    .email-link { color: var(--text); text-decoration: none; font-size: 1.5rem; font-weight: 300; border-bottom: 1px solid var(--accent); }
-
-    /* --- The CTA --- */
-    .join-flow { text-align: center; padding: 150px 0; }
-    .btn-wrap { display: inline-block; position: relative; padding: 2px; background: linear-gradient(90deg, var(--accent), #ff66f0); border-radius: 100px; margin-top: 40px; }
-    .main-btn { 
-      display: block; background: var(--bg); color: white; padding: 20px 60px; 
-      border-radius: 100px; text-decoration: none; font-weight: 700; font-size: 1.2rem;
-      transition: 0.3s;
+    .flow-map {
+        height: 450px;
     }
-    .main-btn:hover { background: #fff; color: #000; }
 
-    /* --- Animations --- */
-    .reveal { opacity: 0; transform: translateY(30px); transition: 1s cubic-bezier(0.19, 1, 0.22, 1); }
-    .reveal.active { opacity: 1; transform: translateY(0); }
-
-    footer { padding: 100px 0; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-dim); text-align: center; }
-
-    @media (max-width: 1000px) {
-      .radical-grid, .architect-wrap, .contact-section { grid-template-columns: 1fr; flex-direction: column; gap: 40px; }
-      .flow-container { padding: 0 40px; }
+    .node.one {
+        left: 5%;
     }
-  </style>
+
+    .node.two {
+        right: 5%;
+    }
+
+    .node.three {
+        left: 4%;
+    }
+
+    .node.four {
+        right: 4%;
+    }
+
+    .philosophy {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+</style>
 </head>
+
 <body>
 
-  <div class="flow-container">
-    <nav>
-      <div class="logo">COSMIWAY</div>
-      <a href="#join" class="nav-link" style="color: white; border: 1px solid var(--accent); padding: 8px 20px; border-radius: 50px;">JOIN THE COMMUNITY</a>
-    </nav>
+<canvas id="stars"></canvas>
+<div class="space-glow"></div>
 
-    <header class="hero">
-      <h1 class="reveal">Intelligence<br>unbound.</h1>
-    </header>
+<div class="container">
 
-    <section class="section-v">
-      <div class="flow-line"></div>
-      <div style="padding-left: 60px;">
-        <h2 class="reveal">The Lab Core.</h2>
-        <p class="big-p reveal">Cosmiway isn't just a collection of tools; it's a unified ecosystem where high-level logic meets radical access.</p>
-        
-        <div class="integration-highlight reveal">
-            <h3>Unified Intelligence</h3>
-            <p style="color: var(--text-dim); margin-bottom: 30px;">CosmiFlow is the neural center of the laboratory. It doesn't just "exist" as a chatbot—it is woven into every tool we build. Whether you are debugging backends or architecting data structures, CosmiFlow provides the personality-driven logic that guides the entire experience.</p>
-            <p style="color: var(--accent); font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">The Starscape Protocol • Legacy Performance • Fluid Execution</p>
+<!-- ================= NAV ================= -->
+
+<nav>
+
+    <a href="/" class="logo">
+        COSMIWAY <span>LABS</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#ecosystem">Ecosystem</a>
+        <a href="#about">About</a>
+    </div>
+
+    <a
+        href="https://github.com/Cosmiway-Labs"
+        target="_blank"
+        class="nav-button"
+    >
+        GitHub ↗
+    </a>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<header class="hero">
+
+    <div class="orbit">
+        <div class="orbit-core"></div>
+    </div>
+
+    <div class="hero-content reveal">
+
+        <div class="hero-kicker">
+            Independent digital laboratory
         </div>
 
-        <div class="lineage">
-          <div class="v-line"></div>
-          <div class="l-item reveal">
-            <span class="l-date">JAN 2026</span>
-            <h4>The Spark</h4>
-            <p style="color: var(--text-dim);">Initial exploration into personality-aware logic and custom technical API structures.</p>
-          </div>
-          <div class="l-item reveal">
-            <span class="l-date">FEB 2026</span>
-            <h4>Starscape Legacy</h4>
-            <p style="color: var(--text-dim);">Defining the visual identity—high-contrast, performance-focused interface design.</p>
-          </div>
-          <div class="l-item reveal">
-            <span class="l-date">MAR 2026</span>
-            <h4>Cosmiway Evolution</h4>
-            <p style="color: var(--text-dim);">The birth of the global laboratory. Independent protocols for the community.</p>
-          </div>
+        <h1>
+            Explore<br>
+            <span class="gradient-text">the cosmos.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+            Zero friction tools is what we craft.
+        </p>
+
+        <p class="hero-description">
+            Cosmiway Labs builds interconnected digital tools,
+            experiments and experiences designed to make technology
+            feel effortless.
+        </p>
+
+        <div class="hero-actions">
+
+            <a href="#projects" class="primary-btn">
+                Explore the projects ↓
+            </a>
+
+            <a
+                href="https://github.com/Cosmiway-Labs"
+                target="_blank"
+                class="secondary-btn"
+            >
+                View the laboratory ↗
+            </a>
+
         </div>
 
-        <div class="radical-grid reveal">
-          <div class="r-box">
-            <h4>CosmiFlow</h4>
-            <p>High-performance AI designed for deep technical collaboration and personality-aware execution.</p>
-          </div>
-          <div class="r-box">
-            <h4>Cosmic ID</h4>
-            <p>Unified login. Your settings, history, and tools synced under a single secure identity.</p>
-          </div>
-          <div class="r-box">
-            <h4>Free Access</h4>
-            <p>Optimized architecture allows us to offer premium-grade intelligence at exactly zero cost.</p>
-          </div>
-          <div class="r-box">
-            <h4>Bengaluru Built</h4>
-            <p>Developed in India's tech hub with a mission to empower creators across the globe.</p>
-          </div>
+    </div>
+
+</header>
+
+
+<!-- ================= PROJECTS ================= -->
+
+<section id="projects" class="section projects-section">
+
+    <div class="projects-header reveal">
+
+        <span class="eyebrow">
+            The constellation
+        </span>
+
+        <h2 class="section-title">
+            Everything<br>
+            is connected.
+        </h2>
+
+        <p class="section-description">
+            One ecosystem. Multiple tools. A shared philosophy.
+            Explore the projects that make up the Cosmiway universe.
+        </p>
+
+    </div>
+
+
+    <div class="project-grid">
+
+        <!-- COSMIFLOW -->
+
+        <a
+            href="https://cosmiway-labs.github.io/cosmiflow/"
+            target="_blank"
+            class="project-card reveal"
+        >
+
+            <span class="project-number">01 / AI</span>
+
+            <div class="project-icon">✦</div>
+
+            <h3>CosmiFlow</h3>
+
+            <p>
+                The intelligence layer of the ecosystem.
+                A fluid AI experience built for thinking,
+                building and exploring.
+            </p>
+
+            <div class="project-link">↗</div>
+
+            <div class="card-glow"></div>
+
+        </a>
+
+
+        <!-- COSMIC LOGIN -->
+
+        <a
+            href="https://cosmiway-labs.github.io/cosmic-login/"
+            target="_blank"
+            class="project-card reveal"
+        >
+
+            <span class="project-number">02 / IDENTITY</span>
+
+            <div class="project-icon">◉</div>
+
+            <h3>Cosmic Login</h3>
+
+            <p>
+                One identity for the Cosmiway universe.
+                The gateway connecting your tools and experiences.
+            </p>
+
+            <div class="project-link">↗</div>
+
+            <div class="card-glow"></div>
+
+        </a>
+
+
+        <!-- COSMICHAT -->
+
+        <a
+            href="https://cosmiway-labs.github.io/cosmichat/"
+            target="_blank"
+            class="project-card reveal"
+        >
+
+            <span class="project-number">03 / COMMUNICATION</span>
+
+            <div class="project-icon">⌁</div>
+
+            <h3>CosmiChat</h3>
+
+            <p>
+                Conversations designed around simplicity,
+                personality and connection.
+            </p>
+
+            <div class="project-link">↗</div>
+
+            <div class="card-glow"></div>
+
+        </a>
+
+
+        <!-- COSMIMAIL -->
+
+        <a
+            href="https://cosmiway-labs.github.io/cosmimail/"
+            target="_blank"
+            class="project-card reveal"
+        >
+
+            <span class="project-number">04 / COMMUNICATION</span>
+
+            <div class="project-icon">✉</div>
+
+            <h3>CosmiMail</h3>
+
+            <p>
+                A clean, modern approach to digital mail.
+                Built to keep communication simple and frictionless.
+            </p>
+
+            <div class="project-link">↗</div>
+
+            <div class="card-glow"></div>
+
+        </a>
+
+
+        <!-- MORE PROJECTS -->
+
+        <a
+            href="https://github.com/Cosmiway-Labs"
+            target="_blank"
+            class="project-card reveal"
+        >
+
+            <span class="project-number">05 / THE LAB</span>
+
+            <div class="project-icon">∞</div>
+
+            <h3>More from Cosmiway Labs</h3>
+
+            <p>
+                Experiments, prototypes, open-source projects
+                and whatever comes next. The constellation is
+                always expanding.
+            </p>
+
+            <div class="project-link">↗</div>
+
+            <div class="card-glow"></div>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ECOSYSTEM ================= -->
+
+<section id="ecosystem" class="flow-section">
+
+    <div class="reveal">
+
+        <span class="eyebrow">
+            The ecosystem
+        </span>
+
+        <h2 class="section-title">
+            Built to<br>
+            connect.
+        </h2>
+
+        <p class="section-description">
+            Cosmiway projects aren't isolated islands.
+            They form a constellation where each tool can
+            become part of something larger.
+        </p>
+
+    </div>
+
+
+    <div class="flow-map reveal">
+
+        <div class="connection line-one"></div>
+        <div class="connection line-two"></div>
+        <div class="connection line-three"></div>
+        <div class="connection line-four"></div>
+
+        <div class="node main">
+            COSMIWAY LABS
         </div>
-      </div>
-    </section>
 
-    <section class="architect-wrap">
-      <div class="reveal">
-        <h2 style="font-size: 1rem; color: var(--accent); letter-spacing: 0.2em; margin-bottom: 20px;">THE ARCHITECT</h2>
-        <div class="arch-name">Shaunak Okhde.</div>
-        <div class="arch-tags">
-          <span>Python</span> <span>Flask</span> <span>Logic</span> <span>Engineering</span>
+        <div class="node one">
+            CosmiFlow
         </div>
-      </div>
-      <div class="reveal">
-        <p style="color: var(--text-dim); font-size: 1.2rem; font-weight: 300;">Focused on the intersection of mathematical logic and fluid user interaction. Building tools that empower the next generation of independent developers.</p>
-      </div>
-    </section>
 
-    <section class="contact-section reveal">
-        <div class="contact-info">
-            <h3>Get in touch</h3>
-            <p style="color: var(--text-dim);">Questions? Feedback? Just want to talk logic?</p>
+        <div class="node two">
+            Cosmic Login
         </div>
-        <a href="mailto:yourname@example.com" class="email-link">shaunak@cosmiway.labs</a>
-    </section>
 
-    <section id="join" class="join-flow">
-      <h2 class="reveal" style="font-size: 5rem;">Unlock the Lab.</h2>
-      <p class="reveal" style="color: var(--text-dim);">Join the inner circle. No payments, no hidden tiers—just tools.</p>
-      <div class="btn-wrap reveal">
-        <a href="#" class="main-btn">JOIN THE COSMIWAY COMMUNITY</a>
-      </div>
-    </section>
+        <div class="node three">
+            CosmiChat
+        </div>
 
-    <footer>
-      <p>© 2026 Cosmiway Labs • Open Source • Bengaluru, India</p>
-      <p style="margin-top: 10px; font-size: 0.6rem; opacity: 0.5;">DESIGNED FOR FLUID INTELLIGENCE</p>
-    </footer>
-  </div>
+        <div class="node four">
+            CosmiMail
+        </div>
 
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('active');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
+        <div class="node five">
+            Future projects
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PHILOSOPHY ================= -->
+
+<section id="about" class="section">
+
+    <div class="philosophy">
+
+        <div class="reveal">
+
+            <span class="eyebrow">
+                The philosophy
+            </span>
+
+            <h2>
+                Less friction.<br>
+                More creation.
+            </h2>
+
+        </div>
+
+
+        <div class="philosophy-copy reveal">
+
+            <p>
+                Technology shouldn't make you fight your way
+                through layers of unnecessary complexity.
+            </p>
+
+            <p>
+                Cosmiway Labs explores interfaces, systems and
+                tools that get out of the way and let people
+                actually do what they came to do.
+            </p>
+
+            <p>
+                Every project is another star in the same sky.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="cta">
+
+    <h2 class="reveal">
+        Explore<br>
+        the cosmos.
+    </h2>
+
+    <p class="reveal">
+        The laboratory is open.
+    </p>
+
+    <a
+        href="#projects"
+        class="primary-btn reveal"
+    >
+        Enter Cosmiway Labs ↓
+    </a>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div>
+        © 2026 Cosmiway Labs
+    </div>
+
+    <div class="footer-links">
+
+        <a href="#projects">
+            Projects
+        </a>
+
+        <a
+            href="https://github.com/Cosmiway-Labs"
+            target="_blank"
+        >
+            GitHub ↗
+        </a>
+
+    </div>
+
+</footer>
+
+</div>
+
+
+<script>
+
+/* =========================
+   STARFIELD ENGINE
+========================= */
+
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+let stars = [];
+let width;
+let height;
+
+function resize() {
+
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+
+    stars = [];
+
+    const count = Math.min(
+        260,
+        Math.floor((width * height) / 6500)
+    );
+
+    for (let i = 0; i < count; i++) {
+
+        stars.push({
+
+            x: Math.random() * width,
+
+            y: Math.random() * height,
+
+            radius:
+                Math.random() < .85
+                ? Math.random() * 1.1
+                : Math.random() * 2,
+
+            alpha:
+                .2 + Math.random() * .8,
+
+            speed:
+                .05 + Math.random() * .25,
+
+            twinkle:
+                Math.random() * Math.PI * 2
+
+        });
+
+    }
+}
+
+function drawStars(time) {
+
+    ctx.clearRect(0, 0, width, height);
+
+    for (const star of stars) {
+
+        star.y += star.speed;
+
+        if (star.y > height) {
+            star.y = -5;
+            star.x = Math.random() * width;
+        }
+
+        const pulse =
+            star.alpha +
+            Math.sin(
+                time * .001 + star.twinkle
+            ) * .15;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            star.x,
+            star.y,
+            star.radius,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fillStyle =
+            `rgba(255,255,255,${Math.max(.05,pulse)})`;
+
+        ctx.fill();
+    }
+
+    requestAnimationFrame(drawStars);
+}
+
+window.addEventListener("resize", resize);
+
+resize();
+requestAnimationFrame(drawStars);
+
+
+/* =========================
+   SCROLL REVEALS
+========================= */
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add(
+                        "visible"
+                    );
+
+                    observer.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold: .12
+        }
+    );
+
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(el => observer.observe(el));
+
+
+/* =========================
+   SUBTLE MOUSE PARALLAX
+========================= */
+
+const glow =
+    document.querySelector(".space-glow");
+
+window.addEventListener("mousemove", e => {
+
+    const x =
+        (e.clientX / window.innerWidth - .5) * 30;
+
+    const y =
+        (e.clientY / window.innerHeight - .5) * 30;
+
+    glow.style.transform =
+        `translate(calc(-50% + ${x}px),
+                   calc(-50% + ${y}px))`;
+
+});
+
+</script>
+
 </body>
 </html>
