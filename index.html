@@ -14,20 +14,17 @@
 <style>
 
 :root {
-    --bg: #03030a;
-    --bg2: #070712;
+    --bg: #020207;
     --text: #f7f7ff;
-    --muted: #9494aa;
+    --muted: #9292a6;
 
     --purple: #8b5cf6;
-    --purple2: #a78bfa;
+    --purple-light: #c4b5fd;
     --blue: #38bdf8;
     --pink: #ec4899;
 
     --border: rgba(255,255,255,.09);
     --glass: rgba(255,255,255,.035);
-
-    --max: 1240px;
 }
 
 * {
@@ -41,239 +38,228 @@ html {
 }
 
 body {
-    background:
-        radial-gradient(circle at 50% -10%, rgba(139,92,246,.14), transparent 35%),
-        var(--bg);
-
+    background: #020207;
     color: var(--text);
+
     font-family: Inter, sans-serif;
 
     overflow-x: hidden;
 }
 
-/* =========================
+/* =========================================
    STARFIELD
-========================= */
+========================================= */
 
 #stars {
     position: fixed;
+
     inset: 0;
+
     width: 100%;
     height: 100%;
-    z-index: -5;
+
     pointer-events: none;
+
+    z-index: -10;
 }
 
-.space-glow {
+.space-gradient {
     position: fixed;
-    width: 700px;
-    height: 700px;
+
+    width: 900px;
+    height: 900px;
 
     left: 50%;
-    top: 20%;
+    top: 25%;
 
     transform: translate(-50%, -50%);
 
-    background: radial-gradient(
-        circle,
-        rgba(124,58,237,.12),
-        transparent 65%
-    );
+    background:
+        radial-gradient(
+            circle,
+            rgba(124,58,237,.14),
+            rgba(30,20,70,.04) 40%,
+            transparent 70%
+        );
 
-    filter: blur(20px);
+    filter: blur(30px);
+
     pointer-events: none;
-    z-index: -4;
+
+    z-index: -9;
 }
 
-/* =========================
-   GLOBAL
-========================= */
+/* =========================================
+   PAGE
+========================================= */
 
-.container {
-    width: min(var(--max), calc(100% - 48px));
+.page {
+    width: min(1400px, calc(100% - 50px));
+
     margin: auto;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.section {
-    padding: 150px 0;
-}
-
-.eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-
-    color: var(--purple2);
-
-    font-size: .72rem;
-    font-weight: 700;
-
-    letter-spacing: .18em;
-    text-transform: uppercase;
-}
-
-.eyebrow::before {
-    content: "";
-    width: 7px;
-    height: 7px;
-
-    border-radius: 50%;
-
-    background: var(--purple2);
-
-    box-shadow:
-        0 0 10px var(--purple),
-        0 0 25px var(--purple);
-}
-
-.section-title {
-    font-family: "Space Grotesk", sans-serif;
-
-    font-size: clamp(3rem, 6vw, 6rem);
-
-    line-height: .95;
-    letter-spacing: -.06em;
-
-    margin-top: 20px;
-}
-
-.section-description {
-    max-width: 680px;
-
-    color: var(--muted);
-
-    font-size: 1.1rem;
-    line-height: 1.8;
-
-    margin-top: 28px;
-}
-
-/* =========================
-   NAV
-========================= */
+/* =========================================
+   NAVIGATION
+========================================= */
 
 nav {
-    height: 92px;
+    height: 95px;
 
     display: flex;
+
     align-items: center;
     justify-content: space-between;
+
+    position: relative;
+    z-index: 10;
 }
 
 .logo {
     font-family: "Space Grotesk", sans-serif;
 
-    font-size: 1.15rem;
     font-weight: 700;
 
-    letter-spacing: -.04em;
+    letter-spacing: -.05em;
+
+    font-size: 1.15rem;
 }
 
 .logo span {
-    color: var(--purple2);
+    color: var(--purple-light);
 }
 
-.nav-links {
+.nav-right {
     display: flex;
-    gap: 30px;
 
+    align-items: center;
+
+    gap: 25px;
+}
+
+.nav-link {
     color: var(--muted);
 
-    font-size: .85rem;
+    font-size: .78rem;
+
+    text-decoration: none;
+
+    transition: .25s;
 }
 
-.nav-links a {
-    transition: .25s ease;
-}
-
-.nav-links a:hover {
+.nav-link:hover {
     color: white;
 }
 
-.nav-button {
-    padding: 11px 18px;
+.github {
+    padding: 10px 17px;
 
     border: 1px solid var(--border);
+
     border-radius: 999px;
 
-    background: rgba(255,255,255,.035);
+    background: rgba(255,255,255,.03);
 
-    font-size: .78rem;
+    color: white;
+
+    font-size: .75rem;
     font-weight: 600;
 
-    transition: .3s ease;
+    transition: .3s;
 }
 
-.nav-button:hover {
-    border-color: rgba(167,139,250,.5);
-
+.github:hover {
     background: rgba(139,92,246,.12);
+
+    border-color: rgba(167,139,250,.35);
 
     transform: translateY(-2px);
 }
 
-/* =========================
-   HERO
-========================= */
+/* =========================================
+   CONTINUOUS HERO
+========================================= */
 
 .hero {
-    min-height: calc(100vh - 92px);
+    min-height: 730px;
 
     display: flex;
+
     align-items: center;
 
     position: relative;
 }
 
 .hero-content {
-    max-width: 1050px;
+    position: relative;
+
+    z-index: 2;
+
+    padding: 90px 0 120px;
 }
 
-.hero-kicker {
-    display: inline-block;
+.kicker {
+    display: inline-flex;
 
-    padding: 8px 14px;
+    align-items: center;
 
-    border: 1px solid rgba(167,139,250,.2);
+    gap: 9px;
+
+    padding: 8px 13px;
+
+    border: 1px solid rgba(167,139,250,.18);
+
     border-radius: 999px;
 
-    background: rgba(139,92,246,.06);
+    background: rgba(139,92,246,.05);
 
-    color: #c4b5fd;
+    color: var(--purple-light);
 
-    font-size: .72rem;
-    font-weight: 600;
+    font-size: .68rem;
 
-    letter-spacing: .12em;
+    font-weight: 700;
+
+    letter-spacing: .15em;
+
     text-transform: uppercase;
+}
 
-    margin-bottom: 30px;
+.kicker::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--purple-light);
+
+    box-shadow:
+        0 0 10px var(--purple),
+        0 0 25px var(--purple);
 }
 
 .hero h1 {
+    margin-top: 30px;
+
     font-family: "Space Grotesk", sans-serif;
 
-    font-size: clamp(4rem, 11vw, 9.5rem);
+    font-size: clamp(5rem, 13vw, 12rem);
 
-    line-height: .84;
+    line-height: .78;
 
-    letter-spacing: -.075em;
+    letter-spacing: -.085em;
 
-    max-width: 1100px;
+    max-width: 1150px;
 }
 
-.gradient-text {
+.hero h1 .gradient {
     background:
         linear-gradient(
             100deg,
-            #fff 10%,
-            #c4b5fd 45%,
-            #60a5fa 80%
+            #ffffff 0%,
+            #c4b5fd 42%,
+            #7dd3fc 80%
         );
 
     -webkit-background-clip: text;
@@ -282,115 +268,98 @@ nav {
     color: transparent;
 }
 
-.hero-subtitle {
-    margin-top: 38px;
+.tagline {
+    margin-top: 48px;
 
     font-family: "Space Grotesk", sans-serif;
 
-    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
 
-    color: #c9c9d8;
+    color: #d2d2df;
 
-    letter-spacing: -.02em;
+    letter-spacing: -.025em;
+}
+
+.tagline strong {
+    color: white;
 }
 
 .hero-description {
+    margin-top: 16px;
+
     max-width: 650px;
 
-    margin-top: 18px;
-
     color: var(--muted);
+
+    font-size: .95rem;
 
     line-height: 1.8;
 }
 
-.hero-actions {
-    display: flex;
-    gap: 14px;
+/* =========================================
+   ORBITAL DECORATION
+========================================= */
 
-    margin-top: 38px;
+.orbit-system {
+    position: absolute;
 
-    flex-wrap: wrap;
+    width: 800px;
+    height: 800px;
+
+    right: -260px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    pointer-events: none;
+
+    opacity: .7;
 }
-
-.primary-btn,
-.secondary-btn {
-    padding: 15px 23px;
-
-    border-radius: 999px;
-
-    font-size: .86rem;
-    font-weight: 700;
-
-    transition: .3s ease;
-}
-
-.primary-btn {
-    background: white;
-    color: black;
-}
-
-.primary-btn:hover {
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 12px 40px rgba(255,255,255,.12);
-}
-
-.secondary-btn {
-    border: 1px solid var(--border);
-
-    background: rgba(255,255,255,.035);
-
-    color: white;
-}
-
-.secondary-btn:hover {
-    background: rgba(139,92,246,.1);
-    border-color: rgba(167,139,250,.4);
-
-    transform: translateY(-3px);
-}
-
-/* =========================
-   ORBIT
-========================= */
 
 .orbit {
     position: absolute;
 
-    width: 600px;
-    height: 600px;
-
-    right: -180px;
-    top: 50%;
-
-    transform: translateY(-50%);
+    inset: 0;
 
     border: 1px solid rgba(139,92,246,.09);
 
     border-radius: 50%;
 
-    pointer-events: none;
+    transform: rotate(-20deg);
 }
 
-.orbit::before,
-.orbit::after {
-    content: "";
+.orbit:nth-child(2) {
+    inset: 100px;
 
-    position: absolute;
+    border-color: rgba(56,189,248,.08);
 
-    inset: 80px;
-
-    border: 1px solid rgba(56,189,248,.07);
-
-    border-radius: 50%;
+    transform: rotate(35deg);
 }
 
-.orbit::after {
-    inset: 170px;
+.orbit:nth-child(3) {
+    inset: 220px;
 
     border-color: rgba(236,72,153,.07);
+
+    transform: rotate(-50deg);
+}
+
+.orbit-dot {
+    position: absolute;
+
+    width: 9px;
+    height: 9px;
+
+    top: 8%;
+    left: 50%;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 12px white,
+        0 0 30px var(--purple);
 }
 
 .orbit-core {
@@ -399,8 +368,8 @@ nav {
     left: 50%;
     top: 50%;
 
-    width: 100px;
-    height: 100px;
+    width: 115px;
+    height: 115px;
 
     transform: translate(-50%, -50%);
 
@@ -408,94 +377,163 @@ nav {
 
     background:
         radial-gradient(
-            circle at 35% 30%,
+            circle at 30% 25%,
             #ddd6fe,
             #8b5cf6 35%,
-            #4c1d95 70%,
-            transparent 72%
+            #4c1d95 65%,
+            transparent 70%
         );
 
     box-shadow:
-        0 0 40px rgba(139,92,246,.5),
-        0 0 120px rgba(139,92,246,.18);
+        0 0 50px rgba(139,92,246,.5),
+        0 0 150px rgba(139,92,246,.15);
 }
 
-/* =========================
-   PROJECTS
-========================= */
+/* =========================================
+   PROJECT UNIVERSE
+========================================= */
 
-.projects-section {
-    position: relative;
-}
-
-.projects-header {
-    margin-bottom: 65px;
-}
-
-.project-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(12, 1fr);
-
-    gap: 18px;
-}
-
-.project-card {
+.projects {
     position: relative;
 
-    min-height: 340px;
+    padding: 100px 0 150px;
 
-    padding: 32px;
+    overflow: visible;
+}
+
+.projects-top {
+    display: flex;
+
+    align-items: end;
+    justify-content: space-between;
+
+    gap: 40px;
+
+    margin-bottom: 55px;
+}
+
+.projects-title {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(3rem, 6vw, 6rem);
+
+    line-height: .88;
+
+    letter-spacing: -.065em;
+}
+
+.projects-title span {
+    color: var(--purple-light);
+}
+
+.projects-intro {
+    max-width: 400px;
+
+    color: var(--muted);
+
+    line-height: 1.75;
+
+    font-size: .9rem;
+}
+
+/* =========================================
+   CAROUSEL
+========================================= */
+
+.carousel {
+    position: relative;
+
+    width: 100vw;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    overflow: hidden;
+
+    padding: 35px 0 65px;
+}
+
+.carousel-track {
+    display: flex;
+
+    gap: 22px;
+
+    width: max-content;
+
+    padding-left: calc((100vw - 1400px) / 2);
+
+    animation:
+        cosmicSlide 42s linear infinite;
+}
+
+.carousel:hover .carousel-track {
+    animation-play-state: paused;
+}
+
+@keyframes cosmicSlide {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+
+}
+
+/* =========================================
+   PROJECT CARD
+========================================= */
+
+.project {
+    position: relative;
+
+    width: 380px;
+    height: 430px;
+
+    flex-shrink: 0;
+
+    padding: 30px;
+
+    border-radius: 30px;
 
     border: 1px solid var(--border);
-    border-radius: 28px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,.055),
-            rgba(255,255,255,.015)
+            rgba(255,255,255,.065),
+            rgba(255,255,255,.018)
         );
+
+    backdrop-filter: blur(15px);
 
     overflow: hidden;
 
     transition:
         transform .45s cubic-bezier(.2,.8,.2,1),
-        border-color .35s ease,
-        background .35s ease;
+        border-color .35s,
+        box-shadow .35s;
 }
 
-.project-card:nth-child(1),
-.project-card:nth-child(4) {
-    grid-column: span 7;
+.project:hover {
+    transform:
+        translateY(-12px)
+        scale(1.025);
+
+    border-color:
+        rgba(167,139,250,.4);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.35),
+        0 0 70px rgba(139,92,246,.08);
 }
 
-.project-card:nth-child(2),
-.project-card:nth-child(3) {
-    grid-column: span 5;
-}
+.project::after {
+    content: "";
 
-.project-card:nth-child(5) {
-    grid-column: span 12;
-    min-height: 280px;
-}
-
-.project-card:hover {
-    transform: translateY(-8px);
-
-    border-color: rgba(167,139,250,.32);
-
-    background:
-        radial-gradient(
-            circle at 80% 20%,
-            rgba(139,92,246,.12),
-            transparent 35%
-        ),
-        rgba(255,255,255,.045);
-}
-
-.card-glow {
     position: absolute;
 
     width: 250px;
@@ -504,482 +542,418 @@ nav {
     right: -100px;
     bottom: -100px;
 
-    background: rgba(139,92,246,.13);
+    background:
+        radial-gradient(
+            circle,
+            rgba(139,92,246,.18),
+            transparent 70%
+        );
 
-    filter: blur(60px);
+    filter: blur(20px);
 
     pointer-events: none;
 }
 
 .project-number {
+    color: #686879;
+
     font-family: "Space Grotesk", sans-serif;
 
-    font-size: .75rem;
-
-    color: #77778c;
+    font-size: .7rem;
 
     letter-spacing: .15em;
 }
 
-.project-icon {
-    width: 52px;
-    height: 52px;
+.project-symbol {
+    width: 62px;
+    height: 62px;
 
     display: grid;
+
     place-items: center;
 
-    margin-top: 40px;
+    margin-top: 60px;
 
-    border-radius: 16px;
+    border-radius: 19px;
 
-    background: rgba(139,92,246,.1);
+    background:
+        radial-gradient(
+            circle,
+            rgba(139,92,246,.18),
+            rgba(139,92,246,.04)
+        );
 
-    border: 1px solid rgba(167,139,250,.14);
+    border:
+        1px solid rgba(167,139,250,.16);
 
-    font-size: 1.35rem;
+    color: #ddd6fe;
+
+    font-size: 1.5rem;
 }
 
-.project-card h3 {
-    margin-top: 24px;
+.project h3 {
+    margin-top: 25px;
 
     font-family: "Space Grotesk", sans-serif;
 
-    font-size: 2rem;
+    font-size: 2.25rem;
 
-    letter-spacing: -.04em;
+    letter-spacing: -.05em;
 }
 
-.project-card p {
-    max-width: 540px;
-
+.project p {
     margin-top: 12px;
 
     color: var(--muted);
 
     line-height: 1.7;
+
+    font-size: .88rem;
+
+    max-width: 310px;
 }
 
-.project-link {
+.project-open {
     position: absolute;
 
-    right: 28px;
-    bottom: 28px;
+    bottom: 27px;
+    right: 27px;
 
-    width: 42px;
-    height: 42px;
+    width: 45px;
+    height: 45px;
 
     display: grid;
+
     place-items: center;
 
-    border: 1px solid var(--border);
     border-radius: 50%;
 
-    color: #bbb;
+    border: 1px solid var(--border);
 
-    transition: .3s ease;
+    color: #aaa;
+
+    transition: .35s;
 }
 
-.project-card:hover .project-link {
+.project:hover .project-open {
     background: white;
+
     color: black;
 
     transform: rotate(45deg);
 }
 
-/* =========================
-   COSMIC FLOW
-========================= */
+/* =========================================
+   CAROUSEL INFO LINE
+========================================= */
 
-.flow-section {
-    position: relative;
+.carousel-info {
+    width: min(1400px, calc(100% - 50px));
 
-    padding: 160px 0;
-}
-
-.flow-map {
-    position: relative;
-
-    height: 520px;
-
-    margin-top: 80px;
-
-    border: 1px solid var(--border);
-    border-radius: 35px;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(139,92,246,.08),
-            transparent 50%
-        );
-
-    overflow: hidden;
-}
-
-.flow-map::before {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    background-image:
-        linear-gradient(
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        );
-
-    background-size: 55px 55px;
-
-    mask-image: radial-gradient(
-        circle,
-        black,
-        transparent 75%
-    );
-}
-
-.node {
-    position: absolute;
-
-    padding: 15px 19px;
-
-    border: 1px solid rgba(167,139,250,.2);
-    border-radius: 999px;
-
-    background: rgba(5,5,15,.85);
-
-    backdrop-filter: blur(12px);
-
-    font-size: .8rem;
-    font-weight: 600;
-
-    box-shadow: 0 0 35px rgba(139,92,246,.08);
-}
-
-.node.main {
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
-    padding: 23px 30px;
-
-    border-color: rgba(167,139,250,.4);
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(139,92,246,.22),
-            rgba(10,8,20,.95)
-        );
-
-    font-family: "Space Grotesk", sans-serif;
-
-    font-size: 1rem;
-}
-
-.node.one {
-    left: 17%;
-    top: 22%;
-}
-
-.node.two {
-    right: 15%;
-    top: 20%;
-}
-
-.node.three {
-    left: 13%;
-    bottom: 20%;
-}
-
-.node.four {
-    right: 16%;
-    bottom: 18%;
-}
-
-.node.five {
-    left: 50%;
-    top: 13%;
-    transform: translateX(-50%);
-}
-
-.connection {
-    position: absolute;
-
-    height: 1px;
-
-    transform-origin: left center;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(139,92,246,.5),
-            transparent
-        );
-}
-
-.line-one {
-    width: 280px;
-
-    left: 25%;
-    top: 32%;
-
-    transform: rotate(20deg);
-}
-
-.line-two {
-    width: 300px;
-
-    left: 50%;
-    top: 42%;
-
-    transform: rotate(-25deg);
-}
-
-.line-three {
-    width: 280px;
-
-    left: 25%;
-    top: 63%;
-
-    transform: rotate(-20deg);
-}
-
-.line-four {
-    width: 300px;
-
-    left: 50%;
-    top: 58%;
-
-    transform: rotate(25deg);
-}
-
-/* =========================
-   PHILOSOPHY
-========================= */
-
-.philosophy {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 80px;
-
-    align-items: center;
-}
-
-.philosophy h2 {
-    font-family: "Space Grotesk", sans-serif;
-
-    font-size: clamp(3rem, 5vw, 5rem);
-
-    letter-spacing: -.06em;
-
-    line-height: .95;
-}
-
-.philosophy-copy {
-    color: var(--muted);
-
-    font-size: 1.05rem;
-
-    line-height: 1.9;
-}
-
-.philosophy-copy p + p {
-    margin-top: 25px;
-}
-
-/* =========================
-   CTA
-========================= */
-
-.cta {
-    position: relative;
-
-    padding: 130px 40px;
-
-    text-align: center;
-
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-
-    overflow: hidden;
-}
-
-.cta::before {
-    content: "";
-
-    position: absolute;
-
-    width: 600px;
-    height: 300px;
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%, -50%);
-
-    background: radial-gradient(
-        ellipse,
-        rgba(139,92,246,.16),
-        transparent 70%
-    );
-
-    filter: blur(30px);
-}
-
-.cta h2 {
-    position: relative;
-
-    font-family: "Space Grotesk", sans-serif;
-
-    font-size: clamp(3.5rem, 8vw, 8rem);
-
-    line-height: .9;
-
-    letter-spacing: -.07em;
-}
-
-.cta p {
-    position: relative;
-
-    margin-top: 25px;
-
-    color: var(--muted);
-}
-
-.cta .primary-btn {
-    position: relative;
-
-    display: inline-block;
-
-    margin-top: 35px;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer {
-    padding: 55px 0;
+    margin: -5px auto 0;
 
     display: flex;
 
     justify-content: space-between;
+
     align-items: center;
 
-    color: #686879;
+    color: #646474;
 
-    font-size: .75rem;
+    font-size: .68rem;
+
+    letter-spacing: .1em;
+
+    text-transform: uppercase;
+}
+
+.carousel-info span:last-child {
+    color: var(--purple-light);
+}
+
+/* =========================================
+   CONTINUOUS ECOSYSTEM STRIP
+========================================= */
+
+.cosmic-line {
+    position: relative;
+
+    margin: 80px 0;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(139,92,246,.45),
+            rgba(56,189,248,.25),
+            transparent
+        );
+}
+
+.cosmic-line::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 8px;
+    height: 8px;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background: var(--purple-light);
+
+    box-shadow:
+        0 0 20px var(--purple),
+        0 0 60px rgba(139,92,246,.5);
+}
+
+/* =========================================
+   MANIFESTO
+========================================= */
+
+.manifesto {
+    padding: 120px 0 170px;
+
+    display: grid;
+
+    grid-template-columns: 1.2fr .8fr;
+
+    gap: 100px;
+
+    align-items: center;
+}
+
+.manifesto h2 {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(3.5rem, 7vw, 7rem);
+
+    line-height: .86;
+
+    letter-spacing: -.075em;
+}
+
+.manifesto h2 span {
+    color: var(--purple-light);
+}
+
+.manifesto-copy {
+    color: var(--muted);
+
+    line-height: 1.9;
+
+    font-size: 1rem;
+}
+
+.manifesto-copy p + p {
+    margin-top: 25px;
+}
+
+/* =========================================
+   FINAL COSMOS
+========================================= */
+
+.final {
+    min-height: 650px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    position: relative;
+}
+
+.final::before {
+    content: "";
+
+    position: absolute;
+
+    width: 700px;
+    height: 400px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(139,92,246,.15),
+            transparent 70%
+        );
+
+    filter: blur(30px);
+}
+
+.final-content {
+    position: relative;
+}
+
+.final h2 {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(4rem, 9vw, 9rem);
+
+    line-height: .82;
+
+    letter-spacing: -.08em;
+}
+
+.final h2 span {
+    background:
+        linear-gradient(
+            100deg,
+            #fff,
+            #c4b5fd,
+            #7dd3fc
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+.final p {
+    margin-top: 30px;
+
+    color: var(--muted);
+}
+
+.enter {
+    display: inline-block;
+
+    margin-top: 35px;
+
+    padding: 15px 25px;
+
+    border-radius: 999px;
+
+    background: white;
+
+    color: black;
+
+    font-weight: 700;
+
+    font-size: .8rem;
+
+    transition: .3s;
+}
+
+.enter:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 15px 50px rgba(255,255,255,.12);
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    border-top: 1px solid var(--border);
+
+    padding: 45px 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    color: #626273;
+
+    font-size: .7rem;
 }
 
 .footer-links {
     display: flex;
+
     gap: 22px;
+}
+
+.footer-links a {
+    transition: .25s;
 }
 
 .footer-links a:hover {
     color: white;
 }
 
-/* =========================
-   REVEAL
-========================= */
-
-.reveal {
-    opacity: 0;
-
-    transform: translateY(25px);
-
-    transition:
-        opacity .9s ease,
-        transform .9s cubic-bezier(.2,.8,.2,1);
-}
-
-.reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* =========================
-   MOBILE
-========================= */
+/* =========================================
+   RESPONSIVE
+========================================= */
 
 @media(max-width: 850px) {
 
-    .container {
-        width: min(100% - 30px, var(--max));
+    .page {
+        width: calc(100% - 30px);
     }
 
-    .nav-links {
+    nav {
+        height: 80px;
+    }
+
+    .nav-link {
         display: none;
     }
 
     .hero {
-        min-height: 80vh;
+        min-height: 680px;
     }
 
     .hero h1 {
-        font-size: clamp(4rem, 17vw, 7rem);
+        font-size: clamp(4.5rem, 19vw, 8rem);
     }
 
-    .orbit {
-        opacity: .35;
+    .orbit-system {
+        right: -390px;
 
-        width: 450px;
-        height: 450px;
+        width: 650px;
+        height: 650px;
 
-        right: -260px;
+        opacity: .4;
     }
 
-    .project-grid {
+    .projects-top {
+        display: block;
+    }
+
+    .projects-intro {
+        margin-top: 25px;
+    }
+
+    .project {
+        width: 320px;
+        height: 390px;
+    }
+
+    .carousel-track {
+        padding-left: 15px;
+    }
+
+    .manifesto {
         grid-template-columns: 1fr;
-    }
 
-    .project-card,
-    .project-card:nth-child(1),
-    .project-card:nth-child(2),
-    .project-card:nth-child(3),
-    .project-card:nth-child(4),
-    .project-card:nth-child(5) {
-        grid-column: span 1;
+        gap: 50px;
 
-        min-height: 320px;
-    }
-
-    .flow-map {
-        height: 450px;
-    }
-
-    .node.one {
-        left: 5%;
-    }
-
-    .node.two {
-        right: 5%;
-    }
-
-    .node.three {
-        left: 4%;
-    }
-
-    .node.four {
-        right: 4%;
-    }
-
-    .philosophy {
-        grid-template-columns: 1fr;
-        gap: 45px;
+        padding: 100px 0;
     }
 
     footer {
         flex-direction: column;
+
         gap: 20px;
     }
 }
@@ -990,11 +964,14 @@ footer {
 <body>
 
 <canvas id="stars"></canvas>
-<div class="space-glow"></div>
 
-<div class="container">
+<div class="space-gradient"></div>
 
-<!-- ================= NAV ================= -->
+<div class="page">
+
+<!-- =====================================
+     NAV
+===================================== -->
 
 <nav>
 
@@ -1002,380 +979,554 @@ footer {
         COSMIWAY <span>LABS</span>
     </a>
 
-    <div class="nav-links">
-        <a href="#projects">Projects</a>
-        <a href="#ecosystem">Ecosystem</a>
-        <a href="#about">About</a>
-    </div>
+    <div class="nav-right">
 
-    <a
-        href="https://github.com/Cosmiway-Labs"
-        target="_blank"
-        class="nav-button"
-    >
-        GitHub ↗
-    </a>
+        <a href="#projects" class="nav-link">
+            Projects
+        </a>
+
+        <a href="#manifesto" class="nav-link">
+            Philosophy
+        </a>
+
+        <a
+            href="https://github.com/Cosmiway-Labs"
+            target="_blank"
+            class="github"
+        >
+            GitHub ↗
+        </a>
+
+    </div>
 
 </nav>
 
 
-<!-- ================= HERO ================= -->
+<!-- =====================================
+     HERO
+===================================== -->
 
-<header class="hero">
+<main>
 
-    <div class="orbit">
+<section class="hero">
+
+    <div class="orbit-system">
+
+        <div class="orbit">
+            <div class="orbit-dot"></div>
+        </div>
+
+        <div class="orbit">
+            <div class="orbit-dot"></div>
+        </div>
+
+        <div class="orbit">
+            <div class="orbit-dot"></div>
+        </div>
+
         <div class="orbit-core"></div>
+
     </div>
 
-    <div class="hero-content reveal">
 
-        <div class="hero-kicker">
-            Independent digital laboratory
+    <div class="hero-content">
+
+        <div class="kicker">
+            Cosmiway Labs
         </div>
 
         <h1>
-            Explore<br>
-            <span class="gradient-text">the cosmos.</span>
+            EXPLORE<br>
+            <span class="gradient">
+                THE COSMOS
+            </span>
         </h1>
 
-        <p class="hero-subtitle">
-            Zero friction tools is what we craft.
+        <p class="tagline">
+            <strong>Zero friction tools</strong>
+            is what we craft.
         </p>
 
         <p class="hero-description">
-            Cosmiway Labs builds interconnected digital tools,
-            experiments and experiences designed to make technology
-            feel effortless.
+            A growing constellation of interconnected tools,
+            experiments and digital experiences — built to
+            make the journey through technology feel effortless.
         </p>
-
-        <div class="hero-actions">
-
-            <a href="#projects" class="primary-btn">
-                Explore the projects ↓
-            </a>
-
-            <a
-                href="https://github.com/Cosmiway-Labs"
-                target="_blank"
-                class="secondary-btn"
-            >
-                View the laboratory ↗
-            </a>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<!-- ================= PROJECTS ================= -->
-
-<section id="projects" class="section projects-section">
-
-    <div class="projects-header reveal">
-
-        <span class="eyebrow">
-            The constellation
-        </span>
-
-        <h2 class="section-title">
-            Everything<br>
-            is connected.
-        </h2>
-
-        <p class="section-description">
-            One ecosystem. Multiple tools. A shared philosophy.
-            Explore the projects that make up the Cosmiway universe.
-        </p>
-
-    </div>
-
-
-    <div class="project-grid">
-
-        <!-- COSMIFLOW -->
-
-        <a
-            href="https://cosmiway-labs.github.io/cosmiflow/"
-            target="_blank"
-            class="project-card reveal"
-        >
-
-            <span class="project-number">01 / AI</span>
-
-            <div class="project-icon">✦</div>
-
-            <h3>CosmiFlow</h3>
-
-            <p>
-                The intelligence layer of the ecosystem.
-                A fluid AI experience built for thinking,
-                building and exploring.
-            </p>
-
-            <div class="project-link">↗</div>
-
-            <div class="card-glow"></div>
-
-        </a>
-
-
-        <!-- COSMIC LOGIN -->
-
-        <a
-            href="https://cosmiway-labs.github.io/cosmic-login/"
-            target="_blank"
-            class="project-card reveal"
-        >
-
-            <span class="project-number">02 / IDENTITY</span>
-
-            <div class="project-icon">◉</div>
-
-            <h3>Cosmic Login</h3>
-
-            <p>
-                One identity for the Cosmiway universe.
-                The gateway connecting your tools and experiences.
-            </p>
-
-            <div class="project-link">↗</div>
-
-            <div class="card-glow"></div>
-
-        </a>
-
-
-        <!-- COSMICHAT -->
-
-        <a
-            href="https://cosmiway-labs.github.io/cosmichat/"
-            target="_blank"
-            class="project-card reveal"
-        >
-
-            <span class="project-number">03 / COMMUNICATION</span>
-
-            <div class="project-icon">⌁</div>
-
-            <h3>CosmiChat</h3>
-
-            <p>
-                Conversations designed around simplicity,
-                personality and connection.
-            </p>
-
-            <div class="project-link">↗</div>
-
-            <div class="card-glow"></div>
-
-        </a>
-
-
-        <!-- COSMIMAIL -->
-
-        <a
-            href="https://cosmiway-labs.github.io/cosmimail/"
-            target="_blank"
-            class="project-card reveal"
-        >
-
-            <span class="project-number">04 / COMMUNICATION</span>
-
-            <div class="project-icon">✉</div>
-
-            <h3>CosmiMail</h3>
-
-            <p>
-                A clean, modern approach to digital mail.
-                Built to keep communication simple and frictionless.
-            </p>
-
-            <div class="project-link">↗</div>
-
-            <div class="card-glow"></div>
-
-        </a>
-
-
-        <!-- MORE PROJECTS -->
-
-        <a
-            href="https://github.com/Cosmiway-Labs"
-            target="_blank"
-            class="project-card reveal"
-        >
-
-            <span class="project-number">05 / THE LAB</span>
-
-            <div class="project-icon">∞</div>
-
-            <h3>More from Cosmiway Labs</h3>
-
-            <p>
-                Experiments, prototypes, open-source projects
-                and whatever comes next. The constellation is
-                always expanding.
-            </p>
-
-            <div class="project-link">↗</div>
-
-            <div class="card-glow"></div>
-
-        </a>
 
     </div>
 
 </section>
 
 
-<!-- ================= ECOSYSTEM ================= -->
+<!-- =====================================
+     PROJECTS
+===================================== -->
 
-<section id="ecosystem" class="flow-section">
+<section id="projects" class="projects">
 
-    <div class="reveal">
+    <div class="projects-top">
 
-        <span class="eyebrow">
-            The ecosystem
-        </span>
+        <div>
 
-        <h2 class="section-title">
-            Built to<br>
-            connect.
-        </h2>
-
-        <p class="section-description">
-            Cosmiway projects aren't isolated islands.
-            They form a constellation where each tool can
-            become part of something larger.
-        </p>
-
-    </div>
-
-
-    <div class="flow-map reveal">
-
-        <div class="connection line-one"></div>
-        <div class="connection line-two"></div>
-        <div class="connection line-three"></div>
-        <div class="connection line-four"></div>
-
-        <div class="node main">
-            COSMIWAY LABS
-        </div>
-
-        <div class="node one">
-            CosmiFlow
-        </div>
-
-        <div class="node two">
-            Cosmic Login
-        </div>
-
-        <div class="node three">
-            CosmiChat
-        </div>
-
-        <div class="node four">
-            CosmiMail
-        </div>
-
-        <div class="node five">
-            Future projects
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= PHILOSOPHY ================= -->
-
-<section id="about" class="section">
-
-    <div class="philosophy">
-
-        <div class="reveal">
-
-            <span class="eyebrow">
-                The philosophy
-            </span>
-
-            <h2>
-                Less friction.<br>
-                More creation.
+            <h2 class="projects-title">
+                THE<br>
+                <span>CONSTELLATION</span>
             </h2>
 
         </div>
 
+        <p class="projects-intro">
+            Seven worlds. One ecosystem.
+            Move through the constellation and discover
+            what Cosmiway Labs is building.
+        </p>
 
-        <div class="philosophy-copy reveal">
+    </div>
 
-            <p>
-                Technology shouldn't make you fight your way
-                through layers of unnecessary complexity.
-            </p>
 
-            <p>
-                Cosmiway Labs explores interfaces, systems and
-                tools that get out of the way and let people
-                actually do what they came to do.
-            </p>
+    <div class="carousel">
 
-            <p>
-                Every project is another star in the same sky.
-            </p>
+        <div class="carousel-track">
+
+
+            <!-- 1 -->
+
+            <a
+                href="https://cosmiway-labs.github.io/cosmiflow/"
+                target="_blank"
+                class="project"
+            >
+
+                <span class="project-number">
+                    01 / INTELLIGENCE
+                </span>
+
+                <div class="project-symbol">
+                    ✦
+                </div>
+
+                <h3>
+                    CosmiFlow
+                </h3>
+
+                <p>
+                    Fluid AI built for thinking,
+                    creating and exploring ideas.
+                </p>
+
+                <div class="project-open">
+                    ↗
+                </div>
+
+            </a>
+
+
+            <!-- 2 -->
+
+            <a
+                href="https://cosmiway-labs.github.io/cosmic-login/"
+                target="_blank"
+                class="project"
+            >
+
+                <span class="project-number">
+                    02 / IDENTITY
+                </span>
+
+                <div class="project-symbol">
+                    ◉
+                </div>
+
+                <h3>
+                    Cosmic Login
+                </h3>
+
+                <p>
+                    The identity layer connecting
+                    the Cosmiway ecosystem.
+                </p>
+
+                <div class="project-open">
+                    ↗
+                </div>
+
+            </a>
+
+
+            <!-- 3 -->
+
+            <a
+                href="https://cosmiway-labs.github.io/cosmichat/"
+                target="_blank"
+                class="project"
+            >
+
+                <span class="project-number">
+                    03 / COMMUNICATION
+                </span>
+
+                <div class="project-symbol">
+                    ⌁
+                </div>
+
+                <h3>
+                    CosmiChat
+                </h3>
+
+                <p>
+                    Conversations designed around
+                    simplicity, personality and connection.
+                </p>
+
+                <div class="project-open">
+                    ↗
+                </div>
+
+            </a>
+
+
+            <!-- 4 -->
+
+            <a
+                href="https://cosmiway-labs.github.io/cosmimail/"
+                target="_blank"
+                class="project"
+            >
+
+                <span class="project-number">
+                    04 / MAIL
+                </span>
+
+                <div class="project-symbol">
+                    ✉
+                </div>
+
+                <h3>
+                    CosmiMail
+                </h3>
+
+                <p>
+                    Simple, modern digital mail
+                    without unnecessary friction.
+                </p>
+
+                <div class="project-open">
+                    ↗
+                </div>
+
+            </a>
+
+
+            <!-- 5 -->
+
+            <a
+                href="https://cosmiway-labs.github.io/cosmimeet/"
+                target="_blank"
+                class="project"
+            >
+
+                <span class="project-number">
+                    05 / MEETINGS
+                </span>
+
+                <div class="project-symbol">
+                    ◌
+                </div>
+
+                <h3>
+                    CosmiMeet
+                </h3>
+
+                <p>
+                    A connected space for meetings,
+                    collaboration and people.
+                </p>
+
+                <div class="project-open">
+                    ↗
+                </div>
+
+            </a>
+
+
+            <!-- 6 -->
+
+            <a
+                href="https://cosmiway-labs.github.io/cosmidrive/"
+                target="_blank"
+                class="project"
+            >
+
+                <span class="project-number">
+                    06 / STORAGE
+                </span>
+
+                <div class="project-symbol">
+                    ◇
+                </div>
+
+                <h3>
+                    CosmiDrive
+                </h3>
+
+                <p>
+                    Your files, organized inside
+                    the Cosmiway universe.
+                </p>
+
+                <div class="project-open">
+                    ↗
+                </div>
+
+            </a>
+
+
+            <!-- 7 -->
+
+            <a
+                href="https://cosmiway-labs.github.io/cosminotes/"
+                target="_blank"
+                class="project"
+            >
+
+                <span class="project-number">
+                    07 / KNOWLEDGE
+                </span>
+
+                <div class="project-symbol">
+                    ✎
+                </div>
+
+                <h3>
+                    CosmiNotes
+                </h3>
+
+                <p>
+                    Capture thoughts, ideas and
+                    everything worth remembering.
+                </p>
+
+                <div class="project-open">
+                    ↗
+                </div>
+
+            </a>
+
+
+            <!-- DUPLICATE SET FOR INFINITE LOOP -->
+
+            <a
+                href="https://cosmiway-labs.github.io/cosmiflow/"
+                target="_blank"
+                class="project"
+            >
+                <span class="project-number">01 / INTELLIGENCE</span>
+                <div class="project-symbol">✦</div>
+                <h3>CosmiFlow</h3>
+                <p>Fluid AI built for thinking, creating and exploring ideas.</p>
+                <div class="project-open">↗</div>
+            </a>
+
+
+            <a
+                href="https://cosmiway-labs.github.io/cosmic-login/"
+                target="_blank"
+                class="project"
+            >
+                <span class="project-number">02 / IDENTITY</span>
+                <div class="project-symbol">◉</div>
+                <h3>Cosmic Login</h3>
+                <p>The identity layer connecting the Cosmiway ecosystem.</p>
+                <div class="project-open">↗</div>
+            </a>
+
+
+            <a
+                href="https://cosmiway-labs.github.io/cosmichat/"
+                target="_blank"
+                class="project"
+            >
+                <span class="project-number">03 / COMMUNICATION</span>
+                <div class="project-symbol">⌁</div>
+                <h3>CosmiChat</h3>
+                <p>Conversations designed around simplicity, personality and connection.</p>
+                <div class="project-open">↗</div>
+            </a>
+
+
+            <a
+                href="https://cosmiway-labs.github.io/cosmimail/"
+                target="_blank"
+                class="project"
+            >
+                <span class="project-number">04 / MAIL</span>
+                <div class="project-symbol">✉</div>
+                <h3>CosmiMail</h3>
+                <p>Simple, modern digital mail without unnecessary friction.</p>
+                <div class="project-open">↗</div>
+            </a>
+
+
+            <a
+                href="https://cosmiway-labs.github.io/cosmimeet/"
+                target="_blank"
+                class="project"
+            >
+                <span class="project-number">05 / MEETINGS</span>
+                <div class="project-symbol">◌</div>
+                <h3>CosmiMeet</h3>
+                <p>A connected space for meetings, collaboration and people.</p>
+                <div class="project-open">↗</div>
+            </a>
+
+
+            <a
+                href="https://cosmiway-labs.github.io/cosmidrive/"
+                target="_blank"
+                class="project"
+            >
+                <span class="project-number">06 / STORAGE</span>
+                <div class="project-symbol">◇</div>
+                <h3>CosmiDrive</h3>
+                <p>Your files, organized inside the Cosmiway universe.</p>
+                <div class="project-open">↗</div>
+            </a>
+
+
+            <a
+                href="https://cosmiway-labs.github.io/cosminotes/"
+                target="_blank"
+                class="project"
+            >
+                <span class="project-number">07 / KNOWLEDGE</span>
+                <div class="project-symbol">✎</div>
+                <h3>CosmiNotes</h3>
+                <p>Capture thoughts, ideas and everything worth remembering.</p>
+                <div class="project-open">↗</div>
+            </a>
+
 
         </div>
 
     </div>
 
-</section>
 
+    <div class="carousel-info">
 
-<!-- ================= CTA ================= -->
+        <span>
+            COSMIWAY LABS / THE CONSTELLATION
+        </span>
 
-<section class="cta">
+        <span>
+            Hover to explore
+        </span>
 
-    <h2 class="reveal">
-        Explore<br>
-        the cosmos.
-    </h2>
-
-    <p class="reveal">
-        The laboratory is open.
-    </p>
-
-    <a
-        href="#projects"
-        class="primary-btn reveal"
-    >
-        Enter Cosmiway Labs ↓
-    </a>
+    </div>
 
 </section>
 
 
-<!-- ================= FOOTER ================= -->
+<!-- =====================================
+     COSMIC LINE
+===================================== -->
+
+<div class="cosmic-line"></div>
+
+
+<!-- =====================================
+     MANIFESTO
+===================================== -->
+
+<section id="manifesto" class="manifesto">
+
+    <div>
+
+        <h2>
+            ONE<br>
+            <span>UNIVERSE.</span><br>
+            INFINITE<br>
+            POSSIBILITIES.
+        </h2>
+
+    </div>
+
+
+    <div class="manifesto-copy">
+
+        <p>
+            Cosmiway Labs isn't a collection of disconnected
+            websites. Every project belongs to the same
+            constellation.
+        </p>
+
+        <p>
+            Identity connects the tools. Tools connect the
+            people. Data connects the experiences.
+        </p>
+
+        <p>
+            The goal is simple:
+            <strong>remove friction.</strong>
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     FINAL
+===================================== -->
+
+<section class="final">
+
+    <div class="final-content">
+
+        <h2>
+            KEEP<br>
+            <span>EXPLORING.</span>
+        </h2>
+
+        <p>
+            There is always another world to discover.
+        </p>
+
+        <a
+            href="https://github.com/Cosmiway-Labs"
+            target="_blank"
+            class="enter"
+        >
+            ENTER THE LAB ↗
+        </a>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================
+     FOOTER
+===================================== -->
 
 <footer>
 
-    <div>
-        © 2026 Cosmiway Labs
-    </div>
+    <span>
+        © 2026 COSMIWAY LABS
+    </span>
 
     <div class="footer-links">
 
         <a href="#projects">
-            Projects
+            PROJECTS
         </a>
 
         <a
             href="https://github.com/Cosmiway-Labs"
             target="_blank"
         >
-            GitHub ↗
+            GITHUB ↗
         </a>
 
     </div>
@@ -1387,156 +1538,177 @@ footer {
 
 <script>
 
-/* =========================
-   STARFIELD ENGINE
-========================= */
+/* =========================================
+   STARFIELD
+========================================= */
 
-const canvas = document.getElementById("stars");
-const ctx = canvas.getContext("2d");
+const canvas =
+    document.getElementById("stars");
+
+const ctx =
+    canvas.getContext("2d");
 
 let stars = [];
+
 let width;
 let height;
 
-function resize() {
 
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
+function resizeStars() {
+
+    width =
+        canvas.width =
+        window.innerWidth;
+
+    height =
+        canvas.height =
+        window.innerHeight;
 
     stars = [];
 
-    const count = Math.min(
-        260,
-        Math.floor((width * height) / 6500)
-    );
+    const count =
+        Math.min(
+            320,
+            Math.floor(
+                (width * height) / 5500
+            )
+        );
 
     for (let i = 0; i < count; i++) {
 
         stars.push({
 
-            x: Math.random() * width,
+            x:
+                Math.random() * width,
 
-            y: Math.random() * height,
+            y:
+                Math.random() * height,
 
-            radius:
-                Math.random() < .85
+            size:
+                Math.random() < .9
                 ? Math.random() * 1.1
                 : Math.random() * 2,
 
-            alpha:
-                .2 + Math.random() * .8,
+            opacity:
+                .2 + Math.random() * .75,
 
             speed:
-                .05 + Math.random() * .25,
+                .04 + Math.random() * .22,
 
-            twinkle:
-                Math.random() * Math.PI * 2
+            phase:
+                Math.random() *
+                Math.PI *
+                2
 
         });
 
     }
+
 }
 
-function drawStars(time) {
 
-    ctx.clearRect(0, 0, width, height);
+function animateStars(time) {
 
-    for (const star of stars) {
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+    stars.forEach(star => {
 
         star.y += star.speed;
 
         if (star.y > height) {
+
             star.y = -5;
-            star.x = Math.random() * width;
+
+            star.x =
+                Math.random() * width;
+
         }
 
-        const pulse =
-            star.alpha +
+        const twinkle =
+            star.opacity +
             Math.sin(
-                time * .001 + star.twinkle
-            ) * .15;
+                time * .001 +
+                star.phase
+            ) * .12;
 
         ctx.beginPath();
 
         ctx.arc(
             star.x,
             star.y,
-            star.radius,
+            star.size,
             0,
             Math.PI * 2
         );
 
         ctx.fillStyle =
-            `rgba(255,255,255,${Math.max(.05,pulse)})`;
+            `rgba(
+                255,
+                255,
+                255,
+                ${Math.max(.03, twinkle)}
+            )`;
 
         ctx.fill();
-    }
 
-    requestAnimationFrame(drawStars);
+    });
+
+    requestAnimationFrame(
+        animateStars
+    );
+
 }
 
-window.addEventListener("resize", resize);
 
-resize();
-requestAnimationFrame(drawStars);
+window.addEventListener(
+    "resize",
+    resizeStars
+);
+
+resizeStars();
+
+requestAnimationFrame(
+    animateStars
+);
 
 
-/* =========================
-   SCROLL REVEALS
-========================= */
+/* =========================================
+   SUBTLE PARALLAX
+========================================= */
 
-const observer =
-    new IntersectionObserver(
-        entries => {
-
-            entries.forEach(entry => {
-
-                if (entry.isIntersecting) {
-
-                    entry.target.classList.add(
-                        "visible"
-                    );
-
-                    observer.unobserve(
-                        entry.target
-                    );
-
-                }
-
-            });
-
-        },
-        {
-            threshold: .12
-        }
+const space =
+    document.querySelector(
+        ".space-gradient"
     );
 
 
-document
-    .querySelectorAll(".reveal")
-    .forEach(el => observer.observe(el));
+window.addEventListener(
+    "mousemove",
+    event => {
 
+        const x =
+            (event.clientX /
+            window.innerWidth -
+            .5) * 35;
 
-/* =========================
-   SUBTLE MOUSE PARALLAX
-========================= */
+        const y =
+            (event.clientY /
+            window.innerHeight -
+            .5) * 35;
 
-const glow =
-    document.querySelector(".space-glow");
+        space.style.transform =
+            `translate(
+                calc(-50% + ${x}px),
+                calc(-50% + ${y}px)
+            )`;
 
-window.addEventListener("mousemove", e => {
-
-    const x =
-        (e.clientX / window.innerWidth - .5) * 30;
-
-    const y =
-        (e.clientY / window.innerHeight - .5) * 30;
-
-    glow.style.transform =
-        `translate(calc(-50% + ${x}px),
-                   calc(-50% + ${y}px))`;
-
-});
+    }
+);
 
 </script>
 
