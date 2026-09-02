@@ -13,15 +13,21 @@
 
 <style>
 
+/* =========================================================
+   FOUNDATION
+========================================================= */
+
 :root {
     --bg: #03040a;
-    --text: #f5f5ff;
-    --muted: rgba(205,208,230,.52);
-    --dim: rgba(205,208,230,.32);
-    --line: rgba(255,255,255,.09);
+    --white: #f7f7ff;
+    --muted: rgba(213,216,238,.52);
+    --dim: rgba(213,216,238,.30);
+
+    --purple: #8d79ff;
+    --purple-soft: rgba(126,105,255,.14);
+
+    --line: rgba(255,255,255,.085);
     --glass: rgba(255,255,255,.045);
-    --purple: #8977ff;
-    --blue: #5f9cff;
 }
 
 * {
@@ -35,9 +41,13 @@ html {
 }
 
 body {
+    min-height: 100vh;
+
     background: var(--bg);
-    color: var(--text);
+    color: var(--white);
+
     font-family: "Manrope", sans-serif;
+
     overflow-x: hidden;
 }
 
@@ -56,117 +66,180 @@ button {
 
 
 /* =========================================================
-   AMBIENT UNIVERSE
+   BACKGROUND
 ========================================================= */
 
-.ambient {
+.background {
     position: fixed;
     inset: 0;
-    z-index: -10;
+
+    z-index: -20;
+
     overflow: hidden;
+
     pointer-events: none;
 
     background:
         radial-gradient(
             ellipse at 50% -15%,
-            rgba(105,85,255,.15),
-            transparent 42%
+            rgba(93,73,255,.17),
+            transparent 43%
         ),
         radial-gradient(
-            ellipse at -10% 55%,
-            rgba(35,110,255,.08),
+            ellipse at -10% 48%,
+            rgba(29,102,255,.09),
             transparent 38%
         ),
         radial-gradient(
-            ellipse at 110% 72%,
-            rgba(155,70,255,.08),
+            ellipse at 110% 68%,
+            rgba(157,68,255,.09),
             transparent 40%
         ),
         #03040a;
 }
 
-.star-layer {
+
+/* =========================================================
+   STARS
+========================================================= */
+
+.stars {
     position: absolute;
-    inset: -20%;
+
+    inset: -15%;
+
+    opacity: .58;
 
     background-image:
-        radial-gradient(circle, rgba(255,255,255,.75) 0 1px, transparent 1.2px),
-        radial-gradient(circle, rgba(255,255,255,.38) 0 1px, transparent 1.2px),
-        radial-gradient(circle, rgba(255,255,255,.22) 0 1px, transparent 1.2px);
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.75) 0 1px,
+            transparent 1.25px
+        ),
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.42) 0 1px,
+            transparent 1.25px
+        ),
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.25) 0 1px,
+            transparent 1.25px
+        );
 
     background-size:
-        180px 180px,
-        290px 290px,
-        410px 410px;
+        175px 175px,
+        285px 285px,
+        390px 390px;
 
     background-position:
         0 0,
-        50px 80px,
-        140px 30px;
+        70px 35px,
+        150px 100px;
 
-    animation: starMove 100s linear infinite;
+    animation:
+        starDrift 110s linear infinite;
 }
 
-@keyframes starMove {
+@keyframes starDrift {
+
     from {
-        transform: translate3d(0,0,0);
+        transform:
+            translate3d(0,0,0);
     }
 
     to {
-        transform: translate3d(-120px,90px,0);
+        transform:
+            translate3d(-130px,90px,0);
     }
+
 }
 
-.aurora {
+
+/* =========================================================
+   AMBIENT LIGHT CLOUDS
+========================================================= */
+
+.light {
     position: absolute;
+
     border-radius: 50%;
-    filter: blur(110px);
+
+    filter: blur(115px);
+
     mix-blend-mode: screen;
 }
 
-.aurora.one {
-    width: 560px;
-    height: 560px;
-    left: -240px;
+.light-a {
+    width: 580px;
+    height: 580px;
+
+    left: -250px;
     top: 15%;
-    background: rgba(65,100,255,.13);
-    animation: auroraOne 20s ease-in-out infinite alternate;
+
+    background:
+        rgba(57,92,255,.12);
+
+    animation:
+        lightA 21s ease-in-out infinite alternate;
 }
 
-.aurora.two {
-    width: 600px;
-    height: 600px;
-    right: -280px;
-    top: 35%;
-    background: rgba(137,75,255,.12);
-    animation: auroraTwo 24s ease-in-out infinite alternate;
+.light-b {
+    width: 630px;
+    height: 630px;
+
+    right: -290px;
+    top: 32%;
+
+    background:
+        rgba(142,70,255,.12);
+
+    animation:
+        lightB 25s ease-in-out infinite alternate;
 }
 
-.aurora.three {
+.light-c {
     width: 450px;
     height: 450px;
+
     left: 35%;
-    bottom: -280px;
-    background: rgba(70,95,255,.08);
-    animation: auroraThree 19s ease-in-out infinite alternate;
+    bottom: -270px;
+
+    background:
+        rgba(65,86,255,.08);
+
+    animation:
+        lightC 20s ease-in-out infinite alternate;
 }
 
-@keyframes auroraOne {
+@keyframes lightA {
+
     to {
-        transform: translate(180px,100px) scale(1.25);
+        transform:
+            translate3d(170px,100px,0)
+            scale(1.2);
     }
+
 }
 
-@keyframes auroraTwo {
+@keyframes lightB {
+
     to {
-        transform: translate(-160px,-80px) scale(1.18);
+        transform:
+            translate3d(-160px,-80px,0)
+            scale(1.18);
     }
+
 }
 
-@keyframes auroraThree {
+@keyframes lightC {
+
     to {
-        transform: translate(100px,-100px) scale(1.2);
+        transform:
+            translate3d(90px,-100px,0)
+            scale(1.18);
     }
+
 }
 
 
@@ -176,19 +249,24 @@ button {
 
 .grain {
     position: fixed;
+
     inset: -50%;
+
     z-index: 1000;
+
     pointer-events: none;
 
-    opacity: .028;
+    opacity: .025;
 
     background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 
-    animation: grain .25s steps(2) infinite;
+    animation:
+        grainMove .25s steps(2) infinite;
 }
 
-@keyframes grain {
+@keyframes grainMove {
+
     0% {
         transform: translate(0,0);
     }
@@ -208,34 +286,37 @@ button {
     100% {
         transform: translate(-2%,-2%);
     }
+
 }
 
 
 /* =========================================================
-   CURSOR LIGHT
+   CURSOR ATMOSPHERE
 ========================================================= */
 
 .cursor-light {
     position: fixed;
 
-    width: 520px;
-    height: 520px;
+    width: 500px;
+    height: 500px;
 
     border-radius: 50%;
 
     pointer-events: none;
-    z-index: -2;
 
-    transform: translate(-50%,-50%);
+    z-index: -5;
+
+    transform:
+        translate(-50%,-50%);
 
     background:
         radial-gradient(
             circle,
-            rgba(105,87,255,.065),
+            rgba(114,91,255,.07),
             transparent 68%
         );
 
-    filter: blur(15px);
+    filter: blur(12px);
 }
 
 
@@ -243,15 +324,17 @@ button {
    NAVIGATION
 ========================================================= */
 
-.nav {
+.nav-shell {
     position: fixed;
 
     top: 18px;
     left: 50%;
 
-    transform: translateX(-50%);
+    width:
+        min(1180px, calc(100% - 36px));
 
-    width: min(1180px, calc(100% - 36px));
+    transform:
+        translateX(-50%);
 
     z-index: 500;
 }
@@ -259,13 +342,15 @@ button {
 nav {
     height: 62px;
 
-    padding: 0 22px;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    border: 1px solid rgba(255,255,255,.095);
+    padding: 0 22px;
+
+    border:
+        1px solid rgba(255,255,255,.095);
+
     border-radius: 17px;
 
     background:
@@ -275,39 +360,50 @@ nav {
             rgba(255,255,255,.025)
         );
 
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter:
+        blur(25px);
+
+    -webkit-backdrop-filter:
+        blur(25px);
 
     box-shadow:
-        0 20px 70px rgba(0,0,0,.3),
+        0 20px 70px rgba(0,0,0,.30),
         inset 0 1px 0 rgba(255,255,255,.055);
 }
 
 .nav-brand {
     font-family: "Syne", sans-serif;
+
     font-size: 14px;
+
     font-weight: 800;
+
     letter-spacing: -.025em;
 }
 
 .nav-brand span {
-    color: rgba(255,255,255,.38);
+    color:
+        rgba(255,255,255,.36);
 }
 
 .nav-links {
     display: flex;
-    gap: 28px;
+
+    gap: 27px;
 }
 
 .nav-links a {
     position: relative;
 
-    color: rgba(230,232,250,.5);
+    color:
+        rgba(230,232,250,.48);
 
     font-size: 11px;
+
     font-weight: 600;
 
-    transition: color .25s ease;
+    transition:
+        color .25s ease;
 }
 
 .nav-links a:hover {
@@ -318,6 +414,7 @@ nav {
     content: "";
 
     position: absolute;
+
     left: 0;
     bottom: -7px;
 
@@ -326,7 +423,8 @@ nav {
 
     background: white;
 
-    transition: width .25s ease;
+    transition:
+        width .25s ease;
 }
 
 .nav-links a:hover::after {
@@ -339,43 +437,38 @@ nav {
 ========================================================= */
 
 .hero {
-    position: relative;
-
     min-height: 100vh;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
+    position: relative;
+
     padding:
-        130px 30px
-        100px;
+        125px 25px
+        70px;
 
     text-align: center;
 }
 
 .hero-inner {
-    width: min(1250px, 100%);
+    width:
+        min(1180px, 100%);
+
+    margin: auto;
 }
 
 
-/* MAIN BRAND */
+/* =========================================================
+   BRAND
+========================================================= */
 
-.brand-name {
+.brand {
     font-family: "Syne", sans-serif;
 
-    /*
-       This is intentionally much larger than the old
-       tiny "SO" label.
-
-       It is the actual brand.
-    */
-
-    font-size: clamp(
-        25px,
-        3vw,
-        40px
-    );
+    font-size:
+        clamp(25px, 3vw, 40px);
 
     line-height: 1;
 
@@ -383,47 +476,52 @@ nav {
 
     letter-spacing: -.055em;
 
-    color: #ffffff;
+    color: white;
 
     text-shadow:
-        0 0 35px rgba(130,110,255,.16);
+        0 0 40px rgba(119,96,255,.15);
 
-    animation: brandPulse 7s ease-in-out infinite;
+    animation:
+        brandGlow 7s ease-in-out infinite;
 }
 
-@keyframes brandPulse {
+@keyframes brandGlow {
 
     0%,100% {
         text-shadow:
-            0 0 25px rgba(130,110,255,.08);
+            0 0 28px rgba(119,96,255,.08);
     }
 
     50% {
         text-shadow:
-            0 0 45px rgba(130,110,255,.24);
+            0 0 48px rgba(119,96,255,.24);
     }
 
 }
 
 
-/* little separator */
+/* =========================================================
+   HERO DIVIDER
+========================================================= */
 
-.hero-rule {
+.hero-divider {
     width: 70px;
     height: 1px;
 
-    margin: 25px auto 32px;
+    margin:
+        25px auto
+        30px;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            rgba(157,143,255,.7),
+            rgba(145,125,255,.8),
             transparent
         );
 
     box-shadow:
-        0 0 16px rgba(130,110,255,.4);
+        0 0 18px rgba(145,125,255,.5);
 }
 
 
@@ -436,49 +534,40 @@ nav {
 
     font-weight: 800;
 
-    /*
-       IMPORTANT:
-       The old version used a giant value that allowed
-       the text to exceed the viewport.
+    line-height: .86;
 
-       This one is deliberately constrained.
-    */
-
-    font-size: clamp(
-        58px,
-        9.4vw,
-        145px
-    );
-
-    line-height: .82;
-
-    letter-spacing: -.085em;
+    letter-spacing: -.075em;
 
     text-transform: uppercase;
 
-    white-space: nowrap;
+    width:
+        min(1100px, 100%);
 
-    width: 100%;
+    margin: auto;
 
-    overflow: visible;
+    /*
+       Deliberately conservative sizing.
+       The title is huge without being allowed
+       to escape the viewport.
+    */
+    font-size:
+        clamp(52px, 7vw, 108px);
 }
 
-.hero-title .line {
+.hero-title span {
     display: block;
 
     width: 100%;
-
-    white-space: nowrap;
 }
 
-.hero-title .line:first-child {
+.hero-title .explore {
     background:
         linear-gradient(
-            100deg,
+            105deg,
             #ffffff 0%,
-            #e7e4ff 35%,
-            #9d91ff 72%,
-            #7564ff 100%
+            #e8e5ff 33%,
+            #9e91ff 70%,
+            #7663ff 100%
         );
 
     -webkit-background-clip: text;
@@ -488,48 +577,57 @@ nav {
 
     filter:
         drop-shadow(
-            0 0 30px rgba(113,95,255,.09)
+            0 0 25px rgba(116,95,255,.08)
         );
 }
 
-.hero-title .line:last-child {
-    color: #f8f8ff;
+.hero-title .cosmos {
+    color: #f7f7ff;
 
     text-shadow:
-        0 0 45px rgba(120,105,255,.08);
+        0 0 45px rgba(115,95,255,.08);
 }
 
 
 /* =========================================================
-   HERO SUBTEXT
+   HERO COPY
 ========================================================= */
 
 .hero-copy {
-    width: min(600px, 100%);
+    width:
+        min(620px, 100%);
 
-    margin: 38px auto 0;
+    margin:
+        36px auto
+        0;
 
-    color: rgba(198,202,224,.53);
+    color:
+        rgba(199,203,225,.50);
 
     font-size: 14px;
+
     line-height: 1.8;
 }
 
 .hero-meta {
-    margin-top: 22px;
-
     display: flex;
+
     justify-content: center;
     align-items: center;
+
     gap: 11px;
 
-    color: rgba(205,208,230,.32);
+    margin-top: 20px;
 
-    font-family: "DM Mono", monospace;
+    color:
+        rgba(200,204,225,.27);
 
-    font-size: 9px;
-    letter-spacing: .12em;
-    text-transform: uppercase;
+    font-family:
+        "DM Mono", monospace;
+
+    font-size: 8px;
+
+    letter-spacing: .15em;
 }
 
 .hero-meta i {
@@ -538,65 +636,11 @@ nav {
 
     border-radius: 50%;
 
-    background: #8c7aff;
+    background:
+        #8977ff;
 
     box-shadow:
-        0 0 12px rgba(140,122,255,.8);
-}
-
-
-/* =========================================================
-   SCROLL
-========================================================= */
-
-.scroll {
-    position: absolute;
-
-    left: 50%;
-    bottom: 30px;
-
-    transform: translateX(-50%);
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 9px;
-
-    color: rgba(255,255,255,.27);
-
-    font-family: "DM Mono", monospace;
-
-    font-size: 8px;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-}
-
-.scroll-line {
-    width: 1px;
-    height: 38px;
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(255,255,255,.45),
-            transparent
-        );
-
-    animation: scrollLine 2s ease-in-out infinite;
-}
-
-@keyframes scrollLine {
-
-    0%,100% {
-        opacity: .25;
-        transform: scaleY(.65);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scaleY(1);
-    }
-
+        0 0 12px rgba(137,119,255,.9);
 }
 
 
@@ -605,19 +649,25 @@ nav {
 ========================================================= */
 
 section {
-    width: min(1180px, calc(100% - 40px));
-    margin: auto;
+    width:
+        min(1180px, calc(100% - 40px));
+
+    margin:
+        0 auto;
 }
 
 .section {
-    padding: 145px 0;
+    padding:
+        145px 0;
 }
 
 .section-header {
     display: grid;
-    grid-template-columns: .8fr 1.2fr;
 
-    gap: 60px;
+    grid-template-columns:
+        .8fr 1.2fr;
+
+    gap: 65px;
 
     align-items: end;
 
@@ -625,37 +675,38 @@ section {
 }
 
 .eyebrow {
-    font-family: "DM Mono", monospace;
-
-    color: rgba(185,190,216,.36);
+    font-family:
+        "DM Mono", monospace;
 
     font-size: 9px;
 
-    letter-spacing: .2em;
+    letter-spacing: .20em;
 
     text-transform: uppercase;
+
+    color:
+        rgba(187,192,216,.34);
 }
 
 .section-title {
     margin-top: 13px;
 
-    font-family: "Syne", sans-serif;
+    font-family:
+        "Syne", sans-serif;
 
-    font-size: clamp(
-        42px,
-        6vw,
-        76px
-    );
+    font-size:
+        clamp(42px, 6vw, 75px);
 
     line-height: .9;
 
     letter-spacing: -.07em;
 }
 
-.section-description {
+.section-copy {
     max-width: 520px;
 
-    color: rgba(192,196,218,.48);
+    color:
+        rgba(190,195,217,.48);
 
     font-size: 14px;
 
@@ -669,9 +720,12 @@ section {
 
 .carousel-window {
     width: 100%;
+
     overflow: hidden;
 
-    padding: 10px 0 35px;
+    padding:
+        10px 0
+        35px;
 }
 
 .carousel-track {
@@ -679,27 +733,26 @@ section {
 
     gap: 20px;
 
-    will-change: transform;
+    will-change:
+        transform;
 }
 
-
-/* =========================================================
-   APP CARD
-========================================================= */
-
 .app-card {
-    position: relative;
-
-    flex: 0 0 340px;
+    flex:
+        0 0 340px;
 
     width: 340px;
+
     height: 450px;
 
     overflow: hidden;
 
+    position: relative;
+
     border-radius: 25px;
 
-    border: 1px solid rgba(255,255,255,.09);
+    border:
+        1px solid rgba(255,255,255,.09);
 
     background:
         linear-gradient(
@@ -709,7 +762,7 @@ section {
         );
 
     box-shadow:
-        0 30px 90px rgba(0,0,0,.32),
+        0 30px 90px rgba(0,0,0,.33),
         inset 0 1px 0 rgba(255,255,255,.055);
 
     transition:
@@ -719,20 +772,21 @@ section {
 }
 
 .app-card:hover {
-    transform: translateY(-7px);
+    transform:
+        translateY(-7px);
 
     border-color:
-        rgba(159,146,255,.28);
+        rgba(156,141,255,.27);
 
     box-shadow:
-        0 40px 110px rgba(0,0,0,.4),
-        0 0 50px rgba(108,88,255,.06),
+        0 40px 110px rgba(0,0,0,.42),
+        0 0 55px rgba(107,87,255,.06),
         inset 0 1px 0 rgba(255,255,255,.09);
 }
 
 
 /* =========================================================
-   APP VISUAL
+   APP VISUAL AREA
 ========================================================= */
 
 .app-visual {
@@ -745,236 +799,245 @@ section {
     border-bottom:
         1px solid rgba(255,255,255,.07);
 
-    background: #070912;
+    background:
+        #070912;
 }
-
-
-/* ambient light inside cards */
 
 .app-visual::before {
     content: "";
 
     position: absolute;
 
-    width: 230px;
-    height: 230px;
+    width: 260px;
+    height: 260px;
 
     left: 50%;
     top: 50%;
 
-    transform: translate(-50%,-50%);
+    transform:
+        translate(-50%,-50%);
 
     border-radius: 50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(110,90,255,.13),
+            rgba(111,91,255,.13),
             transparent 70%
         );
 
-    filter: blur(12px);
+    filter: blur(10px);
 }
 
 
 /* =========================================================
-   COSMIFLOW VISUAL
+   COSMIFLOW
 ========================================================= */
 
 .flow-ui {
     position: absolute;
 
-    inset: 28px;
+    inset: 35px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    gap: 13px;
+    gap: 12px;
 }
 
 .flow-node {
-    position: relative;
-
-    width: 66px;
+    width: 65px;
     height: 48px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     border:
-        1px solid rgba(146,132,255,.32);
+        1px solid rgba(140,122,255,.27);
 
     border-radius: 10px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(139,120,255,.14),
-            rgba(255,255,255,.035)
+            rgba(129,109,255,.15),
+            rgba(255,255,255,.025)
         );
 
     box-shadow:
         0 0 25px rgba(110,90,255,.08);
 
-    font-family: "DM Mono", monospace;
+    color:
+        rgba(239,238,255,.65);
+
+    font-family:
+        "DM Mono", monospace;
 
     font-size: 8px;
-
-    color: rgba(239,238,255,.65);
 }
 
-.flow-line {
-    width: 27px;
+.flow-node:nth-child(1) {
+    transform:
+        translateY(-20px);
+}
+
+.flow-node:nth-child(5) {
+    transform:
+        translateY(20px);
+}
+
+.flow-connector {
+    width: 25px;
     height: 1px;
 
     background:
         linear-gradient(
             90deg,
-            rgba(132,115,255,.2),
-            rgba(132,115,255,.7)
+            rgba(126,106,255,.2),
+            rgba(126,106,255,.75)
         );
 
     box-shadow:
-        0 0 10px rgba(132,115,255,.35);
-}
-
-.flow-node:nth-child(1) {
-    transform: translateY(-20px);
-}
-
-.flow-node:nth-child(5) {
-    transform: translateY(20px);
+        0 0 12px rgba(126,106,255,.4);
 }
 
 
 /* =========================================================
-   COSMIC LOGIN VISUAL
+   COSMIC LOGIN
 ========================================================= */
 
 .login-ui {
     position: absolute;
 
-    width: 190px;
+    width: 195px;
     height: 190px;
 
     left: 50%;
     top: 50%;
 
-    transform: translate(-50%,-50%);
+    transform:
+        translate(-50%,-50%);
 
     padding: 23px;
 
-    border-radius: 17px;
-
     border:
-        1px solid rgba(255,255,255,.11);
+        1px solid rgba(255,255,255,.10);
+
+    border-radius: 17px;
 
     background:
         rgba(255,255,255,.045);
 
     box-shadow:
-        0 25px 60px rgba(0,0,0,.35),
-        inset 0 1px 0 rgba(255,255,255,.07);
+        0 25px 70px rgba(0,0,0,.4),
+        inset 0 1px 0 rgba(255,255,255,.065);
 }
 
 .login-logo {
-    width: 30px;
-    height: 30px;
+    width: 31px;
+    height: 31px;
 
     border-radius: 9px;
-
-    margin-bottom: 17px;
 
     background:
         radial-gradient(
             circle at 35% 30%,
-            #e9e8ff,
-            #7667ff 48%,
-            #26203f
+            #eeeeff,
+            #7868ff 48%,
+            #292343
         );
 
     box-shadow:
-        0 0 22px rgba(123,103,255,.28);
+        0 0 24px rgba(120,100,255,.28);
+
+    margin-bottom: 17px;
 }
 
 .login-line {
+    height: 7px;
+
     width: 100%;
-    height: 8px;
 
     border-radius: 4px;
 
-    background: rgba(255,255,255,.075);
+    background:
+        rgba(255,255,255,.08);
 
-    margin-bottom: 9px;
+    margin-bottom: 8px;
 }
 
-.login-line.small {
-    width: 62%;
+.login-line.short {
+    width: 61%;
 }
 
 .login-field {
     height: 29px;
 
+    border:
+        1px solid rgba(255,255,255,.055);
+
     border-radius: 7px;
 
-    margin-top: 12px;
-
-    border:
-        1px solid rgba(255,255,255,.06);
-
     background:
-        rgba(255,255,255,.035);
+        rgba(255,255,255,.025);
+
+    margin-top: 10px;
 }
 
 .login-button {
-    height: 27px;
+    height: 28px;
 
     border-radius: 7px;
 
-    margin-top: 12px;
+    margin-top: 11px;
 
     background:
         linear-gradient(
             90deg,
-            rgba(125,106,255,.5),
-            rgba(93,139,255,.45)
+            rgba(126,106,255,.58),
+            rgba(83,132,255,.45)
         );
 }
 
 
 /* =========================================================
-   COSMICHAT VISUAL
+   COSMICHAT
 ========================================================= */
 
 .chat-ui {
     position: absolute;
 
-    inset: 28px;
+    inset: 30px;
 
     display: flex;
+
     flex-direction: column;
 
     justify-content: center;
 
-    gap: 10px;
+    gap: 9px;
 }
 
 .chat-message {
     max-width: 72%;
 
-    padding: 11px 13px;
+    padding:
+        10px 12px;
 
     border-radius: 13px;
 
     border:
-        1px solid rgba(255,255,255,.065);
+        1px solid rgba(255,255,255,.06);
 
     background:
-        rgba(255,255,255,.045);
+        rgba(255,255,255,.04);
 
-    color: rgba(225,227,246,.5);
+    color:
+        rgba(230,232,249,.53);
 
     font-size: 8px;
 
@@ -985,57 +1048,54 @@ section {
     align-self: flex-end;
 
     background:
-        linear-gradient(
-            135deg,
-            rgba(123,104,255,.17),
-            rgba(255,255,255,.035)
-        );
+        rgba(111,91,255,.12);
 
     border-color:
-        rgba(133,115,255,.16);
+        rgba(133,114,255,.14);
 }
 
 .chat-input {
     height: 31px;
 
-    border-radius: 9px;
-
-    margin-top: 7px;
+    margin-top: 6px;
 
     border:
-        1px solid rgba(255,255,255,.075);
+        1px solid rgba(255,255,255,.065);
+
+    border-radius: 9px;
 
     background:
-        rgba(255,255,255,.035);
+        rgba(255,255,255,.03);
 }
 
 
 /* =========================================================
-   COSMIMAIL VISUAL
+   COSMIMAIL
 ========================================================= */
 
 .mail-ui {
     position: absolute;
 
-    inset: 28px;
+    inset: 29px;
 
     display: grid;
 
-    grid-template-columns: 65px 1fr;
+    grid-template-columns:
+        68px 1fr;
 
     gap: 10px;
 }
 
 .mail-sidebar {
+    padding: 11px 8px;
+
     border:
-        1px solid rgba(255,255,255,.065);
+        1px solid rgba(255,255,255,.06);
 
     border-radius: 12px;
 
     background:
-        rgba(255,255,255,.03);
-
-    padding: 12px 8px;
+        rgba(255,255,255,.025);
 }
 
 .mail-sidebar-line {
@@ -1051,71 +1111,74 @@ section {
 
 .mail-list {
     display: flex;
+
     flex-direction: column;
 
     gap: 8px;
 }
 
 .mail-item {
-    height: 42px;
+    height: 43px;
+
+    padding:
+        9px 12px;
 
     display: flex;
+
     flex-direction: column;
 
     justify-content: center;
 
     gap: 6px;
 
-    padding: 0 12px;
-
-    border-radius: 9px;
-
     border:
         1px solid rgba(255,255,255,.055);
 
+    border-radius: 9px;
+
     background:
-        rgba(255,255,255,.032);
+        rgba(255,255,255,.028);
 }
 
 .mail-item.active {
-    border-color:
-        rgba(134,117,255,.17);
-
     background:
-        rgba(112,94,255,.08);
+        rgba(112,93,255,.08);
+
+    border-color:
+        rgba(133,115,255,.17);
 }
 
 .mail-item span {
+    width: 58%;
     height: 5px;
-
-    width: 55%;
 
     border-radius: 3px;
 
     background:
-        rgba(255,255,255,.12);
+        rgba(255,255,255,.11);
 }
 
 .mail-item span:last-child {
     width: 78%;
 
     background:
-        rgba(255,255,255,.055);
+        rgba(255,255,255,.05);
 }
 
 
 /* =========================================================
-   COSMIMEET VISUAL
+   COSMIMEET
 ========================================================= */
 
 .meet-ui {
     position: absolute;
 
-    inset: 28px;
+    inset: 29px;
 
     display: grid;
 
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns:
+        repeat(2,1fr);
 
     gap: 9px;
 }
@@ -1123,18 +1186,18 @@ section {
 .meet-person {
     position: relative;
 
-    border-radius: 12px;
-
     overflow: hidden;
 
+    border-radius: 12px;
+
     border:
-        1px solid rgba(255,255,255,.07);
+        1px solid rgba(255,255,255,.065);
 
     background:
         radial-gradient(
             circle at 50% 35%,
-            rgba(124,111,255,.16),
-            rgba(255,255,255,.025) 48%
+            rgba(125,109,255,.16),
+            rgba(255,255,255,.025) 55%
         );
 }
 
@@ -1144,18 +1207,19 @@ section {
     width: 30px;
     height: 30px;
 
-    border-radius: 50%;
-
     left: 50%;
-    top: 35%;
+    top: 34%;
 
-    transform: translate(-50%,-50%);
+    transform:
+        translate(-50%,-50%);
+
+    border-radius: 50%;
 
     background:
         radial-gradient(
             circle at 35% 30%,
-            rgba(240,240,255,.85),
-            rgba(104,96,170,.6) 55%,
+            rgba(240,240,255,.9),
+            rgba(103,95,170,.6) 55%,
             rgba(30,30,55,.9)
         );
 }
@@ -1163,47 +1227,50 @@ section {
 .meet-body {
     position: absolute;
 
-    width: 62px;
+    width: 65px;
     height: 34px;
 
-    border-radius: 30px 30px 8px 8px;
-
     left: 50%;
-    top: 63%;
+    top: 64%;
 
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
+
+    border-radius:
+        30px 30px 8px 8px;
 
     background:
-        rgba(112,101,195,.4);
+        rgba(111,101,192,.38);
 }
 
 
 /* =========================================================
-   COSMIDRIVE VISUAL
+   COSMIDRIVE
 ========================================================= */
 
 .drive-ui {
     position: absolute;
 
-    inset: 28px;
+    inset: 29px;
 
     display: grid;
 
-    grid-template-columns: 68px 1fr;
+    grid-template-columns:
+        68px 1fr;
 
-    gap: 11px;
+    gap: 10px;
 }
 
 .drive-sidebar {
     padding: 11px 8px;
 
+    border:
+        1px solid rgba(255,255,255,.06);
+
     border-radius: 12px;
 
-    border:
-        1px solid rgba(255,255,255,.065);
-
     background:
-        rgba(255,255,255,.03);
+        rgba(255,255,255,.025);
 }
 
 .drive-folder {
@@ -1220,74 +1287,72 @@ section {
 .drive-files {
     display: grid;
 
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns:
+        repeat(2,1fr);
 
-    gap: 9px;
+    gap: 8px;
 }
 
 .drive-file {
-    height: 74px;
+    height: 76px;
+
+    padding: 11px;
+
+    border:
+        1px solid rgba(255,255,255,.055);
 
     border-radius: 10px;
 
-    border:
-        1px solid rgba(255,255,255,.06);
-
     background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.055),
-            rgba(255,255,255,.025)
-        );
-
-    padding: 12px;
+        rgba(255,255,255,.03);
 }
 
 .file-icon {
-    width: 22px;
-    height: 26px;
+    width: 21px;
+    height: 25px;
+
+    border:
+        1px solid rgba(136,117,255,.20);
 
     border-radius: 4px;
 
-    border:
-        1px solid rgba(144,127,255,.2);
-
     background:
-        rgba(121,103,255,.1);
+        rgba(119,99,255,.09);
 
     margin-bottom: 10px;
 }
 
 .file-line {
-    height: 5px;
-
     width: 70%;
+    height: 5px;
 
     border-radius: 3px;
 
     background:
-        rgba(255,255,255,.07);
+        rgba(255,255,255,.065);
 }
 
 
 /* =========================================================
-   COSMINOTES VISUAL
+   COSMINOTES
 ========================================================= */
 
 .notes-ui {
     position: absolute;
 
-    inset: 28px;
+    inset: 29px;
 
     display: grid;
 
-    grid-template-columns: 76px 1fr;
+    grid-template-columns:
+        75px 1fr;
 
-    gap: 11px;
+    gap: 10px;
 }
 
 .notes-list {
     display: flex;
+
     flex-direction: column;
 
     gap: 8px;
@@ -1296,29 +1361,28 @@ section {
 .note-item {
     height: 44px;
 
-    border-radius: 9px;
+    padding: 9px;
 
     border:
         1px solid rgba(255,255,255,.055);
 
-    background:
-        rgba(255,255,255,.035);
+    border-radius: 9px;
 
-    padding: 10px;
+    background:
+        rgba(255,255,255,.028);
 }
 
 .note-item.active {
     background:
-        rgba(115,96,255,.1);
+        rgba(112,92,255,.09);
 
     border-color:
-        rgba(132,113,255,.18);
+        rgba(134,115,255,.17);
 }
 
 .note-line {
+    width: 72%;
     height: 5px;
-
-    width: 70%;
 
     border-radius: 3px;
 
@@ -1329,19 +1393,19 @@ section {
 }
 
 .note-line.short {
-    width: 45%;
+    width: 46%;
 }
 
 .note-editor {
-    border-radius: 12px;
+    padding: 18px;
 
     border:
-        1px solid rgba(255,255,255,.065);
+        1px solid rgba(255,255,255,.06);
+
+    border-radius: 12px;
 
     background:
-        rgba(255,255,255,.03);
-
-    padding: 18px;
+        rgba(255,255,255,.025);
 }
 
 .note-heading {
@@ -1353,22 +1417,23 @@ section {
     background:
         rgba(255,255,255,.12);
 
-    margin-bottom: 17px;
+    margin-bottom: 18px;
 }
 
 .note-text {
+    width: 100%;
     height: 5px;
 
     border-radius: 3px;
 
     background:
-        rgba(255,255,255,.065);
+        rgba(255,255,255,.06);
 
     margin-bottom: 9px;
 }
 
 .note-text.mid {
-    width: 85%;
+    width: 84%;
 }
 
 .note-text.short {
@@ -1377,21 +1442,24 @@ section {
 
 
 /* =========================================================
-   CARD INFO
+   CARD TEXT
 ========================================================= */
 
 .card-info {
-    padding: 22px 23px;
+    padding:
+        22px 23px;
 }
 
 .card-top {
     display: flex;
-    justify-content: space-between;
+
     align-items: center;
+    justify-content: space-between;
 }
 
 .card-name {
-    font-family: "Space Grotesk", sans-serif;
+    font-family:
+        "Space Grotesk", sans-serif;
 
     font-size: 19px;
 
@@ -1405,24 +1473,25 @@ section {
     height: 34px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
-
-    border-radius: 50%;
 
     border:
         1px solid rgba(255,255,255,.08);
 
-    color: rgba(255,255,255,.58);
+    border-radius: 50%;
+
+    color:
+        rgba(255,255,255,.58);
 
     transition:
-        transform .25s ease,
-        background .25s ease,
-        color .25s ease;
+        .25s ease;
 }
 
 .app-card:hover .card-arrow {
-    transform: translate(2px,-2px);
+    transform:
+        translate(2px,-2px);
 
     color: white;
 
@@ -1433,7 +1502,8 @@ section {
 .card-description {
     margin-top: 10px;
 
-    color: rgba(190,194,216,.5);
+    color:
+        rgba(190,194,216,.49);
 
     font-size: 12px;
 
@@ -1445,9 +1515,11 @@ section {
 
     margin-top: 15px;
 
-    font-family: "DM Mono", monospace;
+    font-family:
+        "DM Mono", monospace;
 
-    color: rgba(157,163,191,.35);
+    color:
+        rgba(157,163,191,.35);
 
     font-size: 8px;
 
@@ -1463,24 +1535,28 @@ section {
 
 .carousel-controls {
     display: flex;
-    justify-content: space-between;
+
     align-items: center;
+    justify-content: space-between;
 
     margin-top: 5px;
 }
 
 .carousel-count {
-    color: rgba(170,175,201,.28);
-
-    font-family: "DM Mono", monospace;
+    font-family:
+        "DM Mono", monospace;
 
     font-size: 9px;
 
     letter-spacing: .15em;
+
+    color:
+        rgba(173,178,204,.28);
 }
 
 .carousel-buttons {
     display: flex;
+
     gap: 8px;
 }
 
@@ -1488,10 +1564,15 @@ section {
     width: 49px;
     height: 49px;
 
-    border-radius: 50%;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
 
     border:
         1px solid rgba(255,255,255,.11);
+
+    border-radius: 50%;
 
     background:
         rgba(255,255,255,.045);
@@ -1509,17 +1590,19 @@ section {
 }
 
 .carousel-button:hover {
-    transform: translateY(-3px);
+    transform:
+        translateY(-3px);
 
     background:
-        rgba(255,255,255,.1);
+        rgba(255,255,255,.10);
 
     border-color:
         rgba(255,255,255,.22);
 }
 
 .carousel-button:active {
-    transform: scale(.92);
+    transform:
+        scale(.92);
 }
 
 
@@ -1530,7 +1613,8 @@ section {
 .start-grid {
     display: grid;
 
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns:
+        repeat(2,1fr);
 
     gap: 18px;
 }
@@ -1540,14 +1624,14 @@ section {
 
     min-height: 420px;
 
-    padding: 35px;
+    padding: 36px;
 
     overflow: hidden;
 
-    border-radius: 25px;
-
     border:
         1px solid rgba(255,255,255,.08);
+
+    border-radius: 25px;
 
     background:
         linear-gradient(
@@ -1557,7 +1641,7 @@ section {
         );
 }
 
-.start-card::before {
+.start-card::after {
     content: "";
 
     position: absolute;
@@ -1573,27 +1657,31 @@ section {
     background:
         radial-gradient(
             circle,
-            rgba(111,91,255,.15),
+            rgba(110,90,255,.16),
             transparent 70%
         );
 
-    filter: blur(25px);
+    filter:
+        blur(25px);
 }
 
 .start-index {
-    font-family: "DM Mono", monospace;
+    font-family:
+        "DM Mono", monospace;
 
-    color: rgba(255,255,255,.17);
+    color:
+        rgba(255,255,255,.20);
 
-    font-size: 12px;
+    font-size: 9px;
 
-    letter-spacing: .15em;
+    letter-spacing: .18em;
 }
 
 .start-card h3 {
     margin-top: 25px;
 
-    font-family: "Syne", sans-serif;
+    font-family:
+        "Syne", sans-serif;
 
     font-size: 28px;
 
@@ -1610,11 +1698,13 @@ section {
 
 .step {
     display: flex;
+
     align-items: center;
 
     gap: 12px;
 
-    color: rgba(193,197,218,.53);
+    color:
+        rgba(193,197,218,.53);
 
     font-size: 13px;
 }
@@ -1626,22 +1716,25 @@ section {
     height: 26px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
-
-    border-radius: 8px;
 
     border:
         1px solid rgba(255,255,255,.075);
 
+    border-radius: 8px;
+
     background:
         rgba(255,255,255,.035);
 
-    color: rgba(255,255,255,.65);
+    color:
+        rgba(255,255,255,.66);
 
-    font-family: "DM Mono", monospace;
+    font-family:
+        "DM Mono", monospace;
 
-    font-size: 9px;
+    font-size: 8px;
 }
 
 
@@ -1654,56 +1747,55 @@ section {
 
     display: grid;
 
-    grid-template-columns: 180px 1fr;
+    grid-template-columns:
+        230px 1fr;
 
-    gap: 60px;
+    gap: 55px;
 
     align-items: center;
 
     padding: 58px;
 
-    border-radius: 28px;
+    overflow: hidden;
 
     border:
         1px solid rgba(255,255,255,.085);
 
+    border-radius: 28px;
+
     background:
         radial-gradient(
-            circle at 10% 50%,
-            rgba(110,91,255,.10),
+            circle at 8% 50%,
+            rgba(106,87,255,.10),
             transparent 35%
         ),
         rgba(255,255,255,.025);
-
-    overflow: hidden;
 }
 
+.founder-wordmark {
+    font-family:
+        "Syne", sans-serif;
 
-/* NO SO BUBBLE.
-   This is only typography. */
-
-.founder-mark {
-    font-family: "Syne", sans-serif;
-
-    font-size: 70px;
+    font-size: 42px;
 
     font-weight: 800;
 
-    letter-spacing: -.09em;
+    line-height: .9;
 
-    color: rgba(255,255,255,.11);
+    letter-spacing: -.075em;
+
+    color:
+        rgba(255,255,255,.10);
 
     text-align: center;
 }
 
 .founder-name {
-    font-family: "Syne", sans-serif;
+    font-family:
+        "Syne", sans-serif;
 
-    font-size: clamp(
-        36px,
-        5vw,
-        62px
-    );
+    font-size:
+        clamp(37px,5vw,61px);
 
     line-height: .9;
 
@@ -1713,23 +1805,26 @@ section {
 .founder-role {
     margin-top: 11px;
 
-    font-family: "DM Mono", monospace;
-
-    color: rgba(180,185,210,.38);
+    font-family:
+        "DM Mono", monospace;
 
     font-size: 9px;
 
-    letter-spacing: .16em;
+    letter-spacing: .17em;
 
     text-transform: uppercase;
+
+    color:
+        rgba(180,185,210,.38);
 }
 
 .founder-copy {
-    max-width: 720px;
+    max-width: 730px;
 
     margin-top: 23px;
 
-    color: rgba(190,195,217,.53);
+    color:
+        rgba(190,195,217,.53);
 
     font-size: 13px;
 
@@ -1738,78 +1833,147 @@ section {
 
 
 /* =========================================================
-   TIMELINE
+   TIMELINE — NEW, ROBUST DESIGN
 ========================================================= */
 
 .timeline {
     position: relative;
 
-    padding-left: 35px;
+    display: grid;
+
+    gap: 0;
 }
 
-.timeline-line {
+
+/*
+   One continuous central line.
+*/
+
+.timeline::before {
+    content: "";
+
     position: absolute;
 
-    left: 5px;
-    top: 3px;
-    bottom: 3px;
+    left: 50%;
+
+    top: 0;
+    bottom: 0;
 
     width: 1px;
+
+    transform:
+        translateX(-50%);
 
     background:
         linear-gradient(
             to bottom,
-            rgba(255,255,255,.15),
-            rgba(255,255,255,.025)
+            transparent,
+            rgba(255,255,255,.13) 5%,
+            rgba(255,255,255,.13) 95%,
+            transparent
         );
 }
+
+
+/*
+   Every timeline entry occupies one full row.
+*/
 
 .timeline-item {
     position: relative;
 
+    display: grid;
+
+    grid-template-columns:
+        1fr 70px 1fr;
+
+    min-height: 170px;
+
+    align-items: center;
+}
+
+
+/*
+   Left-side entries.
+*/
+
+.timeline-item:nth-child(odd) .timeline-content {
+    grid-column: 1;
+
+    text-align: right;
+
+    padding-right: 35px;
+}
+
+
+/*
+   Right-side entries.
+*/
+
+.timeline-item:nth-child(even) .timeline-content {
+    grid-column: 3;
+
+    text-align: left;
+
     padding-left: 35px;
-
-    padding-bottom: 55px;
 }
 
-.timeline-item:last-child {
-    padding-bottom: 0;
-}
 
-.timeline-dot {
-    position: absolute;
+/*
+   The centre marker.
+*/
 
-    left: -1px;
-    top: 3px;
+.timeline-marker {
+    grid-column: 2;
+
+    grid-row: 1;
+
+    justify-self: center;
 
     width: 13px;
     height: 13px;
 
     border-radius: 50%;
 
-    background: #dcd9ff;
+    background:
+        #dedbff;
 
     box-shadow:
-        0 0 0 5px rgba(128,110,255,.06),
-        0 0 22px rgba(128,110,255,.5);
+        0 0 0 6px rgba(126,106,255,.055),
+        0 0 25px rgba(126,106,255,.48);
+
+    z-index: 2;
 }
 
-.timeline-date {
-    font-family: "DM Mono", monospace;
 
-    color: rgba(165,171,199,.31);
+/*
+   Date.
+*/
+
+.timeline-date {
+    font-family:
+        "DM Mono", monospace;
 
     font-size: 9px;
 
     letter-spacing: .17em;
 
     text-transform: uppercase;
+
+    color:
+        rgba(161,167,195,.32);
 }
+
+
+/*
+   Heading.
+*/
 
 .timeline-title {
     margin-top: 8px;
 
-    font-family: "Space Grotesk", sans-serif;
+    font-family:
+        "Space Grotesk", sans-serif;
 
     font-size: 24px;
 
@@ -1818,12 +1982,18 @@ section {
     letter-spacing: -.045em;
 }
 
-.timeline-copy {
-    max-width: 690px;
+
+/*
+   Description.
+*/
+
+.timeline-text {
+    max-width: 480px;
 
     margin-top: 9px;
 
-    color: rgba(186,191,213,.49);
+    color:
+        rgba(185,190,213,.49);
 
     font-size: 13px;
 
@@ -1836,9 +2006,11 @@ section {
 ========================================================= */
 
 footer {
-    width: min(1180px, calc(100% - 40px));
+    width:
+        min(1180px, calc(100% - 40px));
 
-    margin: auto;
+    margin:
+        auto;
 
     padding:
         50px 0
@@ -1848,11 +2020,16 @@ footer {
         1px solid rgba(255,255,255,.07);
 
     display: flex;
+
     justify-content: space-between;
 
-    color: rgba(161,167,192,.3);
+    gap: 20px;
 
-    font-family: "DM Mono", monospace;
+    color:
+        rgba(161,167,192,.30);
+
+    font-family:
+        "DM Mono", monospace;
 
     font-size: 9px;
 
@@ -1860,24 +2037,25 @@ footer {
 }
 
 .footer-brand {
-    color: rgba(255,255,255,.5);
-
-    font-family: "Syne", sans-serif;
+    font-family:
+        "Syne", sans-serif;
 
     font-weight: 700;
 
-    letter-spacing: -.02em;
+    color:
+        rgba(255,255,255,.5);
 }
 
 
 /* =========================================================
-   REVEALS
+   REVEAL
 ========================================================= */
 
 .reveal {
     opacity: 0;
 
-    transform: translateY(35px);
+    transform:
+        translateY(30px);
 
     transition:
         opacity .9s ease,
@@ -1887,7 +2065,8 @@ footer {
 .reveal.visible {
     opacity: 1;
 
-    transform: translateY(0);
+    transform:
+        translateY(0);
 }
 
 
@@ -1899,6 +2078,7 @@ footer {
 
     .section-header {
         grid-template-columns: 1fr;
+
         gap: 25px;
     }
 
@@ -1908,9 +2088,11 @@ footer {
 
     .founder-card {
         grid-template-columns: 1fr;
+
         text-align: center;
 
-        padding: 45px 30px;
+        padding:
+            45px 30px;
     }
 
     .founder-copy {
@@ -1920,20 +2102,57 @@ footer {
 
     .app-card {
         flex-basis: 310px;
+
         width: 310px;
+    }
+
+    /*
+       Timeline becomes a single-side timeline.
+    */
+
+    .timeline::before {
+        left: 7px;
+
+        transform: none;
+    }
+
+    .timeline-item {
+        display: block;
+
+        min-height: 0;
+
+        padding:
+            0 0 45px
+            35px;
+    }
+
+    .timeline-marker {
+        position: absolute;
+
+        left: 1px;
+        top: 3px;
+
+        width: 13px;
+        height: 13px;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content,
+    .timeline-item:nth-child(even) .timeline-content {
+        padding: 0;
+
+        text-align: left;
+    }
+
+    .timeline-text {
+        max-width: 600px;
     }
 
 }
 
 
-/*
-   On smaller screens the title is allowed to scale down,
-   but it still remains a TWO-LINE title.
-*/
-
 @media (max-width: 650px) {
 
-    .nav {
+    .nav-shell {
         top: 10px;
 
         width:
@@ -1943,7 +2162,8 @@ footer {
     nav {
         height: 58px;
 
-        padding: 0 16px;
+        padding:
+            0 16px;
     }
 
     .nav-links {
@@ -1958,15 +2178,16 @@ footer {
         padding-top: 120px;
     }
 
+    /*
+       Still two lines.
+       Still fully visible.
+    */
+
     .hero-title {
         font-size:
-            clamp(
-                50px,
-                15vw,
-                90px
-            );
+            clamp(48px, 14vw, 82px);
 
-        letter-spacing: -.08em;
+        letter-spacing: -.075em;
     }
 
     .hero-copy {
@@ -1978,12 +2199,15 @@ footer {
     }
 
     .section {
-        padding: 100px 0;
+        padding:
+            105px 0;
     }
 
     .app-card {
         flex-basis: 285px;
+
         width: 285px;
+
         height: 430px;
     }
 
@@ -2001,30 +2225,43 @@ footer {
 
     footer {
         flex-direction: column;
-        gap: 12px;
     }
 
 }
 
 
-/*
-   VERY SMALL SCREENS:
-   The title remains intact instead of clipping.
-*/
+@media (max-width: 430px) {
 
-@media (max-width: 420px) {
-
-    .hero-title {
-        font-size: 47px;
-        letter-spacing: -.075em;
-    }
-
-    .brand-name {
+    .brand {
         font-size: 25px;
     }
 
-    .founder-mark {
-        font-size: 55px;
+    .hero-title {
+        font-size: 45px;
+
+        letter-spacing: -.068em;
+    }
+
+    .section-title {
+        font-size: 43px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
     }
 
 }
@@ -2037,33 +2274,39 @@ footer {
 
 
 <!-- =========================================================
-     AMBIENT BACKGROUND
+     BACKGROUND
 ========================================================= -->
 
-<div class="ambient">
+<div class="background">
 
-    <div class="star-layer"></div>
+    <div class="stars"></div>
 
-    <div class="aurora one"></div>
-    <div class="aurora two"></div>
-    <div class="aurora three"></div>
+    <div class="light light-a"></div>
+    <div class="light light-b"></div>
+    <div class="light light-c"></div>
 
 </div>
 
 <div class="grain"></div>
 
-<div class="cursor-light" id="cursorLight"></div>
+<div
+    class="cursor-light"
+    id="cursorLight"
+></div>
 
 
 <!-- =========================================================
      NAVIGATION
 ========================================================= -->
 
-<div class="nav">
+<div class="nav-shell">
 
     <nav>
 
-        <a href="#top" class="nav-brand">
+        <a
+            href="#top"
+            class="nav-brand"
+        >
             COSMIWAY <span>LABS</span>
         </a>
 
@@ -2102,26 +2345,21 @@ footer {
 
     <div class="hero-inner">
 
-
-        <!-- REAL BRAND NAME -->
-
-        <div class="brand-name">
+        <div class="brand">
             COSMIWAY LABS
         </div>
 
 
-        <div class="hero-rule"></div>
+        <div class="hero-divider"></div>
 
-
-        <!-- MAIN STATEMENT -->
 
         <h1 class="hero-title">
 
-            <span class="line">
+            <span class="explore">
                 EXPLORE
             </span>
 
-            <span class="line">
+            <span class="cosmos">
                 THE COSMOS
             </span>
 
@@ -2151,15 +2389,6 @@ footer {
 
     </div>
 
-
-    <div class="scroll">
-
-        SCROLL
-
-        <div class="scroll-line"></div>
-
-    </div>
-
 </section>
 
 
@@ -2167,8 +2396,10 @@ footer {
      TOOLS
 ========================================================= -->
 
-<section class="section reveal" id="tools">
-
+<section
+    class="section reveal"
+    id="tools"
+>
 
     <div class="section-header">
 
@@ -2186,10 +2417,10 @@ footer {
         </div>
 
 
-        <p class="section-description">
+        <p class="section-copy">
             Explore the current Cosmiway collection.
-            Each project has its own purpose, interface
-            and place in the ecosystem.
+            Each project has its own purpose and interface,
+            with direct access from its card.
         </p>
 
     </div>
@@ -2197,7 +2428,10 @@ footer {
 
     <div class="carousel-window">
 
-        <div class="carousel-track" id="carouselTrack">
+        <div
+            class="carousel-track"
+            id="carouselTrack"
+        >
 
 
             <!-- =================================================
@@ -2220,13 +2454,13 @@ footer {
                                 START
                             </div>
 
-                            <div class="flow-line"></div>
+                            <div class="flow-connector"></div>
 
                             <div class="flow-node">
                                 TASK
                             </div>
 
-                            <div class="flow-line"></div>
+                            <div class="flow-connector"></div>
 
                             <div class="flow-node">
                                 DONE
@@ -2287,7 +2521,7 @@ footer {
 
                             <div class="login-line"></div>
 
-                            <div class="login-line small"></div>
+                            <div class="login-line short"></div>
 
                             <div class="login-field"></div>
 
@@ -2315,7 +2549,7 @@ footer {
                         </div>
 
                         <p class="card-description">
-                            Your entry point for creating an account
+                            The entry point for creating an account
                             and signing into the ecosystem.
                         </p>
 
@@ -2423,6 +2657,7 @@ footer {
                                 <div class="mail-sidebar-line"></div>
 
                             </div>
+
 
                             <div class="mail-list">
 
@@ -2674,23 +2909,31 @@ footer {
                             <div class="notes-list">
 
                                 <div class="note-item active">
+
                                     <div class="note-line"></div>
                                     <div class="note-line short"></div>
+
                                 </div>
 
                                 <div class="note-item">
+
                                     <div class="note-line"></div>
                                     <div class="note-line short"></div>
+
                                 </div>
 
                                 <div class="note-item">
+
                                     <div class="note-line"></div>
                                     <div class="note-line short"></div>
+
                                 </div>
 
                                 <div class="note-item">
+
                                     <div class="note-line"></div>
                                     <div class="note-line short"></div>
+
                                 </div>
 
                             </div>
@@ -2751,9 +2994,15 @@ footer {
     <div class="carousel-controls">
 
         <div class="carousel-count">
-            <span id="currentNumber">01</span>
+
+            <span id="currentNumber">
+                01
+            </span>
+
             &nbsp;/&nbsp;
-            <span>07</span>
+
+            07
+
         </div>
 
 
@@ -2786,7 +3035,10 @@ footer {
      GET STARTED
 ========================================================= -->
 
-<section class="section reveal" id="start">
+<section
+    class="section reveal"
+    id="start"
+>
 
     <div class="section-header">
 
@@ -2803,10 +3055,11 @@ footer {
 
         </div>
 
-        <p class="section-description">
+
+        <p class="section-copy">
             New to Cosmiway? Start with Cosmic Login.
-            Once you're signed in, return to the portal
-            and explore the tools.
+            Once your account is ready, return to the
+            portal and explore the tools.
         </p>
 
     </div>
@@ -2824,6 +3077,7 @@ footer {
             <h3>
                 Create your Cosmic ID
             </h3>
+
 
             <div class="steps">
 
@@ -2877,6 +3131,7 @@ footer {
                 Already signed in?
             </h3>
 
+
             <div class="steps">
 
                 <div class="step">
@@ -2918,7 +3173,10 @@ footer {
      FOUNDER
 ========================================================= -->
 
-<section class="section reveal" id="founder">
+<section
+    class="section reveal"
+    id="founder"
+>
 
     <div class="section-header">
 
@@ -2940,7 +3198,8 @@ footer {
 
     <div class="founder-card">
 
-        <div class="founder-mark">
+
+        <div class="founder-wordmark">
             COSMIWAY
         </div>
 
@@ -2979,7 +3238,10 @@ footer {
      TIMELINE
 ========================================================= -->
 
-<section class="section reveal" id="timeline">
+<section
+    class="section reveal"
+    id="timeline"
+>
 
     <div class="section-header">
 
@@ -2996,9 +3258,10 @@ footer {
 
         </div>
 
-        <p class="section-description">
-            The Cosmiway story is still being written.
-            Here's the progression so far.
+
+        <p class="section-copy">
+            From the first spark to the growing collection of
+            projects, the Cosmiway story is still unfolding.
         </p>
 
     </div>
@@ -3006,182 +3269,237 @@ footer {
 
     <div class="timeline">
 
-        <div class="timeline-line"></div>
 
+        <!-- JANUARY -->
 
         <div class="timeline-item">
 
-            <div class="timeline-dot"></div>
+            <div class="timeline-content">
 
-            <div class="timeline-date">
-                January 2026
+                <div class="timeline-date">
+                    January 2026
+                </div>
+
+                <h3 class="timeline-title">
+                    The Spark
+                </h3>
+
+                <p class="timeline-text">
+                    The idea behind Cosmiway begins taking shape.
+                </p>
+
             </div>
 
-            <h3 class="timeline-title">
-                The Spark
-            </h3>
-
-            <p class="timeline-copy">
-                The idea behind Cosmiway begins taking shape.
-            </p>
+            <div class="timeline-marker"></div>
 
         </div>
 
 
+        <!-- FEBRUARY -->
+
         <div class="timeline-item">
 
-            <div class="timeline-dot"></div>
+            <div class="timeline-marker"></div>
 
-            <div class="timeline-date">
-                February 2026
+            <div class="timeline-content">
+
+                <div class="timeline-date">
+                    February 2026
+                </div>
+
+                <h3 class="timeline-title">
+                    Starscape
+                </h3>
+
+                <p class="timeline-text">
+                    The visual identity and wider direction of
+                    the ecosystem begin developing.
+                </p>
+
             </div>
-
-            <h3 class="timeline-title">
-                Starscape
-            </h3>
-
-            <p class="timeline-copy">
-                The visual identity and wider direction of the
-                ecosystem begin developing.
-            </p>
 
         </div>
 
 
+        <!-- MARCH -->
+
         <div class="timeline-item">
 
-            <div class="timeline-dot"></div>
+            <div class="timeline-content">
 
-            <div class="timeline-date">
-                March 2026
+                <div class="timeline-date">
+                    March 2026
+                </div>
+
+                <h3 class="timeline-title">
+                    Cosmiway Evolution
+                </h3>
+
+                <p class="timeline-text">
+                    Individual projects begin becoming part of
+                    a broader ecosystem.
+                </p>
+
             </div>
 
-            <h3 class="timeline-title">
-                Cosmiway Evolution
-            </h3>
-
-            <p class="timeline-copy">
-                Individual projects begin becoming part of a
-                broader ecosystem.
-            </p>
+            <div class="timeline-marker"></div>
 
         </div>
 
 
+        <!-- APRIL -->
+
         <div class="timeline-item">
 
-            <div class="timeline-dot"></div>
+            <div class="timeline-marker"></div>
 
-            <div class="timeline-date">
-                April 2026
+            <div class="timeline-content">
+
+                <div class="timeline-date">
+                    April 2026
+                </div>
+
+                <h3 class="timeline-title">
+                    More tools take shape
+                </h3>
+
+                <p class="timeline-text">
+                    New ideas begin turning into additional
+                    digital tools.
+                </p>
+
             </div>
-
-            <h3 class="timeline-title">
-                More tools take shape
-            </h3>
-
-            <p class="timeline-copy">
-                New ideas begin turning into additional digital tools.
-            </p>
 
         </div>
 
 
+        <!-- MAY -->
+
         <div class="timeline-item">
 
-            <div class="timeline-dot"></div>
+            <div class="timeline-content">
 
-            <div class="timeline-date">
-                May 2026
+                <div class="timeline-date">
+                    May 2026
+                </div>
+
+                <h3 class="timeline-title">
+                    The ecosystem grows
+                </h3>
+
+                <p class="timeline-text">
+                    More utility, communication and productivity
+                    projects expand the collection.
+                </p>
+
             </div>
 
-            <h3 class="timeline-title">
-                The ecosystem grows
-            </h3>
-
-            <p class="timeline-copy">
-                More utility, communication and productivity projects
-                expand the collection.
-            </p>
+            <div class="timeline-marker"></div>
 
         </div>
 
 
+        <!-- JUNE -->
+
         <div class="timeline-item">
 
-            <div class="timeline-dot"></div>
+            <div class="timeline-marker"></div>
 
-            <div class="timeline-date">
-                June 2026
+            <div class="timeline-content">
+
+                <div class="timeline-date">
+                    June 2026
+                </div>
+
+                <h3 class="timeline-title">
+                    The portal takes shape
+                </h3>
+
+                <p class="timeline-text">
+                    The growing collection begins coming together
+                    around a central experience.
+                </p>
+
             </div>
-
-            <h3 class="timeline-title">
-                The portal takes shape
-            </h3>
-
-            <p class="timeline-copy">
-                The growing collection begins coming together around
-                a central experience.
-            </p>
 
         </div>
 
 
+        <!-- JULY -->
+
         <div class="timeline-item">
 
-            <div class="timeline-dot"></div>
+            <div class="timeline-content">
 
-            <div class="timeline-date">
-                July 2026
+                <div class="timeline-date">
+                    July 2026
+                </div>
+
+                <h3 class="timeline-title">
+                    Connecting the pieces
+                </h3>
+
+                <p class="timeline-text">
+                    More Cosmiway projects come together into
+                    a more unified ecosystem.
+                </p>
+
             </div>
 
-            <h3 class="timeline-title">
-                Connecting the pieces
-            </h3>
-
-            <p class="timeline-copy">
-                More Cosmiway projects come together into a more
-                unified ecosystem.
-            </p>
+            <div class="timeline-marker"></div>
 
         </div>
 
 
+        <!-- AUGUST -->
+
         <div class="timeline-item">
 
-            <div class="timeline-dot"></div>
+            <div class="timeline-marker"></div>
 
-            <div class="timeline-date">
-                August 2026
+            <div class="timeline-content">
+
+                <div class="timeline-date">
+                    August 2026
+                </div>
+
+                <h3 class="timeline-title">
+                    The Cosmos Expands
+                </h3>
+
+                <p class="timeline-text">
+                    The collection continues growing, bringing
+                    more tools and a stronger portal experience
+                    together.
+                </p>
+
             </div>
-
-            <h3 class="timeline-title">
-                The Cosmos Expands
-            </h3>
-
-            <p class="timeline-copy">
-                The collection continues growing, bringing more
-                tools and a stronger portal experience together.
-            </p>
 
         </div>
 
 
+        <!-- SEPTEMBER -->
+
         <div class="timeline-item">
 
-            <div class="timeline-dot"></div>
+            <div class="timeline-content">
 
-            <div class="timeline-date">
-                September 2026
+                <div class="timeline-date">
+                    September 2026
+                </div>
+
+                <h3 class="timeline-title">
+                    Still building
+                </h3>
+
+                <p class="timeline-text">
+                    The next part of the Cosmiway story is
+                    already underway.
+                </p>
+
             </div>
 
-            <h3 class="timeline-title">
-                Still building
-            </h3>
-
-            <p class="timeline-copy">
-                The next part of the Cosmiway story is already underway.
-            </p>
+            <div class="timeline-marker"></div>
 
         </div>
 
@@ -3213,11 +3531,13 @@ footer {
 <script>
 
 /* =========================================================
-   CURSOR AMBIENCE
+   CURSOR LIGHT
 ========================================================= */
 
-const cursor =
-    document.getElementById("cursorLight");
+const cursorLight =
+    document.getElementById(
+        "cursorLight"
+    );
 
 let mouseX =
     window.innerWidth / 2;
@@ -3225,10 +3545,10 @@ let mouseX =
 let mouseY =
     window.innerHeight / 2;
 
-let currentX =
+let lightX =
     mouseX;
 
-let currentY =
+let lightY =
     mouseY;
 
 window.addEventListener(
@@ -3246,17 +3566,17 @@ window.addEventListener(
 
 function animateCursor() {
 
-    currentX +=
-        (mouseX - currentX) * .075;
+    lightX +=
+        (mouseX - lightX) * .075;
 
-    currentY +=
-        (mouseY - currentY) * .075;
+    lightY +=
+        (mouseY - lightY) * .075;
 
-    cursor.style.left =
-        currentX + "px";
+    cursorLight.style.left =
+        lightX + "px";
 
-    cursor.style.top =
-        currentY + "px";
+    cursorLight.style.top =
+        lightY + "px";
 
     requestAnimationFrame(
         animateCursor
@@ -3276,44 +3596,44 @@ const track =
         "carouselTrack"
     );
 
-const prevButton =
+const previous =
     document.getElementById(
         "prevButton"
     );
 
-const nextButton =
+const next =
     document.getElementById(
         "nextButton"
     );
 
-const currentNumber =
+const number =
     document.getElementById(
         "currentNumber"
     );
 
 
-const originals =
+const originalCards =
     Array.from(
         track.children
     );
 
 const TOTAL =
-    originals.length;
+    originalCards.length;
 
 
 /*
-    Three clones on either side.
+   Clone three cards on either side.
 */
 
 const leftClones =
-    originals
+    originalCards
         .slice(-3)
         .map(card =>
             card.cloneNode(true)
         );
 
 const rightClones =
-    originals
+    originalCards
         .slice(0,3)
         .map(card =>
             card.cloneNode(true)
@@ -3335,7 +3655,9 @@ leftClones
 rightClones
     .forEach(card => {
 
-        track.appendChild(card);
+        track.appendChild(
+            card
+        );
 
     });
 
@@ -3357,10 +3679,10 @@ let autoTimer =
 
 
 /* =========================================================
-   CAROUSEL POSITION
+   POSITION
 ========================================================= */
 
-function getWidth() {
+function getCardWidth() {
 
     return cards[0]
         .getBoundingClientRect()
@@ -3371,7 +3693,7 @@ function getWidth() {
 
 function getStep() {
 
-    return getWidth() + 20;
+    return getCardWidth() + 20;
 
 }
 
@@ -3385,17 +3707,20 @@ function getPosition(index) {
         viewport.clientWidth;
 
     const width =
-        getWidth();
+        getCardWidth();
 
     /*
-        Exactly THREE cards form the visible group.
+       Three cards occupy the visible group.
     */
 
     const groupWidth =
         width * 3 + 40;
 
     const groupStart =
-        (viewportWidth - groupWidth) / 2;
+        Math.max(
+            0,
+            (viewportWidth - groupWidth) / 2
+        );
 
     return (
         groupStart -
@@ -3416,19 +3741,22 @@ function render(
     track.style.transition =
         instant
             ? "none"
-            : "transform 680ms cubic-bezier(.16,.86,.24,1)";
+            :
+            "transform 680ms cubic-bezier(.16,.86,.24,1)";
 
     track.style.transform =
         `translate3d(${getPosition(current)}px,0,0)`;
 
 
-    const real =
-        ((current - 3) % TOTAL + TOTAL)
-        % TOTAL;
+    const realIndex =
+        (
+            (current - 3) % TOTAL
+            + TOTAL
+        ) % TOTAL;
 
 
-    currentNumber.textContent =
-        String(real + 1)
+    number.textContent =
+        String(realIndex + 1)
             .padStart(2,"0");
 
 }
@@ -3440,7 +3768,9 @@ function render(
 
 function move(direction) {
 
-    if (moving) return;
+    if (moving) {
+        return;
+    }
 
     moving = true;
 
@@ -3449,40 +3779,51 @@ function move(direction) {
     render(false);
 
 
-    setTimeout(() => {
+    setTimeout(
+        () => {
 
-        /*
-            Silent clone reset.
-        */
+            /*
+               Silent reset after clone region.
+            */
 
-        if (current >= TOTAL + 3) {
+            if (
+                current >=
+                TOTAL + 3
+            ) {
 
-            current = 3;
+                current = 3;
 
-            render(true);
+                render(true);
 
-        }
+            }
 
-        if (current < 3) {
 
-            current = TOTAL + 2;
+            if (
+                current < 3
+            ) {
 
-            render(true);
+                current =
+                    TOTAL + 2;
 
-        }
+                render(true);
 
-        moving = false;
+            }
 
-    }, 700);
+
+            moving = false;
+
+        },
+        700
+    );
 
 }
 
 
 /* =========================================================
-   CONTROLS
+   BUTTONS
 ========================================================= */
 
-nextButton.addEventListener(
+next.addEventListener(
     "click",
     () => {
 
@@ -3496,7 +3837,7 @@ nextButton.addEventListener(
 );
 
 
-prevButton.addEventListener(
+previous.addEventListener(
     "click",
     () => {
 
@@ -3511,7 +3852,7 @@ prevButton.addEventListener(
 
 
 /* =========================================================
-   AUTO
+   AUTO PLAY
 ========================================================= */
 
 function startAuto() {
@@ -3598,7 +3939,7 @@ window.addEventListener(
 
 
 /* =========================================================
-   SCROLL REVEALS
+   SECTION REVEALS
 ========================================================= */
 
 const revealElements =
@@ -3606,7 +3947,7 @@ const revealElements =
         ".reveal"
     );
 
-const revealObserver =
+const observer =
     new IntersectionObserver(
         entries => {
 
@@ -3621,7 +3962,7 @@ const revealObserver =
                             .classList
                             .add("visible");
 
-                        revealObserver
+                        observer
                             .unobserve(
                                 entry.target
                             );
@@ -3633,7 +3974,7 @@ const revealObserver =
 
         },
         {
-            threshold: .12
+            threshold: .10
         }
     );
 
@@ -3641,7 +3982,7 @@ const revealObserver =
 revealElements.forEach(
     element => {
 
-        revealObserver.observe(
+        observer.observe(
             element
         );
 
