@@ -4,777 +4,1431 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Explore the Cosmos with Cosmiway Labs</title>
+<title>Cosmiway Labs- Explore the Cosmos</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #03040a;
+    color: #f4f5ff;
+    font-family: "Space Grotesk", sans-serif;
+    overflow-x: hidden;
+}
+
+body,
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a,
+a:visited,
+a:hover,
+a:active,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+
+/* =========================================================
+   AMBIENT BACKGROUND
+========================================================= */
+
+#ambient {
+    position: fixed;
+    inset: 0;
+    z-index: -20;
+    overflow: hidden;
+    pointer-events: none;
+    background:
+        radial-gradient(
+            ellipse at 50% 0%,
+            rgba(87, 71, 255, .13),
+            transparent 42%
+        ),
+        radial-gradient(
+            ellipse at 10% 60%,
+            rgba(0, 154, 255, .075),
+            transparent 35%
+        ),
+        radial-gradient(
+            ellipse at 90% 72%,
+            rgba(177, 70, 255, .07),
+            transparent 38%
+        ),
+        #03040a;
+}
+
+
+/* drifting atmospheric lights */
+
+.ambient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: .38;
+    mix-blend-mode: screen;
+}
+
+.orb-one {
+    width: 480px;
+    height: 480px;
+    left: -180px;
+    top: 12%;
+    background: rgba(65, 106, 255, .16);
+    animation: driftOne 18s ease-in-out infinite alternate;
+}
+
+.orb-two {
+    width: 550px;
+    height: 550px;
+    right: -230px;
+    top: 34%;
+    background: rgba(157, 64, 255, .13);
+    animation: driftTwo 23s ease-in-out infinite alternate;
+}
+
+.orb-three {
+    width: 400px;
+    height: 400px;
+    left: 38%;
+    bottom: -180px;
+    background: rgba(41, 117, 255, .10);
+    animation: driftThree 20s ease-in-out infinite alternate;
+}
+
+@keyframes driftOne {
+    from {
+        transform: translate3d(0, 0, 0) scale(1);
     }
 
-    html {
-        scroll-behavior: smooth;
+    to {
+        transform: translate3d(160px, 80px, 0) scale(1.2);
+    }
+}
+
+@keyframes driftTwo {
+    from {
+        transform: translate3d(0, 0, 0) scale(1);
     }
 
-    body {
-        font-family: Inter, Arial, Helvetica, sans-serif;
-        background: #05070d;
-        color: #f5f7ff;
-        overflow-x: hidden;
+    to {
+        transform: translate3d(-120px, -80px, 0) scale(1.18);
+    }
+}
+
+@keyframes driftThree {
+    from {
+        transform: translate3d(0, 0, 0) scale(1);
     }
 
-    a {
-        color: inherit;
-        text-decoration: none;
+    to {
+        transform: translate3d(90px, -80px, 0) scale(1.15);
+    }
+}
+
+
+/* =========================================================
+   STAR FIELD
+========================================================= */
+
+.stars {
+    position: absolute;
+    inset: 0;
+    opacity: .62;
+    background-image:
+        radial-gradient(circle, rgba(255,255,255,.75) 0 1px, transparent 1.2px),
+        radial-gradient(circle, rgba(255,255,255,.42) 0 1px, transparent 1.2px),
+        radial-gradient(circle, rgba(255,255,255,.30) 0 1px, transparent 1.2px);
+    background-size:
+        180px 180px,
+        270px 270px,
+        360px 360px;
+    background-position:
+        0 0,
+        40px 80px,
+        120px 20px;
+    animation: starDrift 90s linear infinite;
+}
+
+@keyframes starDrift {
+    from {
+        transform: translate3d(0,0,0);
     }
 
-    a:visited,
-    a:hover,
-    a:active,
-    a:focus {
-        color: inherit;
-        text-decoration: none;
+    to {
+        transform: translate3d(-120px,80px,0);
+    }
+}
+
+
+/* =========================================================
+   GRAIN
+========================================================= */
+
+.grain {
+    position: fixed;
+    inset: -50%;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: .035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    animation: grainMove .25s steps(2) infinite;
+}
+
+@keyframes grainMove {
+    0% {
+        transform: translate(0,0);
     }
 
-    /* =========================
-       STARFIELD
-    ========================= */
-
-    .stars,
-    .stars::before,
-    .stars::after {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: -2;
-        content: "";
+    25% {
+        transform: translate(3%, -2%);
     }
 
-    .stars {
-        background-image:
-            radial-gradient(circle at 20% 30%, rgba(255,255,255,.75) 0 1px, transparent 1.5px),
-            radial-gradient(circle at 70% 20%, rgba(255,255,255,.55) 0 1px, transparent 1.5px),
-            radial-gradient(circle at 40% 80%, rgba(255,255,255,.5) 0 1px, transparent 1.5px),
-            radial-gradient(circle at 85% 70%, rgba(255,255,255,.65) 0 1px, transparent 1.5px);
-        background-size: 190px 190px, 250px 250px, 310px 310px, 230px 230px;
-        opacity: .45;
+    50% {
+        transform: translate(-2%, 3%);
     }
 
-    .stars::before {
-        background-image:
-            radial-gradient(circle at 10% 80%, rgba(255,255,255,.6) 0 1px, transparent 1.5px),
-            radial-gradient(circle at 60% 55%, rgba(255,255,255,.4) 0 1px, transparent 1.5px),
-            radial-gradient(circle at 90% 15%, rgba(255,255,255,.5) 0 1px, transparent 1.5px);
-        background-size: 270px 270px, 340px 340px, 210px 210px;
-        opacity: .35;
+    75% {
+        transform: translate(2%, 2%);
     }
 
-    .stars::after {
-        background:
-            radial-gradient(circle at 50% 0%, rgba(96,80,255,.11), transparent 38%),
-            radial-gradient(circle at 0% 55%, rgba(30,150,255,.07), transparent 32%),
-            radial-gradient(circle at 100% 75%, rgba(150,70,255,.07), transparent 35%);
+    100% {
+        transform: translate(-3%, -3%);
     }
+}
 
-    /* =========================
-       NAVIGATION
-    ========================= */
 
-    nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 72px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 6%;
-        z-index: 100;
-        background: rgba(5,7,13,.72);
-        backdrop-filter: blur(18px);
-        border-bottom: 1px solid rgba(255,255,255,.07);
-    }
+/* =========================================================
+   CURSOR AMBIENT LIGHT
+========================================================= */
 
-    .nav-logo {
-        font-size: 17px;
-        font-weight: 800;
-        letter-spacing: .12em;
-    }
+.cursor-glow {
+    position: fixed;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -5;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+        circle,
+        rgba(108, 91, 255, .065),
+        transparent 68%
+    );
+    filter: blur(15px);
+}
 
-    .nav-links {
-        display: flex;
-        gap: 30px;
-        font-size: 14px;
-        color: #aeb5ca;
-    }
 
-    .nav-links a {
-        transition: color .2s ease;
-    }
+/* =========================================================
+   NAV
+========================================================= */
 
-    .nav-links a:hover {
-        color: white;
-    }
+.nav-wrap {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1160px, calc(100% - 36px));
+    z-index: 500;
+}
 
-    /* =========================
-       HERO
-    ========================= */
+nav {
+    height: 64px;
+    padding: 0 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    .hero {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 120px 6% 90px;
-    }
-
-    .hero-content {
-        max-width: 1100px;
-    }
-
-    .hero-kicker {
-        display: inline-block;
-        margin-bottom: 24px;
-        padding: 8px 14px;
-        border: 1px solid rgba(255,255,255,.12);
-        border-radius: 999px;
-        color: #b7bdd0;
-        font-size: 12px;
-        letter-spacing: .16em;
-        text-transform: uppercase;
-        background: rgba(255,255,255,.025);
-    }
-
-    .hero h1 {
-        font-size: clamp(48px, 8vw, 105px);
-        line-height: .95;
-        letter-spacing: -.065em;
-        font-weight: 900;
-        max-width: 1100px;
-        margin: auto;
-    }
-
-    .hero h1 span {
-        display: block;
-        background: linear-gradient(
-            100deg,
-            #ffffff 10%,
-            #c8d0ff 48%,
-            #9f8cff 85%
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.035)
         );
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
+
+    border: 1px solid rgba(255,255,255,.11);
+    border-radius: 18px;
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.28),
+        inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+.logo {
+    font-family: "Syne", sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+}
+
+.logo span {
+    opacity: .45;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 27px;
+}
+
+.nav-links a {
+    position: relative;
+    color: rgba(240,242,255,.58);
+    font-size: 12px;
+    font-weight: 600;
+    transition: color .25s ease;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    width: 0;
+    height: 1px;
+    background: white;
+    transition: width .25s ease;
+}
+
+.nav-links a:hover {
+    color: white;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:
+        130px 5vw
+        80px;
+    text-align: center;
+    overflow: hidden;
+}
+
+
+/* subtle center atmospheric field */
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 900px;
+    height: 600px;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(92,76,255,.10),
+            rgba(50,70,180,.035) 35%,
+            transparent 72%
+        );
+    filter: blur(30px);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: min(1250px, 100%);
+}
+
+
+/* tiny top label */
+
+.hero-label {
+    margin-bottom: 32px;
+    color: rgba(232,235,255,.47);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+}
+
+
+/* MAIN TITLE */
+
+.hero-title {
+    font-family: "Syne", sans-serif;
+    font-weight: 800;
+    font-size: clamp(
+        68px,
+        13vw,
+        190px
+    );
+
+    line-height: .78;
+    letter-spacing: -.085em;
+
+    text-transform: uppercase;
+
+    user-select: none;
+
+    text-shadow:
+        0 0 70px rgba(115,95,255,.075);
+}
+
+.hero-title .line {
+    display: block;
+}
+
+.hero-title .line:first-child {
+    background:
+        linear-gradient(
+            100deg,
+            #ffffff 5%,
+            #dddfff 35%,
+            #9d91ff 72%,
+            #7161ff 100%
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    animation: titleBreath 7s ease-in-out infinite;
+}
+
+.hero-title .line:last-child {
+    color: #f4f4fb;
+    position: relative;
+}
+
+.hero-title .line:last-child::after {
+    content: "";
+    position: absolute;
+    left: 13%;
+    right: 13%;
+    bottom: -15px;
+    height: 2px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(132,113,255,.8),
+            transparent
+        );
+    filter: blur(2px);
+    opacity: .7;
+}
+
+@keyframes titleBreath {
+    0%, 100% {
+        filter: brightness(1);
     }
 
-    .hero-description {
-        max-width: 680px;
-        margin: 34px auto 0;
-        font-size: 18px;
-        line-height: 1.7;
-        color: #aeb5c9;
+    50% {
+        filter: brightness(1.14);
+    }
+}
+
+
+/* WITH COSMIWAY LABS */
+
+.hero-subtitle {
+    margin-top: 44px;
+    font-family: "Sora", sans-serif;
+    font-size: clamp(15px, 1.8vw, 23px);
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(224,226,246,.68);
+}
+
+.hero-subtitle span {
+    color: #c9c4ff;
+}
+
+
+/* hero description */
+
+.hero-copy {
+    max-width: 600px;
+    margin: 25px auto 0;
+    color: rgba(194,198,220,.55);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+
+/* hero bottom indicator */
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 34px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    color: rgba(255,255,255,.32);
+    font-size: 9px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+}
+
+.scroll-line {
+    width: 1px;
+    height: 42px;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,.45),
+            transparent
+        );
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+    0%,100% {
+        opacity: .3;
+        transform: scaleY(.7);
     }
 
-    .hero-actions {
-        margin-top: 34px;
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        flex-wrap: wrap;
+    50% {
+        opacity: 1;
+        transform: scaleY(1);
+    }
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section {
+    width: min(1180px, calc(100% - 40px));
+    margin: auto;
+}
+
+.section {
+    padding: 145px 0;
+}
+
+.section-intro {
+    display: grid;
+    grid-template-columns: .8fr 1.2fr;
+    gap: 70px;
+    align-items: end;
+    margin-bottom: 55px;
+}
+
+.eyebrow {
+    font-family: "Sora", sans-serif;
+    color: rgba(178,183,211,.45);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+}
+
+.section-heading h2 {
+    margin-top: 13px;
+    font-family: "Syne", sans-serif;
+    font-size: clamp(40px, 6vw, 76px);
+    line-height: .94;
+    letter-spacing: -.07em;
+}
+
+.section-description {
+    color: rgba(190,195,218,.53);
+    max-width: 520px;
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   TOOLS CAROUSEL
+========================================================= */
+
+.carousel-wrap {
+    position: relative;
+}
+
+.carousel-window {
+    overflow: hidden;
+    width: 100%;
+    padding: 12px 0 30px;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 20px;
+    will-change: transform;
+}
+
+.app-card {
+    flex: 0 0 340px;
+    width: 340px;
+    height: 430px;
+    position: relative;
+
+    border-radius: 25px;
+    overflow: hidden;
+
+    border: 1px solid rgba(255,255,255,.10);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025) 55%,
+            rgba(111,83,255,.035)
+        );
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.32),
+        inset 0 1px 0 rgba(255,255,255,.07);
+
+    transition:
+        border-color .35s ease,
+        box-shadow .35s ease,
+        transform .35s cubic-bezier(.2,.8,.2,1);
+}
+
+.app-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(122,105,255,.10),
+            transparent 48%
+        );
+    pointer-events: none;
+}
+
+.app-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(170,160,255,.28);
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.4),
+        0 0 45px rgba(101,82,255,.07),
+        inset 0 1px 0 rgba(255,255,255,.10);
+}
+
+
+/* =========================================================
+   CARD VISUAL
+========================================================= */
+
+.card-visual {
+    position: relative;
+    height: 238px;
+    padding: 18px;
+
+    background:
+        radial-gradient(
+            circle at 60% 35%,
+            rgba(102,91,255,.14),
+            transparent 50%
+        ),
+        #080b14;
+
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    overflow: hidden;
+}
+
+
+/* floating mini interface */
+
+.mini-window {
+    position: relative;
+    height: 100%;
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.07),
+            rgba(255,255,255,.025)
+        );
+
+    border: 1px solid rgba(255,255,255,.09);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.06);
+
+    overflow: hidden;
+
+    transform: perspective(900px) rotateX(3deg);
+}
+
+
+/* mini window header */
+
+.mini-header {
+    height: 31px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 11px;
+
+    border-bottom: 1px solid rgba(255,255,255,.055);
+}
+
+.mini-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.28);
+}
+
+.mini-title {
+    margin-left: 7px;
+    font-size: 8px;
+    color: rgba(255,255,255,.38);
+    letter-spacing: .05em;
+}
+
+
+/* generic mini UI */
+
+.mini-body {
+    padding: 14px;
+}
+
+.mini-big {
+    width: 68%;
+    height: 17px;
+    border-radius: 5px;
+    background: rgba(255,255,255,.11);
+    margin-bottom: 9px;
+}
+
+.mini-line {
+    width: 90%;
+    height: 6px;
+    border-radius: 5px;
+    background: rgba(255,255,255,.06);
+    margin-bottom: 7px;
+}
+
+.mini-line.short {
+    width: 48%;
+}
+
+.mini-line.mid {
+    width: 70%;
+}
+
+.mini-grid {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 8px;
+}
+
+.mini-box {
+    height: 58px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.05);
+    background: rgba(255,255,255,.035);
+}
+
+.mini-sidebar {
+    position: absolute;
+    left: 0;
+    top: 31px;
+    bottom: 0;
+    width: 55px;
+    border-right: 1px solid rgba(255,255,255,.05);
+    padding: 12px 8px;
+}
+
+.mini-sidebar-line {
+    width: 100%;
+    height: 5px;
+    border-radius: 4px;
+    background: rgba(255,255,255,.065);
+    margin-bottom: 9px;
+}
+
+.has-sidebar .mini-body {
+    margin-left: 55px;
+}
+
+
+/* decorative card light */
+
+.card-orb {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    right: -35px;
+    top: -40px;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(128,110,255,.28),
+            transparent 70%
+        );
+
+    filter: blur(8px);
+    animation: cardFloat 5s ease-in-out infinite alternate;
+}
+
+@keyframes cardFloat {
+    from {
+        transform: translate(0,0);
     }
 
-    .hero-button {
-        padding: 13px 20px;
-        border-radius: 10px;
-        border: 1px solid rgba(255,255,255,.13);
-        background: rgba(255,255,255,.055);
-        font-weight: 700;
-        font-size: 14px;
-        transition: .2s ease;
+    to {
+        transform: translate(-18px,20px);
+    }
+}
+
+
+/* card text */
+
+.card-info {
+    padding: 23px 23px 20px;
+}
+
+.card-info-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-info h3 {
+    font-family: "Sora", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -.035em;
+}
+
+.card-arrow {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.09);
+
+    color: rgba(255,255,255,.65);
+    font-size: 16px;
+
+    transition: .25s ease;
+}
+
+.app-card:hover .card-arrow {
+    background: rgba(255,255,255,.09);
+    color: white;
+    transform: translate(2px,-2px);
+}
+
+.card-info p {
+    margin-top: 11px;
+    color: rgba(182,187,211,.52);
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+.card-label {
+    display: block;
+    margin-top: 15px;
+    color: rgba(157,164,192,.38);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   CAROUSEL CONTROLS
+========================================================= */
+
+.carousel-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.carousel-status {
+    color: rgba(175,180,205,.32);
+    font-family: "Sora", sans-serif;
+    font-size: 10px;
+    letter-spacing: .15em;
+}
+
+.control-buttons {
+    display: flex;
+    gap: 9px;
+}
+
+.carousel-button {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    color: white;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.085),
+            rgba(255,255,255,.035)
+        );
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    cursor: pointer;
+
+    font-size: 20px;
+
+    backdrop-filter: blur(12px);
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease;
+}
+
+.carousel-button:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,.11);
+    border-color: rgba(255,255,255,.23);
+}
+
+.carousel-button:active {
+    transform: scale(.92);
+}
+
+
+/* =========================================================
+   GETTING STARTED
+========================================================= */
+
+.start-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.start-card {
+    position: relative;
+    padding: 34px;
+    min-height: 420px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.065),
+            rgba(255,255,255,.025)
+        );
+
+    border: 1px solid rgba(255,255,255,.085);
+
+    overflow: hidden;
+}
+
+.start-card::after {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    right: -130px;
+    bottom: -130px;
+    border-radius: 50%;
+    background: rgba(104,82,255,.11);
+    filter: blur(60px);
+}
+
+.start-number {
+    font-family: "Syne", sans-serif;
+    font-size: 80px;
+    line-height: .8;
+    color: rgba(255,255,255,.07);
+}
+
+.start-card h3 {
+    margin-top: 30px;
+    font-family: "Sora", sans-serif;
+    font-size: 25px;
+    letter-spacing: -.045em;
+}
+
+.steps {
+    margin-top: 25px;
+    display: grid;
+    gap: 13px;
+}
+
+.step {
+    display: flex;
+    gap: 13px;
+    align-items: center;
+    color: rgba(190,195,216,.57);
+    font-size: 13px;
+}
+
+.step span {
+    flex: 0 0 26px;
+    width: 26px;
+    height: 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(255,255,255,.035);
+
+    color: rgba(255,255,255,.7);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   FOUNDER
+========================================================= */
+
+.founder {
+    position: relative;
+}
+
+.founder-card {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 60px;
+    align-items: center;
+
+    padding: 65px;
+
+    border-radius: 30px;
+
+    background:
+        radial-gradient(
+            circle at 15% 30%,
+            rgba(107,89,255,.10),
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.06),
+            rgba(255,255,255,.02)
+        );
+
+    border: 1px solid rgba(255,255,255,.09);
+
+    overflow: hidden;
+}
+
+.founder-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            120deg,
+            transparent 35%,
+            rgba(255,255,255,.025),
+            transparent 65%
+        );
+    transform: translateX(-100%);
+    animation: founderSweep 9s ease-in-out infinite;
+}
+
+@keyframes founderSweep {
+    0%, 55% {
+        transform: translateX(-100%);
     }
 
-    .hero-button:hover {
-        background: rgba(255,255,255,.1);
-        transform: translateY(-2px);
+    75%, 100% {
+        transform: translateX(100%);
+    }
+}
+
+.founder-symbol {
+    width: 180px;
+    height: 180px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-family: "Syne", sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -.08em;
+
+    background:
+        radial-gradient(
+            circle at 35% 28%,
+            rgba(219,220,255,.9),
+            rgba(116,106,214,.28) 25%,
+            rgba(21,20,44,.9) 70%
+        );
+
+    border: 1px solid rgba(255,255,255,.14);
+
+    box-shadow:
+        0 0 80px rgba(100,82,255,.13),
+        inset 0 1px 20px rgba(255,255,255,.12);
+}
+
+.founder-info h3 {
+    font-family: "Syne", sans-serif;
+    font-size: clamp(35px, 5vw, 62px);
+    letter-spacing: -.065em;
+}
+
+.founder-role {
+    margin-top: 10px;
+    color: rgba(177,182,207,.45);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+}
+
+.founder-info p {
+    max-width: 720px;
+    margin-top: 25px;
+    color: rgba(190,195,216,.56);
+    font-size: 14px;
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.timeline {
+    position: relative;
+    margin-top: 20px;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 9px;
+    top: 5px;
+    bottom: 5px;
+    width: 1px;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,.16),
+            rgba(255,255,255,.035)
+        );
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 55px;
+    padding-bottom: 58px;
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 3px;
+    top: 4px;
+
+    width: 13px;
+    height: 13px;
+
+    border-radius: 50%;
+
+    background: #d9d7ff;
+
+    box-shadow:
+        0 0 0 5px rgba(125,108,255,.055),
+        0 0 22px rgba(125,108,255,.45);
+}
+
+.timeline-date {
+    color: rgba(167,172,199,.37);
+    font-family: "Sora", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .19em;
+    text-transform: uppercase;
+}
+
+.timeline-item h3 {
+    margin-top: 9px;
+    font-family: "Sora", sans-serif;
+    font-size: 25px;
+    letter-spacing: -.045em;
+}
+
+.timeline-item p {
+    margin-top: 10px;
+    max-width: 700px;
+    color: rgba(183,188,211,.51);
+    font-size: 13px;
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    width: min(1180px, calc(100% - 40px));
+    margin: auto;
+    padding: 50px 0 55px;
+
+    border-top: 1px solid rgba(255,255,255,.07);
+
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    color: rgba(160,166,191,.34);
+    font-size: 11px;
+}
+
+.footer-brand {
+    font-family: "Syne", sans-serif;
+    font-weight: 700;
+    color: rgba(255,255,255,.55);
+}
+
+
+/* =========================================================
+   REVEAL EFFECT
+========================================================= */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition:
+        opacity 1s ease,
+        transform 1s cubic-bezier(.2,.8,.2,1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .section-intro {
+        grid-template-columns: 1fr;
+        gap: 25px;
     }
 
-    .hero-button.primary {
-        background: white;
-        color: #05070d;
+    .start-grid {
+        grid-template-columns: 1fr;
     }
-
-    .hero-button.primary:hover,
-    .hero-button.primary:visited,
-    .hero-button.primary:active {
-        color: #05070d;
-    }
-
-    /* =========================
-       GENERAL SECTIONS
-    ========================= */
-
-    section {
-        width: min(1180px, 90%);
-        margin: 0 auto;
-    }
-
-    .section {
-        padding: 110px 0;
-    }
-
-    .section-heading {
-        margin-bottom: 46px;
-    }
-
-    .section-heading .eyebrow {
-        color: #8d96b0;
-        text-transform: uppercase;
-        letter-spacing: .17em;
-        font-size: 11px;
-        font-weight: 800;
-        margin-bottom: 12px;
-    }
-
-    .section-heading h2 {
-        font-size: clamp(32px, 5vw, 58px);
-        line-height: 1;
-        letter-spacing: -.045em;
-    }
-
-    .section-heading p {
-        margin-top: 16px;
-        max-width: 680px;
-        color: #9da5ba;
-        line-height: 1.7;
-    }
-
-    /* =========================
-       APP CAROUSEL
-    ========================= */
-
-    .carousel-shell {
-        position: relative;
-        width: 100%;
-    }
-
-    .carousel-window {
-        width: 100%;
-        overflow: hidden;
-        border-radius: 28px;
-    }
-
-    .carousel-track {
-        display: flex;
-        gap: 20px;
-        will-change: transform;
-    }
-
-    .app-card {
-        flex: 0 0 300px;
-        width: 300px;
-        min-height: 390px;
-        border: 1px solid rgba(255,255,255,.09);
-        border-radius: 22px;
-        overflow: hidden;
-        background:
-            linear-gradient(
-                180deg,
-                rgba(255,255,255,.06),
-                rgba(255,255,255,.025)
-            );
-        box-shadow: 0 18px 50px rgba(0,0,0,.25);
-        transition:
-            border-color .25s ease,
-            transform .25s ease,
-            box-shadow .25s ease;
-    }
-
-    .app-card:hover {
-        transform: translateY(-5px);
-        border-color: rgba(255,255,255,.19);
-        box-shadow: 0 24px 60px rgba(0,0,0,.34);
-    }
-
-    .card-link {
-        display: block;
-        height: 100%;
-    }
-
-    .browser-bar {
-        height: 32px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        padding: 0 12px;
-        background: rgba(0,0,0,.3);
-        border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-
-    .browser-dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: #73798a;
-    }
-
-    .browser-url {
-        margin-left: 7px;
-        height: 16px;
-        flex: 1;
-        border-radius: 5px;
-        background: rgba(255,255,255,.055);
-    }
-
-    .mock-ui {
-        height: 205px;
-        padding: 16px;
-        background: #0b0f19;
-        border-bottom: 1px solid rgba(255,255,255,.07);
-    }
-
-    .mock-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 14px;
-    }
-
-    .mock-title {
-        font-size: 13px;
-        font-weight: 800;
-    }
-
-    .mock-chip {
-        width: 48px;
-        height: 14px;
-        border-radius: 5px;
-        background: rgba(255,255,255,.09);
-    }
-
-    .mock-grid {
-        display: grid;
-        grid-template-columns: 72px 1fr;
-        gap: 10px;
-        height: 145px;
-    }
-
-    .mock-sidebar {
-        border-radius: 8px;
-        background: rgba(255,255,255,.045);
-        padding: 9px 7px;
-    }
-
-    .mock-sidebar span {
-        display: block;
-        height: 7px;
-        border-radius: 4px;
-        background: rgba(255,255,255,.08);
-        margin-bottom: 10px;
-    }
-
-    .mock-main {
-        display: flex;
-        flex-direction: column;
-        gap: 9px;
-    }
-
-    .mock-panel {
-        flex: 1;
-        border-radius: 8px;
-        background: rgba(255,255,255,.045);
-        padding: 10px;
-    }
-
-    .mock-line {
-        height: 7px;
-        border-radius: 5px;
-        background: rgba(255,255,255,.08);
-        margin-bottom: 8px;
-    }
-
-    .mock-line.short {
-        width: 55%;
-    }
-
-    .mock-line.medium {
-        width: 75%;
-    }
-
-    .mock-buttons {
-        display: flex;
-        gap: 7px;
-    }
-
-    .mock-button {
-        height: 22px;
-        flex: 1;
-        border-radius: 5px;
-        background: rgba(255,255,255,.08);
-    }
-
-    .card-content {
-        padding: 20px;
-    }
-
-    .card-topline {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .card-name {
-        font-size: 19px;
-        font-weight: 850;
-        letter-spacing: -.025em;
-    }
-
-    .card-arrow {
-        font-size: 18px;
-        color: #9ca4bb;
-    }
-
-    .card-content p {
-        margin-top: 10px;
-        color: #969eb2;
-        font-size: 13px;
-        line-height: 1.6;
-    }
-
-    .card-tag {
-        display: inline-block;
-        margin-top: 15px;
-        font-size: 10px;
-        letter-spacing: .11em;
-        text-transform: uppercase;
-        color: #8e97af;
-    }
-
-    /* CAROUSEL BUTTONS */
-
-    .carousel-controls {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        margin-top: 26px;
-    }
-
-    .carousel-button {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        border: 1px solid rgba(255,255,255,.13);
-        background: rgba(255,255,255,.055);
-        color: white;
-        font-size: 25px;
-        line-height: 1;
-        cursor: pointer;
-        transition: .2s ease;
-    }
-
-    .carousel-button:hover {
-        background: rgba(255,255,255,.12);
-        border-color: rgba(255,255,255,.25);
-        transform: translateY(-2px);
-    }
-
-    .carousel-button:active {
-        transform: scale(.95);
-    }
-
-    /* =========================
-       GETTING STARTED
-    ========================= */
-
-    .getting-started {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 22px;
-    }
-
-    .instruction-card {
-        border: 1px solid rgba(255,255,255,.08);
-        border-radius: 20px;
-        padding: 30px;
-        background: rgba(255,255,255,.035);
-    }
-
-    .instruction-card h3 {
-        font-size: 22px;
-        margin-bottom: 22px;
-    }
-
-    .instruction-list {
-        list-style: none;
-        display: grid;
-        gap: 13px;
-    }
-
-    .instruction-list li {
-        display: flex;
-        align-items: flex-start;
-        gap: 13px;
-        color: #aeb5c8;
-        line-height: 1.5;
-        font-size: 14px;
-    }
-
-    .step-number {
-        flex: 0 0 27px;
-        width: 27px;
-        height: 27px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 8px;
-        background: rgba(255,255,255,.08);
-        color: white;
-        font-size: 11px;
-        font-weight: 800;
-    }
-
-    /* =========================
-       FOUNDER
-    ========================= */
 
     .founder-card {
-        display: grid;
-        grid-template-columns: 190px 1fr;
-        gap: 40px;
-        align-items: center;
-        padding: 42px;
-        border-radius: 24px;
-        border: 1px solid rgba(255,255,255,.09);
-        background:
-            linear-gradient(
-                135deg,
-                rgba(255,255,255,.055),
-                rgba(255,255,255,.02)
-            );
-    }
-
-    .founder-avatar {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background:
-            radial-gradient(circle at 35% 30%, #d9ddff, #7378a8 32%, #181b31 70%);
-        border: 1px solid rgba(255,255,255,.16);
-        font-size: 38px;
-        font-weight: 900;
-        letter-spacing: -.05em;
-    }
-
-    .founder-info h3 {
-        font-size: 35px;
-        letter-spacing: -.04em;
-    }
-
-    .founder-role {
-        margin-top: 7px;
-        color: #8f98b2;
-        font-size: 13px;
-        font-weight: 700;
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 45px 30px;
     }
 
     .founder-info p {
-        margin-top: 20px;
-        color: #aab2c5;
-        line-height: 1.75;
-        max-width: 760px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    /* =========================
-       TIMELINE
-    ========================= */
+    .app-card {
+        flex-basis: 310px;
+        width: 310px;
+    }
+}
 
-    .timeline {
-        position: relative;
-        margin-top: 30px;
-        padding-left: 30px;
+
+@media (max-width: 600px) {
+
+    .nav-wrap {
+        top: 10px;
+        width: calc(100% - 20px);
     }
 
-    .timeline::before {
-        content: "";
-        position: absolute;
-        left: 5px;
-        top: 4px;
-        bottom: 4px;
-        width: 1px;
-        background: rgba(255,255,255,.12);
+    nav {
+        height: 58px;
+        padding: 0 16px;
     }
 
-    .timeline-item {
-        position: relative;
-        padding: 0 0 42px 30px;
+    .nav-links {
+        gap: 14px;
     }
 
-    .timeline-item:last-child {
-        padding-bottom: 0;
+    .nav-links a:nth-child(n+3) {
+        display: none;
     }
 
-    .timeline-dot {
-        position: absolute;
-        left: -1px;
-        top: 4px;
-        width: 13px;
-        height: 13px;
-        border-radius: 50%;
-        background: #f4f5ff;
-        box-shadow: 0 0 20px rgba(255,255,255,.2);
+    .hero {
+        padding-top: 120px;
     }
 
-    .timeline-date {
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: .16em;
-        font-weight: 800;
-        color: #858ea7;
-        margin-bottom: 8px;
+    .hero-title {
+        font-size: clamp(60px, 18vw, 105px);
+        line-height: .82;
     }
 
-    .timeline-item h3 {
-        font-size: 23px;
-        margin-bottom: 9px;
-    }
-
-    .timeline-item p {
-        color: #9da5b9;
-        line-height: 1.65;
-        max-width: 730px;
-        font-size: 14px;
-    }
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    footer {
-        width: min(1180px, 90%);
-        margin: 40px auto 0;
-        padding: 35px 0 45px;
-        border-top: 1px solid rgba(255,255,255,.08);
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        color: #737b91;
+    .hero-subtitle {
+        margin-top: 32px;
         font-size: 12px;
     }
 
-    /* =========================
-       RESPONSIVE
-    ========================= */
-
-    @media (max-width: 1000px) {
-        .app-card {
-            flex-basis: 280px;
-            width: 280px;
-        }
+    .hero-copy {
+        font-size: 13px;
     }
 
-    @media (max-width: 760px) {
-        nav {
-            padding: 0 5%;
-        }
-
-        .nav-links {
-            gap: 14px;
-            font-size: 12px;
-        }
-
-        .hero {
-            padding-top: 110px;
-        }
-
-        .hero h1 {
-            font-size: clamp(42px, 12vw, 72px);
-        }
-
-        .hero-description {
-            font-size: 16px;
-        }
-
-        .getting-started {
-            grid-template-columns: 1fr;
-        }
-
-        .founder-card {
-            grid-template-columns: 1fr;
-            text-align: center;
-        }
-
-        .founder-avatar {
-            margin: auto;
-        }
-
-        .app-card {
-            flex-basis: 280px;
-            width: 280px;
-        }
-
-        footer {
-            flex-direction: column;
-        }
+    .section {
+        padding: 95px 0;
     }
 
-    @media (max-width: 520px) {
-        .nav-links a:nth-child(2) {
-            display: none;
-        }
-
-        .section {
-            padding: 80px 0;
-        }
-
-        .carousel-window {
-            border-radius: 20px;
-        }
-
-        .carousel-track {
-            gap: 14px;
-        }
-
-        .app-card {
-            flex-basis: 270px;
-            width: 270px;
-        }
-
-        .founder-card {
-            padding: 28px;
-        }
+    .app-card {
+        flex-basis: 285px;
+        width: 285px;
+        height: 415px;
     }
+
+    .card-visual {
+        height: 225px;
+    }
+
+    .carousel-controls {
+        margin-top: 10px;
+    }
+
+    .carousel-status {
+        display: none;
+    }
+
+    .carousel-controls {
+        justify-content: flex-end;
+    }
+
+    .founder-symbol {
+        width: 145px;
+        height: 145px;
+    }
+
+    footer {
+        flex-direction: column;
+    }
+}
+
 </style>
 </head>
 
+
 <body>
 
-<div class="stars"></div>
+<!-- =========================================================
+     BACKGROUND
+========================================================= -->
 
-<!-- =========================
+<div id="ambient">
+
+    <div class="stars"></div>
+
+    <div class="ambient-orb orb-one"></div>
+    <div class="ambient-orb orb-two"></div>
+    <div class="ambient-orb orb-three"></div>
+
+</div>
+
+<div class="grain"></div>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+
+
+<!-- =========================================================
      NAVIGATION
-========================= -->
+========================================================= -->
 
-<nav>
-    <a href="#top" class="nav-logo">COSMIWAY</a>
+<div class="nav-wrap">
 
-    <div class="nav-links">
-        <a href="#tools">Tools</a>
-        <a href="#start">Get Started</a>
-        <a href="#founder">Founder</a>
-        <a href="#timeline">Timeline</a>
-    </div>
-</nav>
+    <nav>
+
+        <a href="#top" class="logo">
+            COSMIWAY <span>LABS</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="#tools">Tools</a>
+            <a href="#start">Get Started</a>
+            <a href="#founder">Founder</a>
+            <a href="#timeline">Timeline</a>
+        </div>
+
+    </nav>
+
+</div>
 
 
-<!-- =========================
+<!-- =========================================================
      HERO
-========================= -->
+========================================================= -->
 
 <main id="top">
 
@@ -782,63 +1436,70 @@
 
     <div class="hero-content">
 
-        <div class="hero-kicker">
-            A growing universe of digital tools
+        <div class="hero-label">
+            Cosmiway Labs
         </div>
 
-        <h1>
-            EXPLORE THE COSMOS
-            <span>WITH COSMIWAY LABS!</span>
+        <h1 class="hero-title">
+
+            <span class="line">Explore</span>
+            <span class="line">The Cosmos</span>
+
         </h1>
 
-        <p class="hero-description">
-            A collection of practical digital tools built to make everyday
-            work, communication, organization and exploration simpler.
-            Pick a tool and jump straight in.
+        <div class="hero-subtitle">
+            With <span>Cosmiway Labs</span>
+        </div>
+
+        <p class="hero-copy">
+            A growing collection of digital tools, built one project
+            at a time and brought together in one place.
         </p>
 
-        <div class="hero-actions">
-            <a href="#tools" class="hero-button primary">
-                Explore the tools
-            </a>
+    </div>
 
-            <a href="#start" class="hero-button">
-                How to get started
-            </a>
-        </div>
+
+    <div class="scroll-indicator">
+
+        Scroll
+
+        <div class="scroll-line"></div>
 
     </div>
 
 </section>
 
 
-<!-- =========================
+<!-- =========================================================
      TOOLS
-========================= -->
+========================================================= -->
 
-<section class="section" id="tools">
+<section class="section reveal" id="tools">
 
-    <div class="section-heading">
+    <div class="section-intro">
 
-        <div class="eyebrow">
-            The toolset
+        <div class="section-heading">
+
+            <div class="eyebrow">
+                The collection
+            </div>
+
+            <h2>
+                Tools<br>
+                in orbit.
+            </h2>
+
         </div>
 
-        <h2>
-            Your tools.<br>
-            One cosmos.
-        </h2>
-
-        <p>
-            Explore the growing collection of Cosmiway tools.
-            Each card is a direct entry point — no generic redirect page,
-            no unnecessary detours.
+        <p class="section-description">
+            Explore the current Cosmiway collection. Every card leads
+            directly to its project — pick one and go.
         </p>
 
     </div>
 
 
-    <div class="carousel-shell">
+    <div class="carousel-wrap">
 
         <div class="carousel-window">
 
@@ -848,47 +1509,39 @@
                 <!-- COSMIFLOW -->
 
                 <article class="app-card">
+
                     <a
-                        class="card-link"
                         href="https://cosmiway-labs.github.io/cosmiflow/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
 
-                        <div class="browser-bar">
-                            <span class="browser-dot"></span>
-                            <span class="browser-dot"></span>
-                            <span class="browser-dot"></span>
-                            <div class="browser-url"></div>
-                        </div>
+                        <div class="card-visual">
 
-                        <div class="mock-ui">
+                            <div class="card-orb"></div>
 
-                            <div class="mock-header">
-                                <div class="mock-title">CosmiFlow</div>
-                                <div class="mock-chip"></div>
-                            </div>
+                            <div class="mini-window">
 
-                            <div class="mock-grid">
-
-                                <div class="mock-sidebar">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
+                                <div class="mini-header">
+                                    <i class="mini-dot"></i>
+                                    <i class="mini-dot"></i>
+                                    <i class="mini-dot"></i>
+                                    <span class="mini-title">
+                                        CosmiFlow
+                                    </span>
                                 </div>
 
-                                <div class="mock-main">
+                                <div class="mini-body">
 
-                                    <div class="mock-panel">
-                                        <div class="mock-line"></div>
-                                        <div class="mock-line medium"></div>
-                                        <div class="mock-line short"></div>
-                                    </div>
+                                    <div class="mini-big"></div>
 
-                                    <div class="mock-buttons">
-                                        <div class="mock-button"></div>
-                                        <div class="mock-button"></div>
+                                    <div class="mini-line"></div>
+                                    <div class="mini-line mid"></div>
+                                    <div class="mini-line short"></div>
+
+                                    <div class="mini-grid">
+                                        <div class="mini-box"></div>
+                                        <div class="mini-box"></div>
                                     </div>
 
                                 </div>
@@ -897,71 +1550,73 @@
 
                         </div>
 
-                        <div class="card-content">
+                        <div class="card-info">
 
-                            <div class="card-topline">
-                                <div class="card-name">CosmiFlow</div>
-                                <div class="card-arrow">↗</div>
+                            <div class="card-info-top">
+
+                                <h3>CosmiFlow</h3>
+
+                                <span class="card-arrow">↗</span>
+
                             </div>
 
                             <p>
-                                A streamlined workspace for moving through
-                                tasks and workflows without unnecessary friction.
+                                A streamlined workspace for managing
+                                tasks and moving through workflows.
                             </p>
 
-                            <span class="card-tag">
-                                Workflow tool
+                            <span class="card-label">
+                                Workflow
                             </span>
 
                         </div>
 
                     </a>
+
                 </article>
 
 
                 <!-- COSMIC LOGIN -->
 
                 <article class="app-card">
+
                     <a
-                        class="card-link"
                         href="https://cosmiway-labs.github.io/cosmic-login/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
 
-                        <div class="browser-bar">
-                            <span class="browser-dot"></span>
-                            <span class="browser-dot"></span>
-                            <span class="browser-dot"></span>
-                            <div class="browser-url"></div>
-                        </div>
+                        <div class="card-visual">
 
-                        <div class="mock-ui">
+                            <div class="card-orb"></div>
 
-                            <div class="mock-header">
-                                <div class="mock-title">Cosmic Login</div>
-                                <div class="mock-chip"></div>
-                            </div>
+                            <div class="mini-window">
 
-                            <div class="mock-grid">
-
-                                <div class="mock-sidebar">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
+                                <div class="mini-header">
+                                    <i class="mini-dot"></i>
+                                    <i class="mini-dot"></i>
+                                    <i class="mini-dot"></i>
+                                    <span class="mini-title">
+                                        Cosmic Login
+                                    </span>
                                 </div>
 
-                                <div class="mock-main">
+                                <div class="mini-body">
 
-                                    <div class="mock-panel">
-                                        <div class="mock-line"></div>
-                                        <div class="mock-line medium"></div>
-                                        <div class="mock-line short"></div>
+                                    <div class="mini-big"></div>
+
+                                    <div class="mini-line mid"></div>
+
+                                    <div class="mini-box"
+                                         style="height:32px;margin-top:16px;">
                                     </div>
 
-                                    <div class="mock-panel">
-                                        <div class="mock-line"></div>
-                                        <div class="mock-line short"></div>
+                                    <div class="mini-box"
+                                         style="height:32px;margin-top:9px;">
+                                    </div>
+
+                                    <div class="mini-box"
+                                         style="height:28px;margin-top:13px;">
                                     </div>
 
                                 </div>
@@ -970,221 +1625,241 @@
 
                         </div>
 
-                        <div class="card-content">
+                        <div class="card-info">
 
-                            <div class="card-topline">
-                                <div class="card-name">Cosmic Login</div>
-                                <div class="card-arrow">↗</div>
+                            <div class="card-info-top">
+
+                                <h3>Cosmic Login</h3>
+
+                                <span class="card-arrow">↗</span>
+
                             </div>
 
                             <p>
-                                Your entry point for creating an account and
-                                accessing the Cosmiway ecosystem.
+                                The account entry point for the
+                                Cosmiway ecosystem.
                             </p>
 
-                            <span class="card-tag">
-                                Account system
+                            <span class="card-label">
+                                Account
                             </span>
 
                         </div>
 
                     </a>
+
                 </article>
 
 
                 <!-- COSMICHAT -->
 
                 <article class="app-card">
+
                     <a
-                        class="card-link"
                         href="https://cosmiway-labs.github.io/cosmichat/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
 
-                        <div class="browser-bar">
-                            <span class="browser-dot"></span>
-                            <span class="browser-dot"></span>
-                            <span class="browser-dot"></span>
-                            <div class="browser-url"></div>
-                        </div>
+                        <div class="card-visual">
 
-                        <div class="mock-ui">
+                            <div class="card-orb"></div>
 
-                            <div class="mock-header">
-                                <div class="mock-title">CosmiChat</div>
-                                <div class="mock-chip"></div>
-                            </div>
+                            <div class="mini-window has-sidebar">
 
-                            <div class="mock-grid">
-
-                                <div class="mock-sidebar">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
+                                <div class="mini-header">
+                                    <i class="mini-dot"></i>
+                                    <i class="mini-dot"></i>
+                                    <i class="mini-dot"></i>
+                                    <span class="mini-title">
+                                        CosmiChat
+                                    </span>
                                 </div>
 
-                                <div class="mock-main">
+                                <div class="mini-sidebar">
 
-                                    <div class="mock-panel">
-                                        <div class="mock-line medium"></div>
-                                        <div class="mock-line short"></div>
-                                    </div>
-
-                                    <div class="mock-panel">
-                                        <div class="mock-line"></div>
-                                        <div class="mock-line medium"></div>
-                                    </div>
-
-                                    <div class="mock-buttons">
-                                        <div class="mock-button"></div>
-                                    </div>
+                                    <div class="mini-sidebar-line"></div>
+                                    <div class="mini-sidebar-line"></div>
+                                    <div class="mini-sidebar-line"></div>
+                                    <div class="mini-sidebar-line"></div>
 
                                 </div>
 
+                                <div class="mini-body">
+
+                                    <div class="mini-line mid"></div>
+
+                                    <div class="mini-box"
+                                         style="height:42px;margin-top:12px;">
+                                    </div>
+
+                                    <div class="mini-box"
+                                         style="height:42px;margin-top:8px;">
+                                    </div>
+
+                                    <div class="mini-box"
+                                         style="height:30px;margin-top:8px;">
+                                    </div>
+
+                                </div>
+
                             </div>
 
                         </div>
 
-                        <div class="card-content">
+                        <div class="card-info">
 
-                            <div class="card-topline">
-                                <div class="card-name">CosmiChat</div>
-                                <div class="card-arrow">↗</div>
+                            <div class="card-info-top">
+
+                                <h3>CosmiChat</h3>
+
+                                <span class="card-arrow">↗</span>
+
                             </div>
 
                             <p>
-                                A dedicated conversational space designed
-                                around the Cosmiway experience.
+                                A dedicated conversational space
+                                inside the Cosmiway ecosystem.
                             </p>
 
-                            <span class="card-tag">
+                            <span class="card-label">
                                 Communication
                             </span>
 
                         </div>
 
                     </a>
+
                 </article>
 
 
                 <!-- COSMIMAIL -->
 
                 <article class="app-card">
+
                     <a
-                        class="card-link"
                         href="https://cosmiway-labs.github.io/cosmimail/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
 
-                        <div class="browser-bar">
-                            <span class="browser-dot"></span>
-                            <span class="browser-dot"></span>
-                            <span class="browser-dot"></span>
-                            <div class="browser-url"></div>
-                        </div>
+                        <div class="card-visual">
 
-                        <div class="mock-ui">
+                            <div class="card-orb"></div>
 
-                            <div class="mock-header">
-                                <div class="mock-title">CosmiMail</div>
-                                <div class="mock-chip"></div>
-                            </div>
+                            <div class="mini-window has-sidebar">
 
-                            <div class="mock-grid">
-
-                                <div class="mock-sidebar">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
+                                <div class="mini-header">
+                                    <i class="mini-dot"></i>
+                                    <i class="mini-dot"></i>
+                                    <i class="mini-dot"></i>
+                                    <span class="mini-title">
+                                        CosmiMail
+                                    </span>
                                 </div>
 
-                                <div class="mock-main">
+                                <div class="mini-sidebar">
 
-                                    <div class="mock-panel">
-                                        <div class="mock-line"></div>
-                                        <div class="mock-line medium"></div>
-                                        <div class="mock-line short"></div>
-                                    </div>
-
-                                    <div class="mock-panel">
-                                        <div class="mock-line"></div>
-                                        <div class="mock-line medium"></div>
-                                    </div>
+                                    <div class="mini-sidebar-line"></div>
+                                    <div class="mini-sidebar-line"></div>
+                                    <div class="mini-sidebar-line"></div>
+                                    <div class="mini-sidebar-line"></div>
 
                                 </div>
 
+                                <div class="mini-body">
+
+                                    <div class="mini-box"
+                                         style="height:34px;">
+                                    </div>
+
+                                    <div class="mini-line"></div>
+                                    <div class="mini-line mid"></div>
+                                    <div class="mini-line short"></div>
+
+                                    <div class="mini-box"
+                                         style="height:55px;margin-top:13px;">
+                                    </div>
+
+                                </div>
+
                             </div>
 
                         </div>
 
-                        <div class="card-content">
+                        <div class="card-info">
 
-                            <div class="card-topline">
-                                <div class="card-name">CosmiMail</div>
-                                <div class="card-arrow">↗</div>
+                            <div class="card-info-top">
+
+                                <h3>CosmiMail</h3>
+
+                                <span class="card-arrow">↗</span>
+
                             </div>
 
                             <p>
-                                A focused mail experience for keeping
-                                communication organized and accessible.
+                                A focused mail experience for
+                                keeping communication organized.
                             </p>
 
-                            <span class="card-tag">
+                            <span class="card-label">
                                 Email
                             </span>
 
                         </div>
 
                     </a>
+
                 </article>
 
 
                 <!-- COSMIMEET -->
 
                 <article class="app-card">
+
                     <a
-                        class="card-link"
                         href="https://cosmiway-labs.github.io/cosmimeet/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
 
-                        <div class="browser-bar">
-                            <span class="browser-dot"></span>
-                            <span class="browser-dot"></span>
-                            <span class="browser-dot"></span>
-                            <div class="browser-url"></div>
-                        </div>
+                        <div class="card-visual">
 
-                        <div class="mock-ui">
+                            <div class="card-orb"></div>
 
-                            <div class="mock-header">
-                                <div class="mock-title">CosmiMeet</div>
-                                <div class="mock-chip"></div>
-                            </div>
+                            <div class="mini-window">
 
-                            <div class="mock-grid">
-
-                                <div class="mock-sidebar">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
+                                <div class="mini-header">
+                                    <i class="mini-dot"></i>
+                                    <i class="mini-dot"></i>
+                                    <i class="mini-dot"></i>
+                                    <span class="mini-title">
+                                        CosmiMeet
+                                    </span>
                                 </div>
 
-                                <div class="mock-main">
+                                <div class="mini-body">
 
-                                    <div class="mock-panel">
-                                        <div class="mock-line"></div>
-                                        <div class="mock-line short"></div>
-                                    </div>
+                                    <div class="mini-big"></div>
 
-                                    <div class="mock-panel">
-                                        <div class="mock-line medium"></div>
-                                        <div class="mock-line"></div>
+                                    <div class="mini-grid">
+
+                                        <div class="mini-box"
+                                             style="height:70px;">
+                                        </div>
+
+                                        <div class="mini-box"
+                                             style="height:70px;">
+                                        </div>
+
+                                        <div class="mini-box"
+                                             style="height:70px;">
+                                        </div>
+
+                                        <div class="mini-box"
+                                             style="height:70px;">
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -1193,146 +1868,143 @@
 
                         </div>
 
-                        <div class="card-content">
+                        <div class="card-info">
 
-                            <div class="card-topline">
-                                <div class="card-name">CosmiMeet</div>
-                                <div class="card-arrow">↗</div>
+                            <div class="card-info-top">
+
+                                <h3>CosmiMeet</h3>
+
+                                <span class="card-arrow">↗</span>
+
                             </div>
 
                             <p>
-                                A meeting-focused space for bringing people
-                                together inside the Cosmiway ecosystem.
+                                A meeting-focused space for bringing
+                                people together.
                             </p>
 
-                            <span class="card-tag">
+                            <span class="card-label">
                                 Meetings
                             </span>
 
                         </div>
 
                     </a>
+
                 </article>
 
 
                 <!-- COSMIDRIVE -->
 
                 <article class="app-card">
+
                     <a
-                        class="card-link"
                         href="https://cosmiway-labs.github.io/cosmidrive/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
 
-                        <div class="browser-bar">
-                            <span class="browser-dot"></span>
-                            <span class="browser-dot"></span>
-                            <span class="browser-dot"></span>
-                            <div class="browser-url"></div>
-                        </div>
+                        <div class="card-visual">
 
-                        <div class="mock-ui">
+                            <div class="card-orb"></div>
 
-                            <div class="mock-header">
-                                <div class="mock-title">CosmiDrive</div>
-                                <div class="mock-chip"></div>
-                            </div>
+                            <div class="mini-window has-sidebar">
 
-                            <div class="mock-grid">
-
-                                <div class="mock-sidebar">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
+                                <div class="mini-header">
+                                    <i class="mini-dot"></i>
+                                    <i class="mini-dot"></i>
+                                    <i class="mini-dot"></i>
+                                    <span class="mini-title">
+                                        CosmiDrive
+                                    </span>
                                 </div>
 
-                                <div class="mock-main">
+                                <div class="mini-sidebar">
 
-                                    <div class="mock-panel">
-                                        <div class="mock-line"></div>
-                                        <div class="mock-line medium"></div>
-                                        <div class="mock-line short"></div>
-                                    </div>
-
-                                    <div class="mock-panel">
-                                        <div class="mock-line medium"></div>
-                                        <div class="mock-line"></div>
-                                    </div>
+                                    <div class="mini-sidebar-line"></div>
+                                    <div class="mini-sidebar-line"></div>
+                                    <div class="mini-sidebar-line"></div>
 
                                 </div>
 
+                                <div class="mini-body">
+
+                                    <div class="mini-grid">
+
+                                        <div class="mini-box"></div>
+                                        <div class="mini-box"></div>
+                                        <div class="mini-box"></div>
+                                        <div class="mini-box"></div>
+
+                                    </div>
+
+                                </div>
+
                             </div>
 
                         </div>
 
-                        <div class="card-content">
+                        <div class="card-info">
 
-                            <div class="card-topline">
-                                <div class="card-name">CosmiDrive</div>
-                                <div class="card-arrow">↗</div>
+                            <div class="card-info-top">
+
+                                <h3>CosmiDrive</h3>
+
+                                <span class="card-arrow">↗</span>
+
                             </div>
 
                             <p>
-                                A space for keeping files and digital
-                                resources together and within reach.
+                                A digital space for keeping files
+                                and resources together.
                             </p>
 
-                            <span class="card-tag">
+                            <span class="card-label">
                                 Storage
                             </span>
 
                         </div>
 
                     </a>
+
                 </article>
 
 
                 <!-- COSMINOTES -->
 
                 <article class="app-card">
+
                     <a
-                        class="card-link"
                         href="https://cosmiway-labs.github.io/cosminotes/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
 
-                        <div class="browser-bar">
-                            <span class="browser-dot"></span>
-                            <span class="browser-dot"></span>
-                            <span class="browser-dot"></span>
-                            <div class="browser-url"></div>
-                        </div>
+                        <div class="card-visual">
 
-                        <div class="mock-ui">
+                            <div class="card-orb"></div>
 
-                            <div class="mock-header">
-                                <div class="mock-title">CosmiNotes</div>
-                                <div class="mock-chip"></div>
-                            </div>
+                            <div class="mini-window">
 
-                            <div class="mock-grid">
-
-                                <div class="mock-sidebar">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
+                                <div class="mini-header">
+                                    <i class="mini-dot"></i>
+                                    <i class="mini-dot"></i>
+                                    <i class="mini-dot"></i>
+                                    <span class="mini-title">
+                                        CosmiNotes
+                                    </span>
                                 </div>
 
-                                <div class="mock-main">
+                                <div class="mini-body">
 
-                                    <div class="mock-panel">
-                                        <div class="mock-line"></div>
-                                        <div class="mock-line medium"></div>
-                                        <div class="mock-line short"></div>
-                                    </div>
+                                    <div class="mini-big"></div>
 
-                                    <div class="mock-panel">
-                                        <div class="mock-line"></div>
-                                        <div class="mock-line short"></div>
+                                    <div class="mini-line"></div>
+                                    <div class="mini-line"></div>
+                                    <div class="mini-line mid"></div>
+
+                                    <div class="mini-box"
+                                         style="height:68px;margin-top:16px;">
                                     </div>
 
                                 </div>
@@ -1341,48 +2013,64 @@
 
                         </div>
 
-                        <div class="card-content">
+                        <div class="card-info">
 
-                            <div class="card-topline">
-                                <div class="card-name">CosmiNotes</div>
-                                <div class="card-arrow">↗</div>
+                            <div class="card-info-top">
+
+                                <h3>CosmiNotes</h3>
+
+                                <span class="card-arrow">↗</span>
+
                             </div>
 
                             <p>
-                                A straightforward place to capture ideas,
-                                notes and information without distractions.
+                                A straightforward place to capture
+                                ideas and keep notes organized.
                             </p>
 
-                            <span class="card-tag">
+                            <span class="card-label">
                                 Notes
                             </span>
 
                         </div>
 
                     </a>
+
                 </article>
 
+
             </div>
+
         </div>
 
 
         <div class="carousel-controls">
 
-            <button
-                class="carousel-button"
-                id="prevButton"
-                aria-label="Previous tools"
-            >
-                &lt;
-            </button>
+            <div class="carousel-status">
+                <span id="carouselIndex">01</span>
+                &nbsp; / &nbsp;
+                <span id="carouselTotal">07</span>
+            </div>
 
-            <button
-                class="carousel-button"
-                id="nextButton"
-                aria-label="Next tools"
-            >
-                &gt;
-            </button>
+            <div class="control-buttons">
+
+                <button
+                    class="carousel-button"
+                    id="prevButton"
+                    aria-label="Previous tool"
+                >
+                    ←
+                </button>
+
+                <button
+                    class="carousel-button"
+                    id="nextButton"
+                    aria-label="Next tool"
+                >
+                    →
+                </button>
+
+            </div>
 
         </div>
 
@@ -1391,159 +2079,184 @@
 </section>
 
 
-<!-- =========================
-     GETTING STARTED
-========================= -->
+<!-- =========================================================
+     GET STARTED
+========================================================= -->
 
-<section class="section" id="start">
+<section class="section reveal" id="start">
 
-    <div class="section-heading">
+    <div class="section-intro">
 
-        <div class="eyebrow">
-            First time here?
+        <div class="section-heading">
+
+            <div class="eyebrow">
+                Getting started
+            </div>
+
+            <h2>
+                Enter<br>
+                the cosmos.
+            </h2>
+
         </div>
 
-        <h2>
-            Start in minutes.
-        </h2>
-
-        <p>
-            Getting into the Cosmiway ecosystem is straightforward.
-            Create your Cosmic Login once, then use it to get started.
+        <p class="section-description">
+            Your first stop is Cosmic Login. Once your account is
+            ready, head back here and explore the rest of the tools.
         </p>
 
     </div>
 
 
-    <div class="getting-started">
+    <div class="start-grid">
 
 
-        <div class="instruction-card">
+        <div class="start-card">
 
-            <h3>Create your Cosmic ID</h3>
+            <div class="start-number">01</div>
 
-            <ol class="instruction-list">
+            <h3>
+                Create your Cosmic ID
+            </h3>
 
-                <li>
-                    <span class="step-number">1</span>
-                    <span>Go to <strong>Cosmic Login</strong>.</span>
-                </li>
+            <div class="steps">
 
-                <li>
-                    <span class="step-number">2</span>
-                    <span>Click <strong>Create ID</strong>.</span>
-                </li>
+                <div class="step">
+                    <span>1</span>
+                    Go to Cosmic Login.
+                </div>
 
-                <li>
-                    <span class="step-number">3</span>
-                    <span>Enter your email address.</span>
-                </li>
+                <div class="step">
+                    <span>2</span>
+                    Click Create ID.
+                </div>
 
-                <li>
-                    <span class="step-number">4</span>
-                    <span>Create your password.</span>
-                </li>
+                <div class="step">
+                    <span>3</span>
+                    Enter your email.
+                </div>
 
-                <li>
-                    <span class="step-number">5</span>
-                    <span>Choose your username.</span>
-                </li>
+                <div class="step">
+                    <span>4</span>
+                    Create your password.
+                </div>
 
-                <li>
-                    <span class="step-number">6</span>
-                    <span>Click <strong>Create</strong>.</span>
-                </li>
+                <div class="step">
+                    <span>5</span>
+                    Enter your username.
+                </div>
 
-                <li>
-                    <span class="step-number">7</span>
-                    <span>Return to the portal and explore the tools.</span>
-                </li>
+                <div class="step">
+                    <span>6</span>
+                    Click Create.
+                </div>
 
-            </ol>
+                <div class="step">
+                    <span>7</span>
+                    Return to the portal and explore.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="start-card">
+
+            <div class="start-number">02</div>
+
+            <h3>
+                Already signed in?
+            </h3>
+
+            <div class="steps">
+
+                <div class="step">
+                    <span>1</span>
+                    Open Cosmic Login.
+                </div>
+
+                <div class="step">
+                    <span>2</span>
+                    Enter your email ID.
+                </div>
+
+                <div class="step">
+                    <span>3</span>
+                    Enter your password.
+                </div>
+
+                <div class="step">
+                    <span>4</span>
+                    Sign in.
+                </div>
+
+                <div class="step">
+                    <span>5</span>
+                    You're ready to explore the tools.
+                </div>
+
+            </div>
 
         </div>
 
-
-        <div class="instruction-card">
-
-            <h3>Already have an account?</h3>
-
-            <ol class="instruction-list">
-
-                <li>
-                    <span class="step-number">1</span>
-                    <span>Open <strong>Cosmic Login</strong>.</span>
-                </li>
-
-                <li>
-                    <span class="step-number">2</span>
-                    <span>Enter your email ID.</span>
-                </li>
-
-                <li>
-                    <span class="step-number">3</span>
-                    <span>Enter your password.</span>
-                </li>
-
-                <li>
-                    <span class="step-number">4</span>
-                    <span>Sign in and you're ready to go.</span>
-                </li>
-
-            </ol>
-
-        </div>
 
     </div>
 
 </section>
 
 
-<!-- =========================
+<!-- =========================================================
      FOUNDER
-========================= -->
+========================================================= -->
 
-<section class="section" id="founder">
+<section class="section founder reveal" id="founder">
 
-    <div class="section-heading">
+    <div class="section-intro">
 
-        <div class="eyebrow">
-            About the founder
+        <div class="section-heading">
+
+            <div class="eyebrow">
+                About the founder
+            </div>
+
+            <h2>
+                Behind<br>
+                the build.
+            </h2>
+
         </div>
-
-        <h2>
-            The person behind the build.
-        </h2>
 
     </div>
 
 
     <div class="founder-card">
 
-        <div class="founder-avatar">
+        <div class="founder-symbol">
             SO
         </div>
 
         <div class="founder-info">
 
-            <h3>Shaunak Okhde</h3>
+            <h3>
+                Shaunak Okhde
+            </h3>
 
             <div class="founder-role">
                 Founder · Builder · Architect
             </div>
 
             <p>
-                Cosmiway Labs is driven by a simple idea:
-                digital tools should feel useful instead of unnecessarily
-                complicated. Shaunak Okhde founded Cosmiway Labs to build
-                that kind of ecosystem — a growing collection of tools
-                designed around practical use, experimentation and
-                continuous improvement.
+                Cosmiway Labs is built around the idea of creating
+                useful digital tools and bringing them together into
+                a connected ecosystem. Shaunak Okhde founded Cosmiway
+                Labs and continues to shape its projects, direction
+                and growing collection of tools.
             </p>
 
             <p>
-                The projects continue to evolve as new ideas become tools,
-                and tools become part of a larger connected ecosystem.
+                What started as individual projects has continued
+                expanding into a larger universe of experiences.
             </p>
 
         </div>
@@ -1553,26 +2266,30 @@
 </section>
 
 
-<!-- =========================
+<!-- =========================================================
      TIMELINE
-========================= -->
+========================================================= -->
 
-<section class="section" id="timeline">
+<section class="section reveal" id="timeline">
 
-    <div class="section-heading">
+    <div class="section-intro">
 
-        <div class="eyebrow">
-            The journey
+        <div class="section-heading">
+
+            <div class="eyebrow">
+                The journey
+            </div>
+
+            <h2>
+                Building<br>
+                the universe.
+            </h2>
+
         </div>
 
-        <h2>
-            From an idea<br>
-            to an ecosystem.
-        </h2>
-
-        <p>
-            Cosmiway didn't appear as a finished universe.
-            It has been built piece by piece.
+        <p class="section-description">
+            The Cosmiway story is still being written. Here's the
+            progression so far.
         </p>
 
     </div>
@@ -1580,21 +2297,23 @@
 
     <div class="timeline">
 
+        <div class="timeline-line"></div>
+
 
         <div class="timeline-item">
 
-            <span class="timeline-dot"></span>
+            <div class="timeline-dot"></div>
 
             <div class="timeline-date">
                 January 2026
             </div>
 
-            <h3>The Spark</h3>
+            <h3>
+                The Spark
+            </h3>
 
             <p>
-                The idea behind Cosmiway begins taking shape:
-                create practical digital experiences that work together
-                as part of something larger.
+                The idea behind Cosmiway begins taking shape.
             </p>
 
         </div>
@@ -1602,18 +2321,19 @@
 
         <div class="timeline-item">
 
-            <span class="timeline-dot"></span>
+            <div class="timeline-dot"></div>
 
             <div class="timeline-date">
                 February 2026
             </div>
 
-            <h3>Starscape</h3>
+            <h3>
+                Starscape
+            </h3>
 
             <p>
-                The visual identity and wider direction of the ecosystem
-                begin developing, turning the original concept into a
-                recognizable universe of tools.
+                The visual identity and wider direction of the
+                ecosystem begin developing.
             </p>
 
         </div>
@@ -1621,17 +2341,19 @@
 
         <div class="timeline-item">
 
-            <span class="timeline-dot"></span>
+            <div class="timeline-dot"></div>
 
             <div class="timeline-date">
                 March 2026
             </div>
 
-            <h3>Cosmiway Evolution</h3>
+            <h3>
+                Cosmiway Evolution
+            </h3>
 
             <p>
                 Individual projects begin becoming part of a broader
-                ecosystem rather than remaining isolated experiments.
+                ecosystem.
             </p>
 
         </div>
@@ -1639,17 +2361,18 @@
 
         <div class="timeline-item">
 
-            <span class="timeline-dot"></span>
+            <div class="timeline-dot"></div>
 
             <div class="timeline-date">
                 April 2026
             </div>
 
-            <h3>More tools take shape</h3>
+            <h3>
+                More tools take shape
+            </h3>
 
             <p>
-                Development expands beyond the original concepts as new
-                ideas are turned into usable digital tools.
+                New ideas begin turning into additional digital tools.
             </p>
 
         </div>
@@ -1657,17 +2380,19 @@
 
         <div class="timeline-item">
 
-            <span class="timeline-dot"></span>
+            <div class="timeline-dot"></div>
 
             <div class="timeline-date">
                 May 2026
             </div>
 
-            <h3>The ecosystem grows</h3>
+            <h3>
+                The ecosystem grows
+            </h3>
 
             <p>
-                Communication, productivity and utility-focused projects
-                continue expanding the collection.
+                More utility, communication and productivity projects
+                expand the collection.
             </p>
 
         </div>
@@ -1675,17 +2400,19 @@
 
         <div class="timeline-item">
 
-            <span class="timeline-dot"></span>
+            <div class="timeline-dot"></div>
 
             <div class="timeline-date">
                 June 2026
             </div>
 
-            <h3>The portal takes shape</h3>
+            <h3>
+                The portal takes shape
+            </h3>
 
             <p>
-                The growing collection begins coming together around a
-                central experience for discovering and accessing the tools.
+                The growing collection begins coming together around
+                a central experience.
             </p>
 
         </div>
@@ -1693,18 +2420,19 @@
 
         <div class="timeline-item">
 
-            <span class="timeline-dot"></span>
+            <div class="timeline-dot"></div>
 
             <div class="timeline-date">
                 July 2026
             </div>
 
-            <h3>Connecting the pieces</h3>
+            <h3>
+                Connecting the pieces
+            </h3>
 
             <p>
-                More Cosmiway projects come together, making the ecosystem
-                feel less like a collection of experiments and more like
-                a unified platform.
+                More Cosmiway projects come together into a more
+                unified ecosystem.
             </p>
 
         </div>
@@ -1712,18 +2440,19 @@
 
         <div class="timeline-item">
 
-            <span class="timeline-dot"></span>
+            <div class="timeline-dot"></div>
 
             <div class="timeline-date">
                 August 2026
             </div>
 
-            <h3>The Cosmos Expands</h3>
+            <h3>
+                The Cosmos Expands
+            </h3>
 
             <p>
-                The ecosystem continues growing with more tools,
-                a dedicated portal experience and a clearer direction
-                for what Cosmiway Labs is becoming.
+                The collection continues growing, bringing more tools
+                and a stronger portal experience together.
             </p>
 
         </div>
@@ -1731,17 +2460,18 @@
 
         <div class="timeline-item">
 
-            <span class="timeline-dot"></span>
+            <div class="timeline-dot"></div>
 
             <div class="timeline-date">
                 September 2026
             </div>
 
-            <h3>Still building</h3>
+            <h3>
+                Still building
+            </h3>
 
             <p>
-                The story is ongoing. New tools, ideas and improvements
-                continue to shape the next part of the Cosmiway journey.
+                The next part of the Cosmiway story is already underway.
             </p>
 
         </div>
@@ -1754,274 +2484,379 @@
 </main>
 
 
-<!-- =========================
+<!-- =========================================================
      FOOTER
-========================= -->
+========================================================= -->
 
 <footer>
 
-    <div>
-        © 2026 Cosmiway Labs
+    <div class="footer-brand">
+        COSMIWAY LABS
     </div>
 
     <div>
-        Built one tool at a time.
+        © 2026 · Explore the Cosmos
     </div>
 
 </footer>
 
 
 <script>
-/* ==========================================
-   REAL 3-CARD INFINITE CAROUSEL
-========================================== */
+
+/* =========================================================
+   CURSOR AMBIENT LIGHT
+========================================================= */
+
+const cursorGlow = document.getElementById("cursorGlow");
+
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+
+let glowX = mouseX;
+let glowY = mouseY;
+
+window.addEventListener("mousemove", (event) => {
+
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+
+});
+
+function animateGlow() {
+
+    glowX += (mouseX - glowX) * .08;
+    glowY += (mouseY - glowY) * .08;
+
+    cursorGlow.style.left = glowX + "px";
+    cursorGlow.style.top = glowY + "px";
+
+    requestAnimationFrame(animateGlow);
+
+}
+
+animateGlow();
+
+
+/* =========================================================
+   CAROUSEL
+========================================================= */
 
 const track = document.getElementById("carouselTrack");
-const prevButton = document.getElementById("prevButton");
-const nextButton = document.getElementById("nextButton");
 
-let cards = Array.from(track.children);
+const prevButton =
+    document.getElementById("prevButton");
 
-const ORIGINAL_COUNT = cards.length;
-const GAP = 20;
+const nextButton =
+    document.getElementById("nextButton");
 
-let index = 0;
-let isMoving = false;
-let autoTimer = null;
+const indexDisplay =
+    document.getElementById("carouselIndex");
+
+const totalDisplay =
+    document.getElementById("carouselTotal");
+
+
+const originalCards =
+    Array.from(track.children);
+
+const TOTAL =
+    originalCards.length;
+
+totalDisplay.textContent =
+    String(TOTAL).padStart(2, "0");
 
 
 /*
-    Clone enough cards on BOTH sides.
+    Clone three cards on each side.
 
-    We keep three cards visible on desktop:
-        previous | current | next
-
-    The clones allow the carousel to keep moving
-    without visibly running out of cards.
+    This gives the carousel enough material to keep
+    three cards visible while allowing seamless
+    movement through the collection.
 */
 
-const beforeClones = cards.slice(-3).map(card => card.cloneNode(true));
-const afterClones = cards.slice(0, 3).map(card => card.cloneNode(true));
+const leftClones =
+    originalCards
+        .slice(-3)
+        .map(card => card.cloneNode(true));
 
-beforeClones.reverse().forEach(card => {
+const rightClones =
+    originalCards
+        .slice(0,3)
+        .map(card => card.cloneNode(true));
+
+
+leftClones.reverse().forEach(card => {
     track.insertBefore(card, track.firstChild);
 });
 
-afterClones.forEach(card => {
+rightClones.forEach(card => {
     track.appendChild(card);
 });
 
-cards = Array.from(track.children);
 
-index = 3;
+let cards =
+    Array.from(track.children);
+
+let current =
+    3;
+
+let moving =
+    false;
+
+let autoTimer;
 
 
-/* ------------------------------------------
-   Calculate exact position for 3-card window
------------------------------------------- */
+/* =========================================================
+   POSITION CALCULATION
+========================================================= */
 
-function getCardWidth() {
+function cardWidth() {
+
     return cards[0].getBoundingClientRect().width;
+
 }
 
-function getStep() {
-    return getCardWidth() + GAP;
+
+function stepWidth() {
+
+    return cardWidth() + 20;
+
 }
 
-function getTargetX(targetIndex) {
 
-    const viewport = track.parentElement;
-    const viewportWidth = viewport.clientWidth;
+function targetPosition(index) {
 
-    const cardWidth = getCardWidth();
+    const viewport =
+        track.parentElement;
 
-    /*
-        Center the GROUP of three cards.
-    */
+    const viewportWidth =
+        viewport.clientWidth;
 
-    const groupWidth = cardWidth * 3 + GAP * 2;
+    const width =
+        cardWidth();
+
+    const groupWidth =
+        width * 3 + 40;
 
     const groupStart =
         (viewportWidth - groupWidth) / 2;
 
-    const firstVisibleIndex =
-        targetIndex - 1;
+    return groupStart -
+        ((index - 1) * stepWidth());
 
-    return groupStart - (firstVisibleIndex * getStep());
 }
 
 
-/* ------------------------------------------
-   Movement
------------------------------------------- */
+/* =========================================================
+   UPDATE
+========================================================= */
 
-function moveTo(targetIndex, duration = 650) {
+function render(immediate = false) {
 
-    if (isMoving) return;
+    if (immediate) {
 
-    isMoving = true;
+        track.style.transition =
+            "none";
 
-    const targetX = getTargetX(targetIndex);
+    } else {
 
-    track.style.transition =
-        `transform ${duration}ms cubic-bezier(.16,.88,.24,1)`;
+        track.style.transition =
+            "transform 680ms cubic-bezier(.16,.86,.24,1)";
+
+    }
 
     track.style.transform =
-        `translate3d(${targetX}px,0,0)`;
+        `translate3d(${targetPosition(current)}px,0,0)`;
+
+    const realIndex =
+        ((current - 3) % TOTAL + TOTAL) % TOTAL;
+
+    indexDisplay.textContent =
+        String(realIndex + 1).padStart(2, "0");
+
+}
+
+
+/* =========================================================
+   MOVE
+========================================================= */
+
+function move(direction) {
+
+    if (moving) return;
+
+    moving = true;
+
+    current += direction;
+
+    render(false);
 
     setTimeout(() => {
 
-        isMoving = false;
-
         /*
-            If we've entered a cloned region,
-            silently reposition to the real copy.
+            When entering the clone region,
+            silently snap to the corresponding real card.
         */
 
-        if (index >= ORIGINAL_COUNT + 3) {
+        if (current >= TOTAL + 3) {
 
-            index = 3;
+            current = 3;
 
-            track.style.transition = "none";
-
-            track.style.transform =
-                `translate3d(${getTargetX(index)}px,0,0)`;
+            render(true);
 
         }
 
-        if (index < 3) {
+        if (current < 3) {
 
-            index = ORIGINAL_COUNT + 2;
+            current = TOTAL + 2;
 
-            track.style.transition = "none";
+            render(true);
 
-            track.style.transform =
-                `translate3d(${getTargetX(index)}px,0,0)`;
         }
 
-    }, duration + 15);
+        moving = false;
+
+    }, 700);
+
 }
 
 
-/* ------------------------------------------
-   Next
------------------------------------------- */
-
-function next() {
-
-    if (isMoving) return;
-
-    index++;
-
-    moveTo(index);
-}
-
-
-/* ------------------------------------------
-   Previous
------------------------------------------- */
-
-function previous() {
-
-    if (isMoving) return;
-
-    index--;
-
-    moveTo(index);
-}
-
-
-/* ------------------------------------------
-   Buttons
------------------------------------------- */
+/* =========================================================
+   BUTTONS
+========================================================= */
 
 nextButton.addEventListener("click", () => {
 
     stopAuto();
 
-    next();
+    move(1);
 
     startAuto();
 
 });
+
 
 prevButton.addEventListener("click", () => {
 
     stopAuto();
 
-    previous();
+    move(-1);
 
     startAuto();
 
 });
 
 
-/* ------------------------------------------
-   Auto movement
------------------------------------------- */
+/* =========================================================
+   AUTO CAROUSEL
+========================================================= */
 
 function startAuto() {
 
     stopAuto();
 
-    autoTimer = setInterval(() => {
+    autoTimer =
+        setInterval(() => {
 
-        if (!isMoving) {
-            next();
-        }
+            if (!moving) {
+                move(1);
+            }
 
-    }, 2400);
+        }, 2900);
+
 }
 
 
 function stopAuto() {
 
     if (autoTimer) {
+
         clearInterval(autoTimer);
+
         autoTimer = null;
+
     }
 
 }
 
 
-/* ------------------------------------------
-   Pause while hovering
------------------------------------------- */
+/* pause when hovering */
 
-const carouselShell =
-    document.querySelector(".carousel-shell");
+const carousel =
+    document.querySelector(".carousel-wrap");
 
-carouselShell.addEventListener("mouseenter", stopAuto);
+carousel.addEventListener(
+    "mouseenter",
+    stopAuto
+);
 
-carouselShell.addEventListener("mouseleave", startAuto);
+carousel.addEventListener(
+    "mouseleave",
+    startAuto
+);
 
 
-/* ------------------------------------------
-   Resize
------------------------------------------- */
+/* =========================================================
+   RESIZE
+========================================================= */
 
 window.addEventListener("resize", () => {
 
-    track.style.transition = "none";
-
-    track.style.transform =
-        `translate3d(${getTargetX(index)}px,0,0)`;
+    render(true);
 
 });
 
 
-/* ------------------------------------------
-   Initial position
------------------------------------------- */
+/* =========================================================
+   INITIALIZE
+========================================================= */
 
 window.addEventListener("load", () => {
 
-    track.style.transition = "none";
+    render(true);
 
-    track.style.transform =
-        `translate3d(${getTargetX(index)}px,0,0)`;
+    setTimeout(() => {
 
-    startAuto();
+        startAuto();
+
+    }, 1200);
+
+});
+
+
+/* =========================================================
+   SCROLL REVEALS
+========================================================= */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("visible");
+
+                    observer.unobserve(entry.target);
+
+                }
+
+            });
+
+        },
+        {
+            threshold: .12
+        }
+    );
+
+
+revealElements.forEach(element => {
+
+    observer.observe(element);
 
 });
 
