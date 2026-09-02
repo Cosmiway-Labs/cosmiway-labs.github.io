@@ -9,13 +9,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Sora:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
-/* =========================================================
-   RESET
-========================================================= */
+:root {
+    --bg: #03040a;
+    --text: #f5f5ff;
+    --muted: rgba(205,208,230,.52);
+    --dim: rgba(205,208,230,.32);
+    --line: rgba(255,255,255,.09);
+    --glass: rgba(255,255,255,.045);
+    --purple: #8977ff;
+    --blue: #5f9cff;
+}
 
 * {
     margin: 0;
@@ -28,16 +35,10 @@ html {
 }
 
 body {
-    background: #03040a;
-    color: #f4f5ff;
-    font-family: "Space Grotesk", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Manrope", sans-serif;
     overflow-x: hidden;
-}
-
-body,
-button,
-a {
-    -webkit-tap-highlight-color: transparent;
 }
 
 a,
@@ -50,138 +51,121 @@ a:focus {
 }
 
 button {
-    font: inherit;
+    font-family: inherit;
 }
 
 
 /* =========================================================
-   AMBIENT BACKGROUND
+   AMBIENT UNIVERSE
 ========================================================= */
 
-#ambient {
+.ambient {
     position: fixed;
     inset: 0;
-    z-index: -20;
+    z-index: -10;
     overflow: hidden;
     pointer-events: none;
+
     background:
         radial-gradient(
-            ellipse at 50% 0%,
-            rgba(87, 71, 255, .13),
+            ellipse at 50% -15%,
+            rgba(105,85,255,.15),
             transparent 42%
         ),
         radial-gradient(
-            ellipse at 10% 60%,
-            rgba(0, 154, 255, .075),
-            transparent 35%
+            ellipse at -10% 55%,
+            rgba(35,110,255,.08),
+            transparent 38%
         ),
         radial-gradient(
-            ellipse at 90% 72%,
-            rgba(177, 70, 255, .07),
-            transparent 38%
+            ellipse at 110% 72%,
+            rgba(155,70,255,.08),
+            transparent 40%
         ),
         #03040a;
 }
 
-
-/* drifting atmospheric lights */
-
-.ambient-orb {
+.star-layer {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: .38;
-    mix-blend-mode: screen;
-}
+    inset: -20%;
 
-.orb-one {
-    width: 480px;
-    height: 480px;
-    left: -180px;
-    top: 12%;
-    background: rgba(65, 106, 255, .16);
-    animation: driftOne 18s ease-in-out infinite alternate;
-}
-
-.orb-two {
-    width: 550px;
-    height: 550px;
-    right: -230px;
-    top: 34%;
-    background: rgba(157, 64, 255, .13);
-    animation: driftTwo 23s ease-in-out infinite alternate;
-}
-
-.orb-three {
-    width: 400px;
-    height: 400px;
-    left: 38%;
-    bottom: -180px;
-    background: rgba(41, 117, 255, .10);
-    animation: driftThree 20s ease-in-out infinite alternate;
-}
-
-@keyframes driftOne {
-    from {
-        transform: translate3d(0, 0, 0) scale(1);
-    }
-
-    to {
-        transform: translate3d(160px, 80px, 0) scale(1.2);
-    }
-}
-
-@keyframes driftTwo {
-    from {
-        transform: translate3d(0, 0, 0) scale(1);
-    }
-
-    to {
-        transform: translate3d(-120px, -80px, 0) scale(1.18);
-    }
-}
-
-@keyframes driftThree {
-    from {
-        transform: translate3d(0, 0, 0) scale(1);
-    }
-
-    to {
-        transform: translate3d(90px, -80px, 0) scale(1.15);
-    }
-}
-
-
-/* =========================================================
-   STAR FIELD
-========================================================= */
-
-.stars {
-    position: absolute;
-    inset: 0;
-    opacity: .62;
     background-image:
         radial-gradient(circle, rgba(255,255,255,.75) 0 1px, transparent 1.2px),
-        radial-gradient(circle, rgba(255,255,255,.42) 0 1px, transparent 1.2px),
-        radial-gradient(circle, rgba(255,255,255,.30) 0 1px, transparent 1.2px);
+        radial-gradient(circle, rgba(255,255,255,.38) 0 1px, transparent 1.2px),
+        radial-gradient(circle, rgba(255,255,255,.22) 0 1px, transparent 1.2px);
+
     background-size:
         180px 180px,
-        270px 270px,
-        360px 360px;
+        290px 290px,
+        410px 410px;
+
     background-position:
         0 0,
-        40px 80px,
-        120px 20px;
-    animation: starDrift 90s linear infinite;
+        50px 80px,
+        140px 30px;
+
+    animation: starMove 100s linear infinite;
 }
 
-@keyframes starDrift {
+@keyframes starMove {
     from {
         transform: translate3d(0,0,0);
     }
 
     to {
-        transform: translate3d(-120px,80px,0);
+        transform: translate3d(-120px,90px,0);
+    }
+}
+
+.aurora {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(110px);
+    mix-blend-mode: screen;
+}
+
+.aurora.one {
+    width: 560px;
+    height: 560px;
+    left: -240px;
+    top: 15%;
+    background: rgba(65,100,255,.13);
+    animation: auroraOne 20s ease-in-out infinite alternate;
+}
+
+.aurora.two {
+    width: 600px;
+    height: 600px;
+    right: -280px;
+    top: 35%;
+    background: rgba(137,75,255,.12);
+    animation: auroraTwo 24s ease-in-out infinite alternate;
+}
+
+.aurora.three {
+    width: 450px;
+    height: 450px;
+    left: 35%;
+    bottom: -280px;
+    background: rgba(70,95,255,.08);
+    animation: auroraThree 19s ease-in-out infinite alternate;
+}
+
+@keyframes auroraOne {
+    to {
+        transform: translate(180px,100px) scale(1.25);
+    }
+}
+
+@keyframes auroraTwo {
+    to {
+        transform: translate(-160px,-80px) scale(1.18);
+    }
+}
+
+@keyframes auroraThree {
+    to {
+        transform: translate(100px,-100px) scale(1.2);
     }
 }
 
@@ -195,131 +179,154 @@ button {
     inset: -50%;
     z-index: 1000;
     pointer-events: none;
-    opacity: .035;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
-    animation: grainMove .25s steps(2) infinite;
+
+    opacity: .028;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+
+    animation: grain .25s steps(2) infinite;
 }
 
-@keyframes grainMove {
+@keyframes grain {
     0% {
         transform: translate(0,0);
     }
 
     25% {
-        transform: translate(3%, -2%);
+        transform: translate(2%,-2%);
     }
 
     50% {
-        transform: translate(-2%, 3%);
+        transform: translate(-2%,2%);
     }
 
     75% {
-        transform: translate(2%, 2%);
+        transform: translate(2%,2%);
     }
 
     100% {
-        transform: translate(-3%, -3%);
+        transform: translate(-2%,-2%);
     }
 }
 
 
 /* =========================================================
-   CURSOR AMBIENT LIGHT
+   CURSOR LIGHT
 ========================================================= */
 
-.cursor-glow {
+.cursor-light {
     position: fixed;
+
     width: 520px;
     height: 520px;
+
     border-radius: 50%;
+
     pointer-events: none;
-    z-index: -5;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(
-        circle,
-        rgba(108, 91, 255, .065),
-        transparent 68%
-    );
+    z-index: -2;
+
+    transform: translate(-50%,-50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(105,87,255,.065),
+            transparent 68%
+        );
+
     filter: blur(15px);
 }
 
 
 /* =========================================================
-   NAV
+   NAVIGATION
 ========================================================= */
 
-.nav-wrap {
+.nav {
     position: fixed;
+
     top: 18px;
     left: 50%;
+
     transform: translateX(-50%);
-    width: min(1160px, calc(100% - 36px));
+
+    width: min(1180px, calc(100% - 36px));
+
     z-index: 500;
 }
 
 nav {
-    height: 64px;
+    height: 62px;
+
     padding: 0 22px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
 
+    border: 1px solid rgba(255,255,255,.095);
+    border-radius: 17px;
+
     background:
         linear-gradient(
-            180deg,
-            rgba(255,255,255,.075),
-            rgba(255,255,255,.035)
+            135deg,
+            rgba(255,255,255,.065),
+            rgba(255,255,255,.025)
         );
 
-    border: 1px solid rgba(255,255,255,.11);
-    border-radius: 18px;
-
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
 
     box-shadow:
-        0 20px 60px rgba(0,0,0,.28),
-        inset 0 1px 0 rgba(255,255,255,.06);
+        0 20px 70px rgba(0,0,0,.3),
+        inset 0 1px 0 rgba(255,255,255,.055);
 }
 
-.logo {
+.nav-brand {
     font-family: "Syne", sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 800;
-    letter-spacing: -.02em;
+    letter-spacing: -.025em;
 }
 
-.logo span {
-    opacity: .45;
+.nav-brand span {
+    color: rgba(255,255,255,.38);
 }
 
 .nav-links {
     display: flex;
-    align-items: center;
-    gap: 27px;
+    gap: 28px;
 }
 
 .nav-links a {
     position: relative;
-    color: rgba(240,242,255,.58);
-    font-size: 12px;
-    font-weight: 600;
-    transition: color .25s ease;
-}
 
-.nav-links a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -7px;
-    width: 0;
-    height: 1px;
-    background: white;
-    transition: width .25s ease;
+    color: rgba(230,232,250,.5);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    transition: color .25s ease;
 }
 
 .nav-links a:hover {
     color: white;
+}
+
+.nav-links a::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+
+    width: 0;
+    height: 1px;
+
+    background: white;
+
+    transition: width .25s ease;
 }
 
 .nav-links a:hover::after {
@@ -333,202 +340,263 @@ nav {
 
 .hero {
     position: relative;
+
     min-height: 100vh;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding:
-        130px 5vw
-        80px;
+        130px 30px
+        100px;
+
     text-align: center;
-    overflow: hidden;
 }
 
-
-/* subtle center atmospheric field */
-
-.hero::before {
-    content: "";
-    position: absolute;
-    width: 900px;
-    height: 600px;
-    left: 50%;
-    top: 45%;
-    transform: translate(-50%, -50%);
-    background:
-        radial-gradient(
-            ellipse,
-            rgba(92,76,255,.10),
-            rgba(50,70,180,.035) 35%,
-            transparent 72%
-        );
-    filter: blur(30px);
-    pointer-events: none;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
+.hero-inner {
     width: min(1250px, 100%);
 }
 
 
-/* tiny top label */
+/* MAIN BRAND */
 
-.hero-label {
-    margin-bottom: 32px;
-    color: rgba(232,235,255,.47);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .28em;
-    text-transform: uppercase;
+.brand-name {
+    font-family: "Syne", sans-serif;
+
+    /*
+       This is intentionally much larger than the old
+       tiny "SO" label.
+
+       It is the actual brand.
+    */
+
+    font-size: clamp(
+        25px,
+        3vw,
+        40px
+    );
+
+    line-height: 1;
+
+    font-weight: 800;
+
+    letter-spacing: -.055em;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 35px rgba(130,110,255,.16);
+
+    animation: brandPulse 7s ease-in-out infinite;
+}
+
+@keyframes brandPulse {
+
+    0%,100% {
+        text-shadow:
+            0 0 25px rgba(130,110,255,.08);
+    }
+
+    50% {
+        text-shadow:
+            0 0 45px rgba(130,110,255,.24);
+    }
+
 }
 
 
-/* MAIN TITLE */
+/* little separator */
+
+.hero-rule {
+    width: 70px;
+    height: 1px;
+
+    margin: 25px auto 32px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(157,143,255,.7),
+            transparent
+        );
+
+    box-shadow:
+        0 0 16px rgba(130,110,255,.4);
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
 
 .hero-title {
     font-family: "Syne", sans-serif;
+
     font-weight: 800;
+
+    /*
+       IMPORTANT:
+       The old version used a giant value that allowed
+       the text to exceed the viewport.
+
+       This one is deliberately constrained.
+    */
+
     font-size: clamp(
-        68px,
-        13vw,
-        190px
+        58px,
+        9.4vw,
+        145px
     );
 
-    line-height: .78;
+    line-height: .82;
+
     letter-spacing: -.085em;
 
     text-transform: uppercase;
 
-    user-select: none;
+    white-space: nowrap;
 
-    text-shadow:
-        0 0 70px rgba(115,95,255,.075);
+    width: 100%;
+
+    overflow: visible;
 }
 
 .hero-title .line {
     display: block;
+
+    width: 100%;
+
+    white-space: nowrap;
 }
 
 .hero-title .line:first-child {
     background:
         linear-gradient(
             100deg,
-            #ffffff 5%,
-            #dddfff 35%,
+            #ffffff 0%,
+            #e7e4ff 35%,
             #9d91ff 72%,
-            #7161ff 100%
+            #7564ff 100%
         );
 
     -webkit-background-clip: text;
     background-clip: text;
+
     color: transparent;
 
-    animation: titleBreath 7s ease-in-out infinite;
+    filter:
+        drop-shadow(
+            0 0 30px rgba(113,95,255,.09)
+        );
 }
 
 .hero-title .line:last-child {
-    color: #f4f4fb;
-    position: relative;
-}
+    color: #f8f8ff;
 
-.hero-title .line:last-child::after {
-    content: "";
-    position: absolute;
-    left: 13%;
-    right: 13%;
-    bottom: -15px;
-    height: 2px;
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(132,113,255,.8),
-            transparent
-        );
-    filter: blur(2px);
-    opacity: .7;
-}
-
-@keyframes titleBreath {
-    0%, 100% {
-        filter: brightness(1);
-    }
-
-    50% {
-        filter: brightness(1.14);
-    }
+    text-shadow:
+        0 0 45px rgba(120,105,255,.08);
 }
 
 
-/* WITH COSMIWAY LABS */
-
-.hero-subtitle {
-    margin-top: 44px;
-    font-family: "Sora", sans-serif;
-    font-size: clamp(15px, 1.8vw, 23px);
-    font-weight: 500;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: rgba(224,226,246,.68);
-}
-
-.hero-subtitle span {
-    color: #c9c4ff;
-}
-
-
-/* hero description */
+/* =========================================================
+   HERO SUBTEXT
+========================================================= */
 
 .hero-copy {
-    max-width: 600px;
-    margin: 25px auto 0;
-    color: rgba(194,198,220,.55);
-    font-size: 15px;
+    width: min(600px, 100%);
+
+    margin: 38px auto 0;
+
+    color: rgba(198,202,224,.53);
+
+    font-size: 14px;
     line-height: 1.8;
 }
 
+.hero-meta {
+    margin-top: 22px;
 
-/* hero bottom indicator */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 11px;
 
-.scroll-indicator {
+    color: rgba(205,208,230,.32);
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 9px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.hero-meta i {
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #8c7aff;
+
+    box-shadow:
+        0 0 12px rgba(140,122,255,.8);
+}
+
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+.scroll {
     position: absolute;
-    bottom: 34px;
+
     left: 50%;
+    bottom: 30px;
+
     transform: translateX(-50%);
+
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 9px;
-    color: rgba(255,255,255,.32);
-    font-size: 9px;
-    letter-spacing: .22em;
+
+    color: rgba(255,255,255,.27);
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 8px;
+    letter-spacing: .2em;
     text-transform: uppercase;
 }
 
 .scroll-line {
     width: 1px;
-    height: 42px;
+    height: 38px;
+
     background:
         linear-gradient(
             to bottom,
             rgba(255,255,255,.45),
             transparent
         );
-    animation: scrollPulse 2s ease-in-out infinite;
+
+    animation: scrollLine 2s ease-in-out infinite;
 }
 
-@keyframes scrollPulse {
+@keyframes scrollLine {
+
     0%,100% {
-        opacity: .3;
-        transform: scaleY(.7);
+        opacity: .25;
+        transform: scaleY(.65);
     }
 
     50% {
         opacity: 1;
         transform: scaleY(1);
     }
+
 }
 
 
@@ -545,340 +613,846 @@ section {
     padding: 145px 0;
 }
 
-.section-intro {
+.section-header {
     display: grid;
     grid-template-columns: .8fr 1.2fr;
-    gap: 70px;
+
+    gap: 60px;
+
     align-items: end;
+
     margin-bottom: 55px;
 }
 
 .eyebrow {
-    font-family: "Sora", sans-serif;
-    color: rgba(178,183,211,.45);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .24em;
+    font-family: "DM Mono", monospace;
+
+    color: rgba(185,190,216,.36);
+
+    font-size: 9px;
+
+    letter-spacing: .2em;
+
     text-transform: uppercase;
 }
 
-.section-heading h2 {
+.section-title {
     margin-top: 13px;
+
     font-family: "Syne", sans-serif;
-    font-size: clamp(40px, 6vw, 76px);
-    line-height: .94;
+
+    font-size: clamp(
+        42px,
+        6vw,
+        76px
+    );
+
+    line-height: .9;
+
     letter-spacing: -.07em;
 }
 
 .section-description {
-    color: rgba(190,195,218,.53);
     max-width: 520px;
-    line-height: 1.8;
+
+    color: rgba(192,196,218,.48);
+
     font-size: 14px;
+
+    line-height: 1.8;
 }
 
 
 /* =========================================================
-   TOOLS CAROUSEL
+   APP CAROUSEL
 ========================================================= */
 
-.carousel-wrap {
-    position: relative;
-}
-
 .carousel-window {
-    overflow: hidden;
     width: 100%;
-    padding: 12px 0 30px;
+    overflow: hidden;
+
+    padding: 10px 0 35px;
 }
 
 .carousel-track {
     display: flex;
+
     gap: 20px;
+
     will-change: transform;
-}
-
-.app-card {
-    flex: 0 0 340px;
-    width: 340px;
-    height: 430px;
-    position: relative;
-
-    border-radius: 25px;
-    overflow: hidden;
-
-    border: 1px solid rgba(255,255,255,.10);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.075),
-            rgba(255,255,255,.025) 55%,
-            rgba(111,83,255,.035)
-        );
-
-    box-shadow:
-        0 25px 80px rgba(0,0,0,.32),
-        inset 0 1px 0 rgba(255,255,255,.07);
-
-    transition:
-        border-color .35s ease,
-        box-shadow .35s ease,
-        transform .35s cubic-bezier(.2,.8,.2,1);
-}
-
-.app-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(
-            circle at 50% 0%,
-            rgba(122,105,255,.10),
-            transparent 48%
-        );
-    pointer-events: none;
-}
-
-.app-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(170,160,255,.28);
-    box-shadow:
-        0 35px 100px rgba(0,0,0,.4),
-        0 0 45px rgba(101,82,255,.07),
-        inset 0 1px 0 rgba(255,255,255,.10);
 }
 
 
 /* =========================================================
-   CARD VISUAL
+   APP CARD
 ========================================================= */
 
-.card-visual {
+.app-card {
     position: relative;
-    height: 238px;
-    padding: 18px;
 
-    background:
-        radial-gradient(
-            circle at 60% 35%,
-            rgba(102,91,255,.14),
-            transparent 50%
-        ),
-        #080b14;
+    flex: 0 0 340px;
 
-    border-bottom: 1px solid rgba(255,255,255,.07);
+    width: 340px;
+    height: 450px;
+
     overflow: hidden;
-}
 
+    border-radius: 25px;
 
-/* floating mini interface */
-
-.mini-window {
-    position: relative;
-    height: 100%;
-    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,.09);
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,.07),
-            rgba(255,255,255,.025)
+            rgba(255,255,255,.065),
+            rgba(255,255,255,.022)
         );
 
-    border: 1px solid rgba(255,255,255,.09);
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.32),
+        inset 0 1px 0 rgba(255,255,255,.055);
+
+    transition:
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        border-color .35s ease,
+        box-shadow .35s ease;
+}
+
+.app-card:hover {
+    transform: translateY(-7px);
+
+    border-color:
+        rgba(159,146,255,.28);
 
     box-shadow:
-        0 20px 50px rgba(0,0,0,.35),
-        inset 0 1px 0 rgba(255,255,255,.06);
+        0 40px 110px rgba(0,0,0,.4),
+        0 0 50px rgba(108,88,255,.06),
+        inset 0 1px 0 rgba(255,255,255,.09);
+}
+
+
+/* =========================================================
+   APP VISUAL
+========================================================= */
+
+.app-visual {
+    position: relative;
+
+    height: 260px;
 
     overflow: hidden;
 
-    transform: perspective(900px) rotateX(3deg);
+    border-bottom:
+        1px solid rgba(255,255,255,.07);
+
+    background: #070912;
 }
 
 
-/* mini window header */
+/* ambient light inside cards */
 
-.mini-header {
-    height: 31px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 0 11px;
+.app-visual::before {
+    content: "";
 
-    border-bottom: 1px solid rgba(255,255,255,.055);
-}
-
-.mini-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.28);
-}
-
-.mini-title {
-    margin-left: 7px;
-    font-size: 8px;
-    color: rgba(255,255,255,.38);
-    letter-spacing: .05em;
-}
-
-
-/* generic mini UI */
-
-.mini-body {
-    padding: 14px;
-}
-
-.mini-big {
-    width: 68%;
-    height: 17px;
-    border-radius: 5px;
-    background: rgba(255,255,255,.11);
-    margin-bottom: 9px;
-}
-
-.mini-line {
-    width: 90%;
-    height: 6px;
-    border-radius: 5px;
-    background: rgba(255,255,255,.06);
-    margin-bottom: 7px;
-}
-
-.mini-line.short {
-    width: 48%;
-}
-
-.mini-line.mid {
-    width: 70%;
-}
-
-.mini-grid {
-    margin-top: 14px;
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 8px;
-}
-
-.mini-box {
-    height: 58px;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,.05);
-    background: rgba(255,255,255,.035);
-}
-
-.mini-sidebar {
     position: absolute;
-    left: 0;
-    top: 31px;
-    bottom: 0;
-    width: 55px;
-    border-right: 1px solid rgba(255,255,255,.05);
-    padding: 12px 8px;
-}
 
-.mini-sidebar-line {
-    width: 100%;
-    height: 5px;
-    border-radius: 4px;
-    background: rgba(255,255,255,.065);
-    margin-bottom: 9px;
-}
+    width: 230px;
+    height: 230px;
 
-.has-sidebar .mini-body {
-    margin-left: 55px;
-}
+    left: 50%;
+    top: 50%;
 
+    transform: translate(-50%,-50%);
 
-/* decorative card light */
-
-.card-orb {
-    position: absolute;
-    width: 130px;
-    height: 130px;
-    right: -35px;
-    top: -40px;
     border-radius: 50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(128,110,255,.28),
+            rgba(110,90,255,.13),
             transparent 70%
         );
 
-    filter: blur(8px);
-    animation: cardFloat 5s ease-in-out infinite alternate;
-}
-
-@keyframes cardFloat {
-    from {
-        transform: translate(0,0);
-    }
-
-    to {
-        transform: translate(-18px,20px);
-    }
+    filter: blur(12px);
 }
 
 
-/* card text */
+/* =========================================================
+   COSMIFLOW VISUAL
+========================================================= */
+
+.flow-ui {
+    position: absolute;
+
+    inset: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 13px;
+}
+
+.flow-node {
+    position: relative;
+
+    width: 66px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid rgba(146,132,255,.32);
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(139,120,255,.14),
+            rgba(255,255,255,.035)
+        );
+
+    box-shadow:
+        0 0 25px rgba(110,90,255,.08);
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 8px;
+
+    color: rgba(239,238,255,.65);
+}
+
+.flow-line {
+    width: 27px;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(132,115,255,.2),
+            rgba(132,115,255,.7)
+        );
+
+    box-shadow:
+        0 0 10px rgba(132,115,255,.35);
+}
+
+.flow-node:nth-child(1) {
+    transform: translateY(-20px);
+}
+
+.flow-node:nth-child(5) {
+    transform: translateY(20px);
+}
+
+
+/* =========================================================
+   COSMIC LOGIN VISUAL
+========================================================= */
+
+.login-ui {
+    position: absolute;
+
+    width: 190px;
+    height: 190px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%,-50%);
+
+    padding: 23px;
+
+    border-radius: 17px;
+
+    border:
+        1px solid rgba(255,255,255,.11);
+
+    background:
+        rgba(255,255,255,.045);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.07);
+}
+
+.login-logo {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 9px;
+
+    margin-bottom: 17px;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #e9e8ff,
+            #7667ff 48%,
+            #26203f
+        );
+
+    box-shadow:
+        0 0 22px rgba(123,103,255,.28);
+}
+
+.login-line {
+    width: 100%;
+    height: 8px;
+
+    border-radius: 4px;
+
+    background: rgba(255,255,255,.075);
+
+    margin-bottom: 9px;
+}
+
+.login-line.small {
+    width: 62%;
+}
+
+.login-field {
+    height: 29px;
+
+    border-radius: 7px;
+
+    margin-top: 12px;
+
+    border:
+        1px solid rgba(255,255,255,.06);
+
+    background:
+        rgba(255,255,255,.035);
+}
+
+.login-button {
+    height: 27px;
+
+    border-radius: 7px;
+
+    margin-top: 12px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(125,106,255,.5),
+            rgba(93,139,255,.45)
+        );
+}
+
+
+/* =========================================================
+   COSMICHAT VISUAL
+========================================================= */
+
+.chat-ui {
+    position: absolute;
+
+    inset: 28px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.chat-message {
+    max-width: 72%;
+
+    padding: 11px 13px;
+
+    border-radius: 13px;
+
+    border:
+        1px solid rgba(255,255,255,.065);
+
+    background:
+        rgba(255,255,255,.045);
+
+    color: rgba(225,227,246,.5);
+
+    font-size: 8px;
+
+    line-height: 1.5;
+}
+
+.chat-message.right {
+    align-self: flex-end;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(123,104,255,.17),
+            rgba(255,255,255,.035)
+        );
+
+    border-color:
+        rgba(133,115,255,.16);
+}
+
+.chat-input {
+    height: 31px;
+
+    border-radius: 9px;
+
+    margin-top: 7px;
+
+    border:
+        1px solid rgba(255,255,255,.075);
+
+    background:
+        rgba(255,255,255,.035);
+}
+
+
+/* =========================================================
+   COSMIMAIL VISUAL
+========================================================= */
+
+.mail-ui {
+    position: absolute;
+
+    inset: 28px;
+
+    display: grid;
+
+    grid-template-columns: 65px 1fr;
+
+    gap: 10px;
+}
+
+.mail-sidebar {
+    border:
+        1px solid rgba(255,255,255,.065);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.03);
+
+    padding: 12px 8px;
+}
+
+.mail-sidebar-line {
+    height: 6px;
+
+    border-radius: 3px;
+
+    background:
+        rgba(255,255,255,.075);
+
+    margin-bottom: 10px;
+}
+
+.mail-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.mail-item {
+    height: 42px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    padding: 0 12px;
+
+    border-radius: 9px;
+
+    border:
+        1px solid rgba(255,255,255,.055);
+
+    background:
+        rgba(255,255,255,.032);
+}
+
+.mail-item.active {
+    border-color:
+        rgba(134,117,255,.17);
+
+    background:
+        rgba(112,94,255,.08);
+}
+
+.mail-item span {
+    height: 5px;
+
+    width: 55%;
+
+    border-radius: 3px;
+
+    background:
+        rgba(255,255,255,.12);
+}
+
+.mail-item span:last-child {
+    width: 78%;
+
+    background:
+        rgba(255,255,255,.055);
+}
+
+
+/* =========================================================
+   COSMIMEET VISUAL
+========================================================= */
+
+.meet-ui {
+    position: absolute;
+
+    inset: 28px;
+
+    display: grid;
+
+    grid-template-columns: repeat(2,1fr);
+
+    gap: 9px;
+}
+
+.meet-person {
+    position: relative;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(124,111,255,.16),
+            rgba(255,255,255,.025) 48%
+        );
+}
+
+.meet-head {
+    position: absolute;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    left: 50%;
+    top: 35%;
+
+    transform: translate(-50%,-50%);
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            rgba(240,240,255,.85),
+            rgba(104,96,170,.6) 55%,
+            rgba(30,30,55,.9)
+        );
+}
+
+.meet-body {
+    position: absolute;
+
+    width: 62px;
+    height: 34px;
+
+    border-radius: 30px 30px 8px 8px;
+
+    left: 50%;
+    top: 63%;
+
+    transform: translateX(-50%);
+
+    background:
+        rgba(112,101,195,.4);
+}
+
+
+/* =========================================================
+   COSMIDRIVE VISUAL
+========================================================= */
+
+.drive-ui {
+    position: absolute;
+
+    inset: 28px;
+
+    display: grid;
+
+    grid-template-columns: 68px 1fr;
+
+    gap: 11px;
+}
+
+.drive-sidebar {
+    padding: 11px 8px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid rgba(255,255,255,.065);
+
+    background:
+        rgba(255,255,255,.03);
+}
+
+.drive-folder {
+    height: 6px;
+
+    border-radius: 3px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    margin-bottom: 11px;
+}
+
+.drive-files {
+    display: grid;
+
+    grid-template-columns: repeat(2,1fr);
+
+    gap: 9px;
+}
+
+.drive-file {
+    height: 74px;
+
+    border-radius: 10px;
+
+    border:
+        1px solid rgba(255,255,255,.06);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.025)
+        );
+
+    padding: 12px;
+}
+
+.file-icon {
+    width: 22px;
+    height: 26px;
+
+    border-radius: 4px;
+
+    border:
+        1px solid rgba(144,127,255,.2);
+
+    background:
+        rgba(121,103,255,.1);
+
+    margin-bottom: 10px;
+}
+
+.file-line {
+    height: 5px;
+
+    width: 70%;
+
+    border-radius: 3px;
+
+    background:
+        rgba(255,255,255,.07);
+}
+
+
+/* =========================================================
+   COSMINOTES VISUAL
+========================================================= */
+
+.notes-ui {
+    position: absolute;
+
+    inset: 28px;
+
+    display: grid;
+
+    grid-template-columns: 76px 1fr;
+
+    gap: 11px;
+}
+
+.notes-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.note-item {
+    height: 44px;
+
+    border-radius: 9px;
+
+    border:
+        1px solid rgba(255,255,255,.055);
+
+    background:
+        rgba(255,255,255,.035);
+
+    padding: 10px;
+}
+
+.note-item.active {
+    background:
+        rgba(115,96,255,.1);
+
+    border-color:
+        rgba(132,113,255,.18);
+}
+
+.note-line {
+    height: 5px;
+
+    width: 70%;
+
+    border-radius: 3px;
+
+    background:
+        rgba(255,255,255,.09);
+
+    margin-bottom: 6px;
+}
+
+.note-line.short {
+    width: 45%;
+}
+
+.note-editor {
+    border-radius: 12px;
+
+    border:
+        1px solid rgba(255,255,255,.065);
+
+    background:
+        rgba(255,255,255,.03);
+
+    padding: 18px;
+}
+
+.note-heading {
+    width: 65%;
+    height: 10px;
+
+    border-radius: 4px;
+
+    background:
+        rgba(255,255,255,.12);
+
+    margin-bottom: 17px;
+}
+
+.note-text {
+    height: 5px;
+
+    border-radius: 3px;
+
+    background:
+        rgba(255,255,255,.065);
+
+    margin-bottom: 9px;
+}
+
+.note-text.mid {
+    width: 85%;
+}
+
+.note-text.short {
+    width: 60%;
+}
+
+
+/* =========================================================
+   CARD INFO
+========================================================= */
 
 .card-info {
-    padding: 23px 23px 20px;
+    padding: 22px 23px;
 }
 
-.card-info-top {
+.card-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.card-info h3 {
-    font-family: "Sora", sans-serif;
-    font-size: 20px;
+.card-name {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 19px;
+
     font-weight: 600;
+
     letter-spacing: -.035em;
 }
 
 .card-arrow {
     width: 34px;
     height: 34px;
+
     display: flex;
     align-items: center;
     justify-content: center;
 
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.09);
 
-    color: rgba(255,255,255,.65);
-    font-size: 16px;
+    border:
+        1px solid rgba(255,255,255,.08);
 
-    transition: .25s ease;
+    color: rgba(255,255,255,.58);
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        color .25s ease;
 }
 
 .app-card:hover .card-arrow {
-    background: rgba(255,255,255,.09);
-    color: white;
     transform: translate(2px,-2px);
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.08);
 }
 
-.card-info p {
-    margin-top: 11px;
-    color: rgba(182,187,211,.52);
-    font-size: 13px;
+.card-description {
+    margin-top: 10px;
+
+    color: rgba(190,194,216,.5);
+
+    font-size: 12px;
+
     line-height: 1.65;
 }
 
-.card-label {
+.card-type {
     display: block;
+
     margin-top: 15px;
-    color: rgba(157,164,192,.38);
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: .18em;
+
+    font-family: "DM Mono", monospace;
+
+    color: rgba(157,163,191,.35);
+
+    font-size: 8px;
+
+    letter-spacing: .17em;
+
     text-transform: uppercase;
 }
 
@@ -891,42 +1465,42 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 8px;
+
+    margin-top: 5px;
 }
 
-.carousel-status {
-    color: rgba(175,180,205,.32);
-    font-family: "Sora", sans-serif;
-    font-size: 10px;
+.carousel-count {
+    color: rgba(170,175,201,.28);
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 9px;
+
     letter-spacing: .15em;
 }
 
-.control-buttons {
+.carousel-buttons {
     display: flex;
-    gap: 9px;
+    gap: 8px;
 }
 
 .carousel-button {
-    width: 50px;
-    height: 50px;
+    width: 49px;
+    height: 49px;
 
     border-radius: 50%;
 
-    color: white;
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.085),
-            rgba(255,255,255,.035)
-        );
+    border:
+        1px solid rgba(255,255,255,.11);
 
-    border: 1px solid rgba(255,255,255,.12);
+    background:
+        rgba(255,255,255,.045);
+
+    color: white;
 
     cursor: pointer;
 
-    font-size: 20px;
-
-    backdrop-filter: blur(12px);
+    font-size: 19px;
 
     transition:
         transform .2s ease,
@@ -936,8 +1510,12 @@ section {
 
 .carousel-button:hover {
     transform: translateY(-3px);
-    background: rgba(255,255,255,.11);
-    border-color: rgba(255,255,255,.23);
+
+    background:
+        rgba(255,255,255,.1);
+
+    border-color:
+        rgba(255,255,255,.22);
 }
 
 .carousel-button:active {
@@ -946,76 +1524,104 @@ section {
 
 
 /* =========================================================
-   GETTING STARTED
+   GET STARTED
 ========================================================= */
 
 .start-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns: repeat(2,1fr);
+
     gap: 18px;
 }
 
 .start-card {
     position: relative;
-    padding: 34px;
+
     min-height: 420px;
 
+    padding: 35px;
+
+    overflow: hidden;
+
     border-radius: 25px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,.065),
-            rgba(255,255,255,.025)
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.02)
+        );
+}
+
+.start-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    right: -170px;
+    bottom: -170px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(111,91,255,.15),
+            transparent 70%
         );
 
-    border: 1px solid rgba(255,255,255,.085);
-
-    overflow: hidden;
+    filter: blur(25px);
 }
 
-.start-card::after {
-    content: "";
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    right: -130px;
-    bottom: -130px;
-    border-radius: 50%;
-    background: rgba(104,82,255,.11);
-    filter: blur(60px);
-}
+.start-index {
+    font-family: "DM Mono", monospace;
 
-.start-number {
-    font-family: "Syne", sans-serif;
-    font-size: 80px;
-    line-height: .8;
-    color: rgba(255,255,255,.07);
+    color: rgba(255,255,255,.17);
+
+    font-size: 12px;
+
+    letter-spacing: .15em;
 }
 
 .start-card h3 {
-    margin-top: 30px;
-    font-family: "Sora", sans-serif;
-    font-size: 25px;
-    letter-spacing: -.045em;
+    margin-top: 25px;
+
+    font-family: "Syne", sans-serif;
+
+    font-size: 28px;
+
+    letter-spacing: -.055em;
 }
 
 .steps {
     margin-top: 25px;
+
     display: grid;
-    gap: 13px;
+
+    gap: 12px;
 }
 
 .step {
     display: flex;
-    gap: 13px;
     align-items: center;
-    color: rgba(190,195,216,.57);
+
+    gap: 12px;
+
+    color: rgba(193,197,218,.53);
+
     font-size: 13px;
 }
 
-.step span {
+.step-number {
     flex: 0 0 26px;
+
     width: 26px;
     height: 26px;
 
@@ -1024,12 +1630,18 @@ section {
     justify-content: center;
 
     border-radius: 8px;
-    border: 1px solid rgba(255,255,255,.08);
-    background: rgba(255,255,255,.035);
 
-    color: rgba(255,255,255,.7);
-    font-size: 10px;
-    font-weight: 700;
+    border:
+        1px solid rgba(255,255,255,.075);
+
+    background:
+        rgba(255,255,255,.035);
+
+    color: rgba(255,255,255,.65);
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 9px;
 }
 
 
@@ -1037,116 +1649,90 @@ section {
    FOUNDER
 ========================================================= */
 
-.founder {
-    position: relative;
-}
-
 .founder-card {
     position: relative;
 
     display: grid;
-    grid-template-columns: 250px 1fr;
+
+    grid-template-columns: 180px 1fr;
+
     gap: 60px;
+
     align-items: center;
 
-    padding: 65px;
+    padding: 58px;
 
-    border-radius: 30px;
+    border-radius: 28px;
+
+    border:
+        1px solid rgba(255,255,255,.085);
 
     background:
         radial-gradient(
-            circle at 15% 30%,
-            rgba(107,89,255,.10),
+            circle at 10% 50%,
+            rgba(110,91,255,.10),
             transparent 35%
         ),
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.06),
-            rgba(255,255,255,.02)
-        );
-
-    border: 1px solid rgba(255,255,255,.09);
+        rgba(255,255,255,.025);
 
     overflow: hidden;
 }
 
-.founder-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(
-            120deg,
-            transparent 35%,
-            rgba(255,255,255,.025),
-            transparent 65%
-        );
-    transform: translateX(-100%);
-    animation: founderSweep 9s ease-in-out infinite;
-}
 
-@keyframes founderSweep {
-    0%, 55% {
-        transform: translateX(-100%);
-    }
+/* NO SO BUBBLE.
+   This is only typography. */
 
-    75%, 100% {
-        transform: translateX(100%);
-    }
-}
-
-.founder-symbol {
-    width: 180px;
-    height: 180px;
-
-    margin: auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
+.founder-mark {
     font-family: "Syne", sans-serif;
-    font-size: 42px;
+
+    font-size: 70px;
+
     font-weight: 800;
-    letter-spacing: -.08em;
 
-    background:
-        radial-gradient(
-            circle at 35% 28%,
-            rgba(219,220,255,.9),
-            rgba(116,106,214,.28) 25%,
-            rgba(21,20,44,.9) 70%
-        );
+    letter-spacing: -.09em;
 
-    border: 1px solid rgba(255,255,255,.14);
+    color: rgba(255,255,255,.11);
 
-    box-shadow:
-        0 0 80px rgba(100,82,255,.13),
-        inset 0 1px 20px rgba(255,255,255,.12);
+    text-align: center;
 }
 
-.founder-info h3 {
+.founder-name {
     font-family: "Syne", sans-serif;
-    font-size: clamp(35px, 5vw, 62px);
-    letter-spacing: -.065em;
+
+    font-size: clamp(
+        36px,
+        5vw,
+        62px
+    );
+
+    line-height: .9;
+
+    letter-spacing: -.07em;
 }
 
 .founder-role {
-    margin-top: 10px;
-    color: rgba(177,182,207,.45);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .17em;
+    margin-top: 11px;
+
+    font-family: "DM Mono", monospace;
+
+    color: rgba(180,185,210,.38);
+
+    font-size: 9px;
+
+    letter-spacing: .16em;
+
     text-transform: uppercase;
 }
 
-.founder-info p {
+.founder-copy {
     max-width: 720px;
-    margin-top: 25px;
-    color: rgba(190,195,216,.56);
-    font-size: 14px;
+
+    margin-top: 23px;
+
+    color: rgba(190,195,217,.53);
+
+    font-size: 13px;
+
     line-height: 1.85;
 }
 
@@ -1157,27 +1743,33 @@ section {
 
 .timeline {
     position: relative;
-    margin-top: 20px;
+
+    padding-left: 35px;
 }
 
 .timeline-line {
     position: absolute;
-    left: 9px;
-    top: 5px;
-    bottom: 5px;
+
+    left: 5px;
+    top: 3px;
+    bottom: 3px;
+
     width: 1px;
+
     background:
         linear-gradient(
             to bottom,
-            rgba(255,255,255,.16),
-            rgba(255,255,255,.035)
+            rgba(255,255,255,.15),
+            rgba(255,255,255,.025)
         );
 }
 
 .timeline-item {
     position: relative;
-    padding-left: 55px;
-    padding-bottom: 58px;
+
+    padding-left: 35px;
+
+    padding-bottom: 55px;
 }
 
 .timeline-item:last-child {
@@ -1186,42 +1778,55 @@ section {
 
 .timeline-dot {
     position: absolute;
-    left: 3px;
-    top: 4px;
+
+    left: -1px;
+    top: 3px;
 
     width: 13px;
     height: 13px;
 
     border-radius: 50%;
 
-    background: #d9d7ff;
+    background: #dcd9ff;
 
     box-shadow:
-        0 0 0 5px rgba(125,108,255,.055),
-        0 0 22px rgba(125,108,255,.45);
+        0 0 0 5px rgba(128,110,255,.06),
+        0 0 22px rgba(128,110,255,.5);
 }
 
 .timeline-date {
-    color: rgba(167,172,199,.37);
-    font-family: "Sora", sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .19em;
+    font-family: "DM Mono", monospace;
+
+    color: rgba(165,171,199,.31);
+
+    font-size: 9px;
+
+    letter-spacing: .17em;
+
     text-transform: uppercase;
 }
 
-.timeline-item h3 {
-    margin-top: 9px;
-    font-family: "Sora", sans-serif;
-    font-size: 25px;
+.timeline-title {
+    margin-top: 8px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 24px;
+
+    font-weight: 600;
+
     letter-spacing: -.045em;
 }
 
-.timeline-item p {
-    margin-top: 10px;
-    max-width: 700px;
-    color: rgba(183,188,211,.51);
+.timeline-copy {
+    max-width: 690px;
+
+    margin-top: 9px;
+
+    color: rgba(186,191,213,.49);
+
     font-size: 13px;
+
     line-height: 1.75;
 }
 
@@ -1232,40 +1837,56 @@ section {
 
 footer {
     width: min(1180px, calc(100% - 40px));
-    margin: auto;
-    padding: 50px 0 55px;
 
-    border-top: 1px solid rgba(255,255,255,.07);
+    margin: auto;
+
+    padding:
+        50px 0
+        55px;
+
+    border-top:
+        1px solid rgba(255,255,255,.07);
 
     display: flex;
     justify-content: space-between;
-    gap: 20px;
 
-    color: rgba(160,166,191,.34);
-    font-size: 11px;
+    color: rgba(161,167,192,.3);
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 9px;
+
+    letter-spacing: .08em;
 }
 
 .footer-brand {
+    color: rgba(255,255,255,.5);
+
     font-family: "Syne", sans-serif;
+
     font-weight: 700;
-    color: rgba(255,255,255,.55);
+
+    letter-spacing: -.02em;
 }
 
 
 /* =========================================================
-   REVEAL EFFECT
+   REVEALS
 ========================================================= */
 
 .reveal {
     opacity: 0;
+
     transform: translateY(35px);
+
     transition:
-        opacity 1s ease,
+        opacity .9s ease,
         transform 1s cubic-bezier(.2,.8,.2,1);
 }
 
 .reveal.visible {
     opacity: 1;
+
     transform: translateY(0);
 }
 
@@ -1276,7 +1897,7 @@ footer {
 
 @media (max-width: 900px) {
 
-    .section-intro {
+    .section-header {
         grid-template-columns: 1fr;
         gap: 25px;
     }
@@ -1288,10 +1909,11 @@ footer {
     .founder-card {
         grid-template-columns: 1fr;
         text-align: center;
+
         padding: 45px 30px;
     }
 
-    .founder-info p {
+    .founder-copy {
         margin-left: auto;
         margin-right: auto;
     }
@@ -1300,23 +1922,32 @@ footer {
         flex-basis: 310px;
         width: 310px;
     }
+
 }
 
 
-@media (max-width: 600px) {
+/*
+   On smaller screens the title is allowed to scale down,
+   but it still remains a TWO-LINE title.
+*/
 
-    .nav-wrap {
+@media (max-width: 650px) {
+
+    .nav {
         top: 10px;
-        width: calc(100% - 20px);
+
+        width:
+            calc(100% - 20px);
     }
 
     nav {
         height: 58px;
+
         padding: 0 16px;
     }
 
     .nav-links {
-        gap: 14px;
+        gap: 15px;
     }
 
     .nav-links a:nth-child(n+3) {
@@ -1328,53 +1959,74 @@ footer {
     }
 
     .hero-title {
-        font-size: clamp(60px, 18vw, 105px);
-        line-height: .82;
-    }
+        font-size:
+            clamp(
+                50px,
+                15vw,
+                90px
+            );
 
-    .hero-subtitle {
-        margin-top: 32px;
-        font-size: 12px;
+        letter-spacing: -.08em;
     }
 
     .hero-copy {
         font-size: 13px;
     }
 
+    .hero-meta {
+        flex-wrap: wrap;
+    }
+
     .section {
-        padding: 95px 0;
+        padding: 100px 0;
     }
 
     .app-card {
         flex-basis: 285px;
         width: 285px;
-        height: 415px;
+        height: 430px;
     }
 
-    .card-visual {
-        height: 225px;
-    }
-
-    .carousel-controls {
-        margin-top: 10px;
-    }
-
-    .carousel-status {
-        display: none;
+    .app-visual {
+        height: 245px;
     }
 
     .carousel-controls {
         justify-content: flex-end;
     }
 
-    .founder-symbol {
-        width: 145px;
-        height: 145px;
+    .carousel-count {
+        display: none;
     }
 
     footer {
         flex-direction: column;
+        gap: 12px;
     }
+
+}
+
+
+/*
+   VERY SMALL SCREENS:
+   The title remains intact instead of clipping.
+*/
+
+@media (max-width: 420px) {
+
+    .hero-title {
+        font-size: 47px;
+        letter-spacing: -.075em;
+    }
+
+    .brand-name {
+        font-size: 25px;
+    }
+
+    .founder-mark {
+        font-size: 55px;
+    }
+
 }
 
 </style>
@@ -1383,42 +2035,56 @@ footer {
 
 <body>
 
+
 <!-- =========================================================
-     BACKGROUND
+     AMBIENT BACKGROUND
 ========================================================= -->
 
-<div id="ambient">
+<div class="ambient">
 
-    <div class="stars"></div>
+    <div class="star-layer"></div>
 
-    <div class="ambient-orb orb-one"></div>
-    <div class="ambient-orb orb-two"></div>
-    <div class="ambient-orb orb-three"></div>
+    <div class="aurora one"></div>
+    <div class="aurora two"></div>
+    <div class="aurora three"></div>
 
 </div>
 
 <div class="grain"></div>
 
-<div class="cursor-glow" id="cursorGlow"></div>
+<div class="cursor-light" id="cursorLight"></div>
 
 
 <!-- =========================================================
      NAVIGATION
 ========================================================= -->
 
-<div class="nav-wrap">
+<div class="nav">
 
     <nav>
 
-        <a href="#top" class="logo">
+        <a href="#top" class="nav-brand">
             COSMIWAY <span>LABS</span>
         </a>
 
         <div class="nav-links">
-            <a href="#tools">Tools</a>
-            <a href="#start">Get Started</a>
-            <a href="#founder">Founder</a>
-            <a href="#timeline">Timeline</a>
+
+            <a href="#tools">
+                Tools
+            </a>
+
+            <a href="#start">
+                Get Started
+            </a>
+
+            <a href="#founder">
+                Founder
+            </a>
+
+            <a href="#timeline">
+                Timeline
+            </a>
+
         </div>
 
     </nav>
@@ -1434,34 +2100,61 @@ footer {
 
 <section class="hero">
 
-    <div class="hero-content">
+    <div class="hero-inner">
 
-        <div class="hero-label">
-            Cosmiway Labs
+
+        <!-- REAL BRAND NAME -->
+
+        <div class="brand-name">
+            COSMIWAY LABS
         </div>
+
+
+        <div class="hero-rule"></div>
+
+
+        <!-- MAIN STATEMENT -->
 
         <h1 class="hero-title">
 
-            <span class="line">Explore</span>
-            <span class="line">The Cosmos</span>
+            <span class="line">
+                EXPLORE
+            </span>
+
+            <span class="line">
+                THE COSMOS
+            </span>
 
         </h1>
 
-        <div class="hero-subtitle">
-            With <span>Cosmiway Labs</span>
-        </div>
 
         <p class="hero-copy">
-            A growing collection of digital tools, built one project
-            at a time and brought together in one place.
+            A growing collection of digital tools,
+            built one project at a time and brought
+            together in one place.
         </p>
+
+
+        <div class="hero-meta">
+
+            <span>TOOLS</span>
+
+            <i></i>
+
+            <span>PROJECTS</span>
+
+            <i></i>
+
+            <span>2026</span>
+
+        </div>
 
     </div>
 
 
-    <div class="scroll-indicator">
+    <div class="scroll">
 
-        Scroll
+        SCROLL
 
         <div class="scroll-line"></div>
 
@@ -1476,73 +2169,288 @@ footer {
 
 <section class="section reveal" id="tools">
 
-    <div class="section-intro">
 
-        <div class="section-heading">
+    <div class="section-header">
+
+        <div>
 
             <div class="eyebrow">
                 The collection
             </div>
 
-            <h2>
+            <h2 class="section-title">
                 Tools<br>
                 in orbit.
             </h2>
 
         </div>
 
+
         <p class="section-description">
-            Explore the current Cosmiway collection. Every card leads
-            directly to its project — pick one and go.
+            Explore the current Cosmiway collection.
+            Each project has its own purpose, interface
+            and place in the ecosystem.
         </p>
 
     </div>
 
 
-    <div class="carousel-wrap">
+    <div class="carousel-window">
 
-        <div class="carousel-window">
-
-            <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-track" id="carouselTrack">
 
 
-                <!-- COSMIFLOW -->
+            <!-- =================================================
+                 COSMIFLOW
+            ================================================== -->
 
-                <article class="app-card">
+            <article class="app-card">
 
-                    <a
-                        href="https://cosmiway-labs.github.io/cosmiflow/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
+                <a
+                    href="https://cosmiway-labs.github.io/cosmiflow/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
 
-                        <div class="card-visual">
+                    <div class="app-visual">
 
-                            <div class="card-orb"></div>
+                        <div class="flow-ui">
 
-                            <div class="mini-window">
+                            <div class="flow-node">
+                                START
+                            </div>
 
-                                <div class="mini-header">
-                                    <i class="mini-dot"></i>
-                                    <i class="mini-dot"></i>
-                                    <i class="mini-dot"></i>
-                                    <span class="mini-title">
-                                        CosmiFlow
-                                    </span>
+                            <div class="flow-line"></div>
+
+                            <div class="flow-node">
+                                TASK
+                            </div>
+
+                            <div class="flow-line"></div>
+
+                            <div class="flow-node">
+                                DONE
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-info">
+
+                        <div class="card-top">
+
+                            <div class="card-name">
+                                CosmiFlow
+                            </div>
+
+                            <div class="card-arrow">
+                                ↗
+                            </div>
+
+                        </div>
+
+                        <p class="card-description">
+                            A visual workspace for moving through
+                            tasks and workflows.
+                        </p>
+
+                        <span class="card-type">
+                            Workflow
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </article>
+
+
+            <!-- =================================================
+                 COSMIC LOGIN
+            ================================================== -->
+
+            <article class="app-card">
+
+                <a
+                    href="https://cosmiway-labs.github.io/cosmic-login/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <div class="app-visual">
+
+                        <div class="login-ui">
+
+                            <div class="login-logo"></div>
+
+                            <div class="login-line"></div>
+
+                            <div class="login-line small"></div>
+
+                            <div class="login-field"></div>
+
+                            <div class="login-field"></div>
+
+                            <div class="login-button"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-info">
+
+                        <div class="card-top">
+
+                            <div class="card-name">
+                                Cosmic Login
+                            </div>
+
+                            <div class="card-arrow">
+                                ↗
+                            </div>
+
+                        </div>
+
+                        <p class="card-description">
+                            Your entry point for creating an account
+                            and signing into the ecosystem.
+                        </p>
+
+                        <span class="card-type">
+                            Account
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </article>
+
+
+            <!-- =================================================
+                 COSMICHAT
+            ================================================== -->
+
+            <article class="app-card">
+
+                <a
+                    href="https://cosmiway-labs.github.io/cosmichat/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <div class="app-visual">
+
+                        <div class="chat-ui">
+
+                            <div class="chat-message">
+                                Welcome back.
+                            </div>
+
+                            <div class="chat-message right">
+                                Hey!
+                            </div>
+
+                            <div class="chat-message">
+                                What are we working on?
+                            </div>
+
+                            <div class="chat-message right">
+                                Let's build.
+                            </div>
+
+                            <div class="chat-input"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-info">
+
+                        <div class="card-top">
+
+                            <div class="card-name">
+                                CosmiChat
+                            </div>
+
+                            <div class="card-arrow">
+                                ↗
+                            </div>
+
+                        </div>
+
+                        <p class="card-description">
+                            A dedicated conversational space
+                            inside the Cosmiway ecosystem.
+                        </p>
+
+                        <span class="card-type">
+                            Communication
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </article>
+
+
+            <!-- =================================================
+                 COSMIMAIL
+            ================================================== -->
+
+            <article class="app-card">
+
+                <a
+                    href="https://cosmiway-labs.github.io/cosmimail/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <div class="app-visual">
+
+                        <div class="mail-ui">
+
+                            <div class="mail-sidebar">
+
+                                <div class="mail-sidebar-line"></div>
+                                <div class="mail-sidebar-line"></div>
+                                <div class="mail-sidebar-line"></div>
+                                <div class="mail-sidebar-line"></div>
+
+                            </div>
+
+                            <div class="mail-list">
+
+                                <div class="mail-item active">
+
+                                    <span></span>
+                                    <span></span>
+
                                 </div>
 
-                                <div class="mini-body">
+                                <div class="mail-item">
 
-                                    <div class="mini-big"></div>
+                                    <span></span>
+                                    <span></span>
 
-                                    <div class="mini-line"></div>
-                                    <div class="mini-line mid"></div>
-                                    <div class="mini-line short"></div>
+                                </div>
 
-                                    <div class="mini-grid">
-                                        <div class="mini-box"></div>
-                                        <div class="mini-box"></div>
-                                    </div>
+                                <div class="mail-item">
+
+                                    <span></span>
+                                    <span></span>
+
+                                </div>
+
+                                <div class="mail-item">
+
+                                    <span></span>
+                                    <span></span>
 
                                 </div>
 
@@ -1550,236 +2458,163 @@ footer {
 
                         </div>
 
-                        <div class="card-info">
+                    </div>
 
-                            <div class="card-info-top">
 
-                                <h3>CosmiFlow</h3>
+                    <div class="card-info">
 
-                                <span class="card-arrow">↗</span>
+                        <div class="card-top">
 
+                            <div class="card-name">
+                                CosmiMail
                             </div>
 
-                            <p>
-                                A streamlined workspace for managing
-                                tasks and moving through workflows.
-                            </p>
-
-                            <span class="card-label">
-                                Workflow
-                            </span>
-
-                        </div>
-
-                    </a>
-
-                </article>
-
-
-                <!-- COSMIC LOGIN -->
-
-                <article class="app-card">
-
-                    <a
-                        href="https://cosmiway-labs.github.io/cosmic-login/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-
-                        <div class="card-visual">
-
-                            <div class="card-orb"></div>
-
-                            <div class="mini-window">
-
-                                <div class="mini-header">
-                                    <i class="mini-dot"></i>
-                                    <i class="mini-dot"></i>
-                                    <i class="mini-dot"></i>
-                                    <span class="mini-title">
-                                        Cosmic Login
-                                    </span>
-                                </div>
-
-                                <div class="mini-body">
-
-                                    <div class="mini-big"></div>
-
-                                    <div class="mini-line mid"></div>
-
-                                    <div class="mini-box"
-                                         style="height:32px;margin-top:16px;">
-                                    </div>
-
-                                    <div class="mini-box"
-                                         style="height:32px;margin-top:9px;">
-                                    </div>
-
-                                    <div class="mini-box"
-                                         style="height:28px;margin-top:13px;">
-                                    </div>
-
-                                </div>
-
+                            <div class="card-arrow">
+                                ↗
                             </div>
 
                         </div>
 
-                        <div class="card-info">
+                        <p class="card-description">
+                            A focused mail experience for keeping
+                            communication organized.
+                        </p>
 
-                            <div class="card-info-top">
+                        <span class="card-type">
+                            Email
+                        </span>
 
-                                <h3>Cosmic Login</h3>
+                    </div>
 
-                                <span class="card-arrow">↗</span>
+                </a>
 
+            </article>
+
+
+            <!-- =================================================
+                 COSMIMEET
+            ================================================== -->
+
+            <article class="app-card">
+
+                <a
+                    href="https://cosmiway-labs.github.io/cosmimeet/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <div class="app-visual">
+
+                        <div class="meet-ui">
+
+                            <div class="meet-person">
+                                <div class="meet-head"></div>
+                                <div class="meet-body"></div>
                             </div>
 
-                            <p>
-                                The account entry point for the
-                                Cosmiway ecosystem.
-                            </p>
+                            <div class="meet-person">
+                                <div class="meet-head"></div>
+                                <div class="meet-body"></div>
+                            </div>
 
-                            <span class="card-label">
-                                Account
-                            </span>
+                            <div class="meet-person">
+                                <div class="meet-head"></div>
+                                <div class="meet-body"></div>
+                            </div>
 
-                        </div>
-
-                    </a>
-
-                </article>
-
-
-                <!-- COSMICHAT -->
-
-                <article class="app-card">
-
-                    <a
-                        href="https://cosmiway-labs.github.io/cosmichat/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-
-                        <div class="card-visual">
-
-                            <div class="card-orb"></div>
-
-                            <div class="mini-window has-sidebar">
-
-                                <div class="mini-header">
-                                    <i class="mini-dot"></i>
-                                    <i class="mini-dot"></i>
-                                    <i class="mini-dot"></i>
-                                    <span class="mini-title">
-                                        CosmiChat
-                                    </span>
-                                </div>
-
-                                <div class="mini-sidebar">
-
-                                    <div class="mini-sidebar-line"></div>
-                                    <div class="mini-sidebar-line"></div>
-                                    <div class="mini-sidebar-line"></div>
-                                    <div class="mini-sidebar-line"></div>
-
-                                </div>
-
-                                <div class="mini-body">
-
-                                    <div class="mini-line mid"></div>
-
-                                    <div class="mini-box"
-                                         style="height:42px;margin-top:12px;">
-                                    </div>
-
-                                    <div class="mini-box"
-                                         style="height:42px;margin-top:8px;">
-                                    </div>
-
-                                    <div class="mini-box"
-                                         style="height:30px;margin-top:8px;">
-                                    </div>
-
-                                </div>
-
+                            <div class="meet-person">
+                                <div class="meet-head"></div>
+                                <div class="meet-body"></div>
                             </div>
 
                         </div>
 
-                        <div class="card-info">
+                    </div>
 
-                            <div class="card-info-top">
 
-                                <h3>CosmiChat</h3>
+                    <div class="card-info">
 
-                                <span class="card-arrow">↗</span>
+                        <div class="card-top">
 
+                            <div class="card-name">
+                                CosmiMeet
                             </div>
 
-                            <p>
-                                A dedicated conversational space
-                                inside the Cosmiway ecosystem.
-                            </p>
-
-                            <span class="card-label">
-                                Communication
-                            </span>
+                            <div class="card-arrow">
+                                ↗
+                            </div>
 
                         </div>
 
-                    </a>
+                        <p class="card-description">
+                            A meeting-focused space for bringing
+                            people together.
+                        </p>
 
-                </article>
+                        <span class="card-type">
+                            Meetings
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </article>
 
 
-                <!-- COSMIMAIL -->
+            <!-- =================================================
+                 COSMIDRIVE
+            ================================================== -->
 
-                <article class="app-card">
+            <article class="app-card">
 
-                    <a
-                        href="https://cosmiway-labs.github.io/cosmimail/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
+                <a
+                    href="https://cosmiway-labs.github.io/cosmidrive/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
 
-                        <div class="card-visual">
+                    <div class="app-visual">
 
-                            <div class="card-orb"></div>
+                        <div class="drive-ui">
 
-                            <div class="mini-window has-sidebar">
+                            <div class="drive-sidebar">
 
-                                <div class="mini-header">
-                                    <i class="mini-dot"></i>
-                                    <i class="mini-dot"></i>
-                                    <i class="mini-dot"></i>
-                                    <span class="mini-title">
-                                        CosmiMail
-                                    </span>
+                                <div class="drive-folder"></div>
+                                <div class="drive-folder"></div>
+                                <div class="drive-folder"></div>
+                                <div class="drive-folder"></div>
+
+                            </div>
+
+
+                            <div class="drive-files">
+
+                                <div class="drive-file">
+
+                                    <div class="file-icon"></div>
+                                    <div class="file-line"></div>
+
                                 </div>
 
-                                <div class="mini-sidebar">
+                                <div class="drive-file">
 
-                                    <div class="mini-sidebar-line"></div>
-                                    <div class="mini-sidebar-line"></div>
-                                    <div class="mini-sidebar-line"></div>
-                                    <div class="mini-sidebar-line"></div>
+                                    <div class="file-icon"></div>
+                                    <div class="file-line"></div>
 
                                 </div>
 
-                                <div class="mini-body">
+                                <div class="drive-file">
 
-                                    <div class="mini-box"
-                                         style="height:34px;">
-                                    </div>
+                                    <div class="file-icon"></div>
+                                    <div class="file-line"></div>
 
-                                    <div class="mini-line"></div>
-                                    <div class="mini-line mid"></div>
-                                    <div class="mini-line short"></div>
+                                </div>
 
-                                    <div class="mini-box"
-                                         style="height:55px;margin-top:13px;">
-                                    </div>
+                                <div class="drive-file">
+
+                                    <div class="file-icon"></div>
+                                    <div class="file-line"></div>
 
                                 </div>
 
@@ -1787,290 +2622,158 @@ footer {
 
                         </div>
 
-                        <div class="card-info">
+                    </div>
 
-                            <div class="card-info-top">
 
-                                <h3>CosmiMail</h3>
+                    <div class="card-info">
 
-                                <span class="card-arrow">↗</span>
+                        <div class="card-top">
 
+                            <div class="card-name">
+                                CosmiDrive
                             </div>
 
-                            <p>
-                                A focused mail experience for
-                                keeping communication organized.
-                            </p>
-
-                            <span class="card-label">
-                                Email
-                            </span>
-
-                        </div>
-
-                    </a>
-
-                </article>
-
-
-                <!-- COSMIMEET -->
-
-                <article class="app-card">
-
-                    <a
-                        href="https://cosmiway-labs.github.io/cosmimeet/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-
-                        <div class="card-visual">
-
-                            <div class="card-orb"></div>
-
-                            <div class="mini-window">
-
-                                <div class="mini-header">
-                                    <i class="mini-dot"></i>
-                                    <i class="mini-dot"></i>
-                                    <i class="mini-dot"></i>
-                                    <span class="mini-title">
-                                        CosmiMeet
-                                    </span>
-                                </div>
-
-                                <div class="mini-body">
-
-                                    <div class="mini-big"></div>
-
-                                    <div class="mini-grid">
-
-                                        <div class="mini-box"
-                                             style="height:70px;">
-                                        </div>
-
-                                        <div class="mini-box"
-                                             style="height:70px;">
-                                        </div>
-
-                                        <div class="mini-box"
-                                             style="height:70px;">
-                                        </div>
-
-                                        <div class="mini-box"
-                                             style="height:70px;">
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
+                            <div class="card-arrow">
+                                ↗
                             </div>
 
                         </div>
 
-                        <div class="card-info">
+                        <p class="card-description">
+                            A digital space for keeping files
+                            and resources together.
+                        </p>
 
-                            <div class="card-info-top">
+                        <span class="card-type">
+                            Storage
+                        </span>
 
-                                <h3>CosmiMeet</h3>
+                    </div>
 
-                                <span class="card-arrow">↗</span>
+                </a>
+
+            </article>
+
+
+            <!-- =================================================
+                 COSMINOTES
+            ================================================== -->
+
+            <article class="app-card">
+
+                <a
+                    href="https://cosmiway-labs.github.io/cosminotes/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <div class="app-visual">
+
+                        <div class="notes-ui">
+
+                            <div class="notes-list">
+
+                                <div class="note-item active">
+                                    <div class="note-line"></div>
+                                    <div class="note-line short"></div>
+                                </div>
+
+                                <div class="note-item">
+                                    <div class="note-line"></div>
+                                    <div class="note-line short"></div>
+                                </div>
+
+                                <div class="note-item">
+                                    <div class="note-line"></div>
+                                    <div class="note-line short"></div>
+                                </div>
+
+                                <div class="note-item">
+                                    <div class="note-line"></div>
+                                    <div class="note-line short"></div>
+                                </div>
 
                             </div>
 
-                            <p>
-                                A meeting-focused space for bringing
-                                people together.
-                            </p>
 
-                            <span class="card-label">
-                                Meetings
-                            </span>
+                            <div class="note-editor">
 
-                        </div>
+                                <div class="note-heading"></div>
 
-                    </a>
-
-                </article>
-
-
-                <!-- COSMIDRIVE -->
-
-                <article class="app-card">
-
-                    <a
-                        href="https://cosmiway-labs.github.io/cosmidrive/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-
-                        <div class="card-visual">
-
-                            <div class="card-orb"></div>
-
-                            <div class="mini-window has-sidebar">
-
-                                <div class="mini-header">
-                                    <i class="mini-dot"></i>
-                                    <i class="mini-dot"></i>
-                                    <i class="mini-dot"></i>
-                                    <span class="mini-title">
-                                        CosmiDrive
-                                    </span>
-                                </div>
-
-                                <div class="mini-sidebar">
-
-                                    <div class="mini-sidebar-line"></div>
-                                    <div class="mini-sidebar-line"></div>
-                                    <div class="mini-sidebar-line"></div>
-
-                                </div>
-
-                                <div class="mini-body">
-
-                                    <div class="mini-grid">
-
-                                        <div class="mini-box"></div>
-                                        <div class="mini-box"></div>
-                                        <div class="mini-box"></div>
-                                        <div class="mini-box"></div>
-
-                                    </div>
-
-                                </div>
+                                <div class="note-text"></div>
+                                <div class="note-text mid"></div>
+                                <div class="note-text"></div>
+                                <div class="note-text short"></div>
+                                <div class="note-text mid"></div>
 
                             </div>
 
                         </div>
 
-                        <div class="card-info">
+                    </div>
 
-                            <div class="card-info-top">
 
-                                <h3>CosmiDrive</h3>
+                    <div class="card-info">
 
-                                <span class="card-arrow">↗</span>
+                        <div class="card-top">
 
+                            <div class="card-name">
+                                CosmiNotes
                             </div>
 
-                            <p>
-                                A digital space for keeping files
-                                and resources together.
-                            </p>
-
-                            <span class="card-label">
-                                Storage
-                            </span>
-
-                        </div>
-
-                    </a>
-
-                </article>
-
-
-                <!-- COSMINOTES -->
-
-                <article class="app-card">
-
-                    <a
-                        href="https://cosmiway-labs.github.io/cosminotes/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-
-                        <div class="card-visual">
-
-                            <div class="card-orb"></div>
-
-                            <div class="mini-window">
-
-                                <div class="mini-header">
-                                    <i class="mini-dot"></i>
-                                    <i class="mini-dot"></i>
-                                    <i class="mini-dot"></i>
-                                    <span class="mini-title">
-                                        CosmiNotes
-                                    </span>
-                                </div>
-
-                                <div class="mini-body">
-
-                                    <div class="mini-big"></div>
-
-                                    <div class="mini-line"></div>
-                                    <div class="mini-line"></div>
-                                    <div class="mini-line mid"></div>
-
-                                    <div class="mini-box"
-                                         style="height:68px;margin-top:16px;">
-                                    </div>
-
-                                </div>
-
+                            <div class="card-arrow">
+                                ↗
                             </div>
 
                         </div>
 
-                        <div class="card-info">
+                        <p class="card-description">
+                            A straightforward space for capturing
+                            ideas and keeping notes.
+                        </p>
 
-                            <div class="card-info-top">
+                        <span class="card-type">
+                            Notes
+                        </span>
 
-                                <h3>CosmiNotes</h3>
+                    </div>
 
-                                <span class="card-arrow">↗</span>
+                </a>
 
-                            </div>
+            </article>
 
-                            <p>
-                                A straightforward place to capture
-                                ideas and keep notes organized.
-                            </p>
-
-                            <span class="card-label">
-                                Notes
-                            </span>
-
-                        </div>
-
-                    </a>
-
-                </article>
-
-
-            </div>
 
         </div>
 
+    </div>
 
-        <div class="carousel-controls">
 
-            <div class="carousel-status">
-                <span id="carouselIndex">01</span>
-                &nbsp; / &nbsp;
-                <span id="carouselTotal">07</span>
-            </div>
+    <div class="carousel-controls">
 
-            <div class="control-buttons">
+        <div class="carousel-count">
+            <span id="currentNumber">01</span>
+            &nbsp;/&nbsp;
+            <span>07</span>
+        </div>
 
-                <button
-                    class="carousel-button"
-                    id="prevButton"
-                    aria-label="Previous tool"
-                >
-                    ←
-                </button>
 
-                <button
-                    class="carousel-button"
-                    id="nextButton"
-                    aria-label="Next tool"
-                >
-                    →
-                </button>
+        <div class="carousel-buttons">
 
-            </div>
+            <button
+                class="carousel-button"
+                id="prevButton"
+                aria-label="Previous tool"
+            >
+                ←
+            </button>
+
+            <button
+                class="carousel-button"
+                id="nextButton"
+                aria-label="Next tool"
+            >
+                →
+            </button>
 
         </div>
 
@@ -2085,24 +2788,25 @@ footer {
 
 <section class="section reveal" id="start">
 
-    <div class="section-intro">
+    <div class="section-header">
 
-        <div class="section-heading">
+        <div>
 
             <div class="eyebrow">
                 Getting started
             </div>
 
-            <h2>
-                Enter<br>
-                the cosmos.
+            <h2 class="section-title">
+                Start<br>
+                here.
             </h2>
 
         </div>
 
         <p class="section-description">
-            Your first stop is Cosmic Login. Once your account is
-            ready, head back here and explore the rest of the tools.
+            New to Cosmiway? Start with Cosmic Login.
+            Once you're signed in, return to the portal
+            and explore the tools.
         </p>
 
     </div>
@@ -2113,7 +2817,9 @@ footer {
 
         <div class="start-card">
 
-            <div class="start-number">01</div>
+            <div class="start-index">
+                01 / CREATE
+            </div>
 
             <h3>
                 Create your Cosmic ID
@@ -2122,37 +2828,37 @@ footer {
             <div class="steps">
 
                 <div class="step">
-                    <span>1</span>
+                    <span class="step-number">01</span>
                     Go to Cosmic Login.
                 </div>
 
                 <div class="step">
-                    <span>2</span>
+                    <span class="step-number">02</span>
                     Click Create ID.
                 </div>
 
                 <div class="step">
-                    <span>3</span>
+                    <span class="step-number">03</span>
                     Enter your email.
                 </div>
 
                 <div class="step">
-                    <span>4</span>
+                    <span class="step-number">04</span>
                     Create your password.
                 </div>
 
                 <div class="step">
-                    <span>5</span>
+                    <span class="step-number">05</span>
                     Enter your username.
                 </div>
 
                 <div class="step">
-                    <span>6</span>
+                    <span class="step-number">06</span>
                     Click Create.
                 </div>
 
                 <div class="step">
-                    <span>7</span>
+                    <span class="step-number">07</span>
                     Return to the portal and explore.
                 </div>
 
@@ -2163,7 +2869,9 @@ footer {
 
         <div class="start-card">
 
-            <div class="start-number">02</div>
+            <div class="start-index">
+                02 / SIGN IN
+            </div>
 
             <h3>
                 Already signed in?
@@ -2172,27 +2880,27 @@ footer {
             <div class="steps">
 
                 <div class="step">
-                    <span>1</span>
+                    <span class="step-number">01</span>
                     Open Cosmic Login.
                 </div>
 
                 <div class="step">
-                    <span>2</span>
+                    <span class="step-number">02</span>
                     Enter your email ID.
                 </div>
 
                 <div class="step">
-                    <span>3</span>
+                    <span class="step-number">03</span>
                     Enter your password.
                 </div>
 
                 <div class="step">
-                    <span>4</span>
+                    <span class="step-number">04</span>
                     Sign in.
                 </div>
 
                 <div class="step">
-                    <span>5</span>
+                    <span class="step-number">05</span>
                     You're ready to explore the tools.
                 </div>
 
@@ -2210,17 +2918,17 @@ footer {
      FOUNDER
 ========================================================= -->
 
-<section class="section founder reveal" id="founder">
+<section class="section reveal" id="founder">
 
-    <div class="section-intro">
+    <div class="section-header">
 
-        <div class="section-heading">
+        <div>
 
             <div class="eyebrow">
                 About the founder
             </div>
 
-            <h2>
+            <h2 class="section-title">
                 Behind<br>
                 the build.
             </h2>
@@ -2232,13 +2940,14 @@ footer {
 
     <div class="founder-card">
 
-        <div class="founder-symbol">
-            SO
+        <div class="founder-mark">
+            COSMIWAY
         </div>
 
-        <div class="founder-info">
 
-            <h3>
+        <div>
+
+            <h3 class="founder-name">
                 Shaunak Okhde
             </h3>
 
@@ -2246,7 +2955,7 @@ footer {
                 Founder · Builder · Architect
             </div>
 
-            <p>
+            <p class="founder-copy">
                 Cosmiway Labs is built around the idea of creating
                 useful digital tools and bringing them together into
                 a connected ecosystem. Shaunak Okhde founded Cosmiway
@@ -2254,9 +2963,9 @@ footer {
                 and growing collection of tools.
             </p>
 
-            <p>
-                What started as individual projects has continued
-                expanding into a larger universe of experiences.
+            <p class="founder-copy">
+                What started as individual projects continues to
+                expand into a larger universe of digital experiences.
             </p>
 
         </div>
@@ -2272,15 +2981,15 @@ footer {
 
 <section class="section reveal" id="timeline">
 
-    <div class="section-intro">
+    <div class="section-header">
 
-        <div class="section-heading">
+        <div>
 
             <div class="eyebrow">
                 The journey
             </div>
 
-            <h2>
+            <h2 class="section-title">
                 Building<br>
                 the universe.
             </h2>
@@ -2288,8 +2997,8 @@ footer {
         </div>
 
         <p class="section-description">
-            The Cosmiway story is still being written. Here's the
-            progression so far.
+            The Cosmiway story is still being written.
+            Here's the progression so far.
         </p>
 
     </div>
@@ -2308,11 +3017,11 @@ footer {
                 January 2026
             </div>
 
-            <h3>
+            <h3 class="timeline-title">
                 The Spark
             </h3>
 
-            <p>
+            <p class="timeline-copy">
                 The idea behind Cosmiway begins taking shape.
             </p>
 
@@ -2327,11 +3036,11 @@ footer {
                 February 2026
             </div>
 
-            <h3>
+            <h3 class="timeline-title">
                 Starscape
             </h3>
 
-            <p>
+            <p class="timeline-copy">
                 The visual identity and wider direction of the
                 ecosystem begin developing.
             </p>
@@ -2347,13 +3056,13 @@ footer {
                 March 2026
             </div>
 
-            <h3>
+            <h3 class="timeline-title">
                 Cosmiway Evolution
             </h3>
 
-            <p>
-                Individual projects begin becoming part of a broader
-                ecosystem.
+            <p class="timeline-copy">
+                Individual projects begin becoming part of a
+                broader ecosystem.
             </p>
 
         </div>
@@ -2367,11 +3076,11 @@ footer {
                 April 2026
             </div>
 
-            <h3>
+            <h3 class="timeline-title">
                 More tools take shape
             </h3>
 
-            <p>
+            <p class="timeline-copy">
                 New ideas begin turning into additional digital tools.
             </p>
 
@@ -2386,11 +3095,11 @@ footer {
                 May 2026
             </div>
 
-            <h3>
+            <h3 class="timeline-title">
                 The ecosystem grows
             </h3>
 
-            <p>
+            <p class="timeline-copy">
                 More utility, communication and productivity projects
                 expand the collection.
             </p>
@@ -2406,11 +3115,11 @@ footer {
                 June 2026
             </div>
 
-            <h3>
+            <h3 class="timeline-title">
                 The portal takes shape
             </h3>
 
-            <p>
+            <p class="timeline-copy">
                 The growing collection begins coming together around
                 a central experience.
             </p>
@@ -2426,11 +3135,11 @@ footer {
                 July 2026
             </div>
 
-            <h3>
+            <h3 class="timeline-title">
                 Connecting the pieces
             </h3>
 
-            <p>
+            <p class="timeline-copy">
                 More Cosmiway projects come together into a more
                 unified ecosystem.
             </p>
@@ -2446,13 +3155,13 @@ footer {
                 August 2026
             </div>
 
-            <h3>
+            <h3 class="timeline-title">
                 The Cosmos Expands
             </h3>
 
-            <p>
-                The collection continues growing, bringing more tools
-                and a stronger portal experience together.
+            <p class="timeline-copy">
+                The collection continues growing, bringing more
+                tools and a stronger portal experience together.
             </p>
 
         </div>
@@ -2466,11 +3175,11 @@ footer {
                 September 2026
             </div>
 
-            <h3>
+            <h3 class="timeline-title">
                 Still building
             </h3>
 
-            <p>
+            <p class="timeline-copy">
                 The next part of the Cosmiway story is already underway.
             </p>
 
@@ -2504,98 +3213,138 @@ footer {
 <script>
 
 /* =========================================================
-   CURSOR AMBIENT LIGHT
+   CURSOR AMBIENCE
 ========================================================= */
 
-const cursorGlow = document.getElementById("cursorGlow");
+const cursor =
+    document.getElementById("cursorLight");
 
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
+let mouseX =
+    window.innerWidth / 2;
 
-let glowX = mouseX;
-let glowY = mouseY;
+let mouseY =
+    window.innerHeight / 2;
 
-window.addEventListener("mousemove", (event) => {
+let currentX =
+    mouseX;
 
-    mouseX = event.clientX;
-    mouseY = event.clientY;
+let currentY =
+    mouseY;
 
-});
+window.addEventListener(
+    "mousemove",
+    event => {
 
-function animateGlow() {
+        mouseX =
+            event.clientX;
 
-    glowX += (mouseX - glowX) * .08;
-    glowY += (mouseY - glowY) * .08;
+        mouseY =
+            event.clientY;
 
-    cursorGlow.style.left = glowX + "px";
-    cursorGlow.style.top = glowY + "px";
+    }
+);
 
-    requestAnimationFrame(animateGlow);
+function animateCursor() {
+
+    currentX +=
+        (mouseX - currentX) * .075;
+
+    currentY +=
+        (mouseY - currentY) * .075;
+
+    cursor.style.left =
+        currentX + "px";
+
+    cursor.style.top =
+        currentY + "px";
+
+    requestAnimationFrame(
+        animateCursor
+    );
 
 }
 
-animateGlow();
+animateCursor();
 
 
 /* =========================================================
    CAROUSEL
 ========================================================= */
 
-const track = document.getElementById("carouselTrack");
+const track =
+    document.getElementById(
+        "carouselTrack"
+    );
 
 const prevButton =
-    document.getElementById("prevButton");
+    document.getElementById(
+        "prevButton"
+    );
 
 const nextButton =
-    document.getElementById("nextButton");
+    document.getElementById(
+        "nextButton"
+    );
 
-const indexDisplay =
-    document.getElementById("carouselIndex");
+const currentNumber =
+    document.getElementById(
+        "currentNumber"
+    );
 
-const totalDisplay =
-    document.getElementById("carouselTotal");
 
-
-const originalCards =
-    Array.from(track.children);
+const originals =
+    Array.from(
+        track.children
+    );
 
 const TOTAL =
-    originalCards.length;
-
-totalDisplay.textContent =
-    String(TOTAL).padStart(2, "0");
+    originals.length;
 
 
 /*
-    Clone three cards on each side.
-
-    This gives the carousel enough material to keep
-    three cards visible while allowing seamless
-    movement through the collection.
+    Three clones on either side.
 */
 
 const leftClones =
-    originalCards
+    originals
         .slice(-3)
-        .map(card => card.cloneNode(true));
+        .map(card =>
+            card.cloneNode(true)
+        );
 
 const rightClones =
-    originalCards
+    originals
         .slice(0,3)
-        .map(card => card.cloneNode(true));
+        .map(card =>
+            card.cloneNode(true)
+        );
 
 
-leftClones.reverse().forEach(card => {
-    track.insertBefore(card, track.firstChild);
-});
+leftClones
+    .reverse()
+    .forEach(card => {
 
-rightClones.forEach(card => {
-    track.appendChild(card);
-});
+        track.insertBefore(
+            card,
+            track.firstChild
+        );
+
+    });
 
 
-let cards =
-    Array.from(track.children);
+rightClones
+    .forEach(card => {
+
+        track.appendChild(card);
+
+    });
+
+
+const cards =
+    Array.from(
+        track.children
+    );
+
 
 let current =
     3;
@@ -2603,28 +3352,31 @@ let current =
 let moving =
     false;
 
-let autoTimer;
+let autoTimer =
+    null;
 
 
 /* =========================================================
-   POSITION CALCULATION
+   CAROUSEL POSITION
 ========================================================= */
 
-function cardWidth() {
+function getWidth() {
 
-    return cards[0].getBoundingClientRect().width;
-
-}
-
-
-function stepWidth() {
-
-    return cardWidth() + 20;
+    return cards[0]
+        .getBoundingClientRect()
+        .width;
 
 }
 
 
-function targetPosition(index) {
+function getStep() {
+
+    return getWidth() + 20;
+
+}
+
+
+function getPosition(index) {
 
     const viewport =
         track.parentElement;
@@ -2633,7 +3385,11 @@ function targetPosition(index) {
         viewport.clientWidth;
 
     const width =
-        cardWidth();
+        getWidth();
+
+    /*
+        Exactly THREE cards form the visible group.
+    */
 
     const groupWidth =
         width * 3 + 40;
@@ -2641,38 +3397,39 @@ function targetPosition(index) {
     const groupStart =
         (viewportWidth - groupWidth) / 2;
 
-    return groupStart -
-        ((index - 1) * stepWidth());
+    return (
+        groupStart -
+        ((index - 1) * getStep())
+    );
 
 }
 
 
 /* =========================================================
-   UPDATE
+   RENDER
 ========================================================= */
 
-function render(immediate = false) {
+function render(
+    instant = false
+) {
 
-    if (immediate) {
-
-        track.style.transition =
-            "none";
-
-    } else {
-
-        track.style.transition =
-            "transform 680ms cubic-bezier(.16,.86,.24,1)";
-
-    }
+    track.style.transition =
+        instant
+            ? "none"
+            : "transform 680ms cubic-bezier(.16,.86,.24,1)";
 
     track.style.transform =
-        `translate3d(${targetPosition(current)}px,0,0)`;
+        `translate3d(${getPosition(current)}px,0,0)`;
 
-    const realIndex =
-        ((current - 3) % TOTAL + TOTAL) % TOTAL;
 
-    indexDisplay.textContent =
-        String(realIndex + 1).padStart(2, "0");
+    const real =
+        ((current - 3) % TOTAL + TOTAL)
+        % TOTAL;
+
+
+    currentNumber.textContent =
+        String(real + 1)
+            .padStart(2,"0");
 
 }
 
@@ -2691,11 +3448,11 @@ function move(direction) {
 
     render(false);
 
+
     setTimeout(() => {
 
         /*
-            When entering the clone region,
-            silently snap to the corresponding real card.
+            Silent clone reset.
         */
 
         if (current >= TOTAL + 3) {
@@ -2722,33 +3479,39 @@ function move(direction) {
 
 
 /* =========================================================
-   BUTTONS
+   CONTROLS
 ========================================================= */
 
-nextButton.addEventListener("click", () => {
+nextButton.addEventListener(
+    "click",
+    () => {
 
-    stopAuto();
+        stopAuto();
 
-    move(1);
+        move(1);
 
-    startAuto();
+        startAuto();
 
-});
+    }
+);
 
 
-prevButton.addEventListener("click", () => {
+prevButton.addEventListener(
+    "click",
+    () => {
 
-    stopAuto();
+        stopAuto();
 
-    move(-1);
+        move(-1);
 
-    startAuto();
+        startAuto();
 
-});
+    }
+);
 
 
 /* =========================================================
-   AUTO CAROUSEL
+   AUTO
 ========================================================= */
 
 function startAuto() {
@@ -2756,13 +3519,16 @@ function startAuto() {
     stopAuto();
 
     autoTimer =
-        setInterval(() => {
+        setInterval(
+            () => {
 
-            if (!moving) {
-                move(1);
-            }
+                if (!moving) {
+                    move(1);
+                }
 
-        }, 2900);
+            },
+            2800
+        );
 
 }
 
@@ -2771,7 +3537,9 @@ function stopAuto() {
 
     if (autoTimer) {
 
-        clearInterval(autoTimer);
+        clearInterval(
+            autoTimer
+        );
 
         autoTimer = null;
 
@@ -2780,10 +3548,10 @@ function stopAuto() {
 }
 
 
-/* pause when hovering */
-
 const carousel =
-    document.querySelector(".carousel-wrap");
+    document.querySelector(
+        ".carousel-window"
+    );
 
 carousel.addEventListener(
     "mouseenter",
@@ -2800,28 +3568,33 @@ carousel.addEventListener(
    RESIZE
 ========================================================= */
 
-window.addEventListener("resize", () => {
+window.addEventListener(
+    "resize",
+    () => {
 
-    render(true);
+        render(true);
 
-});
+    }
+);
 
 
 /* =========================================================
    INITIALIZE
 ========================================================= */
 
-window.addEventListener("load", () => {
+window.addEventListener(
+    "load",
+    () => {
 
-    render(true);
+        render(true);
 
-    setTimeout(() => {
+        setTimeout(
+            startAuto,
+            1000
+        );
 
-        startAuto();
-
-    }, 1200);
-
-});
+    }
+);
 
 
 /* =========================================================
@@ -2829,23 +3602,34 @@ window.addEventListener("load", () => {
 ========================================================= */
 
 const revealElements =
-    document.querySelectorAll(".reveal");
+    document.querySelectorAll(
+        ".reveal"
+    );
 
-const observer =
+const revealObserver =
     new IntersectionObserver(
         entries => {
 
-            entries.forEach(entry => {
+            entries.forEach(
+                entry => {
 
-                if (entry.isIntersecting) {
+                    if (
+                        entry.isIntersecting
+                    ) {
 
-                    entry.target.classList.add("visible");
+                        entry.target
+                            .classList
+                            .add("visible");
 
-                    observer.unobserve(entry.target);
+                        revealObserver
+                            .unobserve(
+                                entry.target
+                            );
+
+                    }
 
                 }
-
-            });
+            );
 
         },
         {
@@ -2854,11 +3638,15 @@ const observer =
     );
 
 
-revealElements.forEach(element => {
+revealElements.forEach(
+    element => {
 
-    observer.observe(element);
+        revealObserver.observe(
+            element
+        );
 
-});
+    }
+);
 
 </script>
 
