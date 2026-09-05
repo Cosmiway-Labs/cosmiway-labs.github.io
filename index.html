@@ -4,29 +4,50 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cosmiway Labs- Explore the Cosmos</title>
+<title>SτAU — Making the Impossible</title>
+
+<meta
+    name="description"
+    content="SτAU — Making the Impossible."
+>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+>
 
 <style>
 
+/* =========================================================
+   CORE
+   ========================================================= */
+
 :root {
-    --bg: #03040a;
-    --text: #f7f7ff;
-    --muted: rgba(207,211,235,.50);
-    --dim: rgba(207,211,235,.29);
-    --line: rgba(255,255,255,.085);
-    --purple: #8977ff;
-    --blue: #657fff;
+    --background: #020307;
+    --background-soft: #050812;
+
+    --white: #f5f7ff;
+    --soft-white: #dce2f0;
+
+    --muted: #8b94aa;
+    --muted-light: #aab2c4;
+
+    --border: rgba(255,255,255,.105);
+    --border-bright: rgba(205,220,255,.22);
+
+    --glass: rgba(255,255,255,.045);
+    --glass-strong: rgba(255,255,255,.065);
+
+    --max-width: 1220px;
 }
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html {
@@ -34,10 +55,16 @@ html {
 }
 
 body {
-    background: var(--bg);
-    color: var(--text);
+    background: var(--background);
+    color: var(--white);
+
     font-family: "Manrope", sans-serif;
+
     overflow-x: hidden;
+}
+
+body.no-scroll {
+    overflow: hidden;
 }
 
 a,
@@ -48,2113 +75,1075 @@ a:active {
     text-decoration: none;
 }
 
-button {
-    font-family: inherit;
-}
-
 
 /* =========================================================
-   AMBIENT BACKGROUND
-========================================================= */
+   COSMIC BACKGROUND
+   ========================================================= */
 
-.background {
+.cosmos {
     position: fixed;
     inset: 0;
+
     z-index: -20;
+
     overflow: hidden;
 
     background:
         radial-gradient(
-            ellipse at 50% -20%,
-            rgba(102,82,255,.18),
-            transparent 43%
+            ellipse at 50% 105%,
+            rgba(63, 101, 181, .20),
+            transparent 47%
         ),
         radial-gradient(
-            ellipse at -10% 50%,
-            rgba(43,90,255,.09),
+            ellipse at 8% 12%,
+            rgba(96, 73, 180, .12),
             transparent 38%
         ),
         radial-gradient(
-            ellipse at 110% 70%,
-            rgba(151,70,255,.10),
-            transparent 40%
+            ellipse at 92% 42%,
+            rgba(50, 105, 180, .07),
+            transparent 35%
         ),
-        #03040a;
+        #020307;
 }
 
-.stars {
-    position: absolute;
-    inset: -15%;
+.cosmos::before {
+    content: "";
 
-    opacity: .55;
+    position: absolute;
+    inset: -50%;
 
     background-image:
         radial-gradient(
             circle,
-            rgba(255,255,255,.75) 0 1px,
-            transparent 1.2px
+            rgba(255,255,255,.85) 0 1px,
+            transparent 1.5px
         ),
         radial-gradient(
             circle,
-            rgba(255,255,255,.40) 0 1px,
-            transparent 1.2px
-        ),
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.23) 0 1px,
-            transparent 1.2px
+            rgba(190,210,255,.55) 0 1px,
+            transparent 1.5px
         );
 
     background-size:
-        180px 180px,
-        290px 290px,
-        410px 410px;
+        130px 130px,
+        225px 225px;
 
     background-position:
-        0 0,
-        80px 35px,
-        140px 110px;
+        20px 40px,
+        100px 130px;
+
+    opacity: .22;
 
     animation:
-        stars 110s linear infinite;
+        starDrift 100s linear infinite;
 }
 
-@keyframes stars {
-    from {
-        transform: translate3d(0,0,0);
-    }
+.cosmos::after {
+    content: "";
 
-    to {
-        transform: translate3d(-140px,95px,0);
-    }
-}
-
-.ambient {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(110px);
-    pointer-events: none;
-}
+    inset: -50%;
 
-.ambient.one {
-    width: 600px;
-    height: 600px;
-    left: -300px;
-    top: 15%;
-    background: rgba(55,87,255,.12);
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.55) 0 1px,
+            transparent 1.5px
+        );
 
-    animation:
-        driftOne 20s ease-in-out infinite alternate;
-}
+    background-size: 310px 310px;
 
-.ambient.two {
-    width: 650px;
-    height: 650px;
-    right: -320px;
-    top: 35%;
-    background: rgba(141,67,255,.11);
+    opacity: .12;
 
     animation:
-        driftTwo 25s ease-in-out infinite alternate;
+        starDriftReverse 150s linear infinite;
 }
 
-.ambient.three {
-    width: 500px;
-    height: 500px;
-    left: 35%;
-    bottom: -300px;
-    background: rgba(74,82,255,.09);
+@keyframes starDrift {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
 
-    animation:
-        driftThree 22s ease-in-out infinite alternate;
-}
-
-@keyframes driftOne {
     to {
-        transform:
-            translate3d(180px,100px,0)
-            scale(1.2);
+        transform: translate3d(180px, 120px, 0);
     }
 }
 
-@keyframes driftTwo {
-    to {
-        transform:
-            translate3d(-160px,-90px,0)
-            scale(1.18);
+@keyframes starDriftReverse {
+    from {
+        transform: translate3d(0, 0, 0);
     }
-}
 
-@keyframes driftThree {
     to {
-        transform:
-            translate3d(90px,-120px,0)
-            scale(1.2);
+        transform: translate3d(-140px, -90px, 0);
     }
 }
 
 
 /* =========================================================
    GRAIN
-========================================================= */
+   ========================================================= */
 
 .grain {
     position: fixed;
-    inset: -50%;
-    z-index: 100;
+    inset: 0;
+
+    z-index: -5;
+
     pointer-events: none;
-    opacity: .022;
+
+    opacity: .035;
 
     background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
 }
 
 
 /* =========================================================
-   CURSOR GLOW
-========================================================= */
+   INTRO LOADER
+   ========================================================= */
 
-.cursor-glow {
+#intro {
     position: fixed;
+    inset: 0;
 
-    width: 480px;
-    height: 480px;
+    z-index: 10000;
 
-    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+    background: #000;
+
+    overflow: hidden;
+
+    transition:
+        opacity 900ms cubic-bezier(.77,0,.18,1),
+        visibility 900ms;
+}
+
+#intro.finished {
+    opacity: 0;
+    visibility: hidden;
     pointer-events: none;
+}
 
-    z-index: -3;
+.intro-logo {
+    position: relative;
 
-    transform:
-        translate(-50%,-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(117,96,255,.065),
-            transparent 68%
-        );
+    white-space: nowrap;
 
-    filter: blur(12px);
+    font-family:
+        "Times New Roman",
+        Georgia,
+        serif;
+
+    font-size:
+        clamp(4rem, 11vw, 9rem);
+
+    font-weight: 400;
+
+    letter-spacing: .015em;
+
+    color: #fff;
+
+    opacity: 0;
+
+    transform: scale(.82);
+
+    animation:
+        introLogoAppear 1000ms
+        cubic-bezier(.16,1,.3,1)
+        450ms forwards;
+}
+
+/*
+    IMPORTANT:
+
+    This is the ACTUAL lowercase Greek τ glyph.
+
+    We are NOT drawing a fake line above it.
+
+    The horizontal stroke belongs to τ itself,
+    so when .intro-tau scales, the entire glyph —
+    including its top stroke — scales together.
+*/
+
+.intro-tau {
+    display: inline-block;
+
+    position: relative;
+
+    z-index: 5;
+
+    transform-origin: center center;
+
+    animation:
+        tauGlow 1200ms ease-in-out 1750ms forwards,
+        tauExpansion 2400ms
+        cubic-bezier(.76,0,.15,1)
+        3000ms forwards;
+}
+
+.intro-side {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes introLogoAppear {
+
+    0% {
+        opacity: 0;
+        transform: scale(.82);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes tauGlow {
+
+    0% {
+        text-shadow:
+            0 0 0 rgba(170,210,255,0);
+    }
+
+    100% {
+        text-shadow:
+            0 0 12px rgba(190,220,255,.95),
+            0 0 34px rgba(130,180,255,.85),
+            0 0 75px rgba(100,150,255,.60);
+    }
+}
+
+@keyframes tauExpansion {
+
+    0% {
+        transform: scale(1);
+
+        text-shadow:
+            0 0 12px rgba(190,220,255,.95),
+            0 0 34px rgba(130,180,255,.85),
+            0 0 75px rgba(100,150,255,.60);
+    }
+
+    35% {
+        transform: scale(3.5);
+
+        text-shadow:
+            0 0 20px rgba(205,230,255,1),
+            0 0 65px rgba(145,195,255,.95),
+            0 0 140px rgba(100,160,255,.80);
+    }
+
+    68% {
+        transform: scale(11);
+
+        text-shadow:
+            0 0 30px rgba(220,235,255,1),
+            0 0 100px rgba(155,205,255,1),
+            0 0 230px rgba(110,170,255,.95);
+    }
+
+    100% {
+        transform: scale(42);
+
+        text-shadow:
+            0 0 45px rgba(225,240,255,1),
+            0 0 150px rgba(170,215,255,1),
+            0 0 330px rgba(115,175,255,1);
+    }
+}
+
+
+/* =========================================================
+   PAGE REVEAL
+   ========================================================= */
+
+.page {
+    opacity: 0;
+
+    transform: translateY(22px);
+
+    transition:
+        opacity 1100ms ease,
+        transform 1100ms cubic-bezier(.16,1,.3,1);
+}
+
+body.revealed .page {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.container {
+    width: min(
+        var(--max-width),
+        calc(100% - 48px)
+    );
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.nav {
+    height: 88px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: relative;
+
+    z-index: 20;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 1.45rem;
+
+    font-weight: 700;
+
+    letter-spacing: -.055em;
+}
+
+.brand-tau {
+    font-family:
+        "Times New Roman",
+        Georgia,
+        serif;
+
+    font-weight: 400;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+
+    gap: 30px;
+
+    color: var(--muted);
+
+    font-size: .78rem;
+
+    letter-spacing: .01em;
+}
+
+.nav-links a {
+    transition:
+        color .25s ease;
+}
+
+.nav-links a:hover {
+    color: #fff;
 }
 
 
 /* =========================================================
    HERO
-========================================================= */
+   ========================================================= */
 
 .hero {
-    min-height: 100svh;
+    min-height: calc(100vh - 88px);
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    padding:
-        70px 24px;
+    position: relative;
 
     text-align: center;
 
-    position: relative;
+    padding:
+        90px 0
+        150px;
 }
 
-.hero-inner {
-    width:
-        min(1180px,100%);
-}
+.hero-glow {
+    position: absolute;
 
-.brand {
-    font-family: "Syne", sans-serif;
-
-    font-weight: 800;
-
-    font-size:
-        clamp(25px,3vw,40px);
-
-    letter-spacing: -.055em;
-
-    line-height: 1;
-
-    text-shadow:
-        0 0 45px rgba(123,101,255,.13);
-}
-
-.divider {
-    width: 75px;
-    height: 1px;
-
-    margin:
-        27px auto
-        30px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(143,124,255,.9),
-            transparent
-        );
-
-    box-shadow:
-        0 0 20px rgba(132,111,255,.5);
-}
-
-.hero-title {
-    width:
-        min(1100px,100%);
-
-    margin: 0 auto;
-
-    font-family:
-        "Syne", sans-serif;
-
-    font-weight: 800;
-
-    font-size:
-        clamp(52px,7vw,108px);
-
-    line-height: .86;
-
-    letter-spacing: -.075em;
-
-    text-transform: uppercase;
-}
-
-.hero-title span {
-    display: block;
-    white-space: nowrap;
-}
-
-.hero-title .explore {
-    background:
-        linear-gradient(
-            105deg,
-            #ffffff 0%,
-            #e8e5ff 35%,
-            #a095ff 70%,
-            #7664ff 100%
-        );
-
-    -webkit-background-clip: text;
-    background-clip: text;
-
-    color: transparent;
-
-    filter:
-        drop-shadow(
-            0 0 25px rgba(119,97,255,.10)
-        );
-}
-
-.hero-title .cosmos {
-    color: #f6f6ff;
-
-    text-shadow:
-        0 0 50px rgba(105,88,255,.08);
-}
-
-.hero-copy {
-    width:
-        min(650px,100%);
-
-    margin:
-        36px auto 0;
-
-    color:
-        rgba(198,202,225,.50);
-
-    font-size: 14px;
-
-    line-height: 1.8;
-}
-
-.hero-meta {
-    margin-top: 21px;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    gap: 11px;
-
-    color:
-        rgba(187,192,217,.27);
-
-    font-family:
-        "DM Mono", monospace;
-
-    font-size: 8px;
-
-    letter-spacing: .18em;
-}
-
-.hero-meta i {
-    width: 4px;
-    height: 4px;
+    width: min(720px, 90vw);
+    aspect-ratio: 1;
 
     border-radius: 50%;
 
     background:
-        var(--purple);
+        radial-gradient(
+            circle,
+            rgba(94,137,230,.13),
+            transparent 67%
+        );
 
-    box-shadow:
-        0 0 12px rgba(137,119,255,.9);
+    filter: blur(25px);
+
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 1000px;
+}
+
+.hero-eyebrow {
+    margin-bottom: 28px;
+
+    font-family: "DM Mono", monospace;
+
+    color: #8994ac;
+
+    font-size: .68rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: .25em;
+}
+
+.hero-title {
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size:
+        clamp(5rem, 14vw, 12rem);
+
+    line-height: .80;
+
+    letter-spacing: -.09em;
+
+    font-weight: 700;
+}
+
+.hero-title-tau {
+    font-family:
+        "Times New Roman",
+        Georgia,
+        serif;
+
+    font-weight: 400;
+
+    letter-spacing: -.03em;
+}
+
+.hero-tagline {
+    margin-top: 38px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size:
+        clamp(1.45rem, 3vw, 2.15rem);
+
+    line-height: 1.2;
+
+    font-weight: 500;
+
+    letter-spacing: -.035em;
+
+    color: var(--soft-white);
+}
+
+.hero-copy {
+    width: min(600px, 100%);
+
+    margin:
+        20px auto
+        0;
+
+    color: var(--muted);
+
+    font-size: .94rem;
+
+    line-height: 1.85;
 }
 
 
 /* =========================================================
-   GENERAL SECTIONS
-========================================================= */
-
-section {
-    width:
-        min(1180px,calc(100% - 40px));
-
-    margin:
-        0 auto;
-}
+   SECTION SYSTEM
+   ========================================================= */
 
 .section {
-    padding:
-        150px 0;
+    padding: 135px 0;
 }
 
-.section-header {
-    display: grid;
-
-    grid-template-columns:
-        .8fr 1.2fr;
-
-    gap: 60px;
-
-    align-items: end;
-
-    margin-bottom: 55px;
+.section-heading {
+    max-width: 800px;
 }
 
-.eyebrow {
-    font-family:
-        "DM Mono", monospace;
+.section-label {
+    margin-bottom: 20px;
 
-    color:
-        rgba(180,185,210,.32);
+    font-family: "DM Mono", monospace;
 
-    font-size: 9px;
+    color: #778197;
 
-    letter-spacing: .20em;
+    font-size: .67rem;
 
     text-transform: uppercase;
+
+    letter-spacing: .22em;
 }
 
 .section-title {
-    margin-top: 13px;
-
-    font-family:
-        "Syne", sans-serif;
+    font-family: "Space Grotesk", sans-serif;
 
     font-size:
-        clamp(43px,6vw,76px);
+        clamp(2.7rem, 6vw, 5.3rem);
 
-    line-height: .9;
+    line-height: .92;
 
-    letter-spacing: -.07em;
-}
+    letter-spacing: -.065em;
 
-.section-copy {
-    max-width: 540px;
-
-    color:
-        rgba(190,195,217,.48);
-
-    font-size: 14px;
-
-    line-height: 1.8;
+    font-weight: 600;
 }
 
 
 /* =========================================================
-   APP CAROUSEL
-========================================================= */
+   APPS
+   ========================================================= */
 
-.carousel-window {
-    width: 100%;
+.apps-area {
+    margin-top: 65px;
 
     overflow: hidden;
-
-    padding:
-        10px 0
-        35px;
 }
 
-.carousel-track {
+.apps-track {
     display: flex;
 
-    gap: 20px;
+    gap: 18px;
 
-    will-change: transform;
+    transition:
+        transform 680ms
+        cubic-bezier(.16,1,.3,1);
 }
 
 .app-card {
-    flex:
-        0 0 330px;
+    flex: 0 0 calc(
+        (100% - 36px) / 3
+    );
 
-    width: 330px;
-    height: 445px;
+    min-height: 285px;
 
-    overflow: hidden;
+    padding: 28px;
 
-    border-radius: 25px;
+    border: 1px solid var(--border);
 
-    border:
-        1px solid rgba(255,255,255,.085);
+    border-radius: 24px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,.060),
-            rgba(255,255,255,.021)
+            rgba(255,255,255,.065),
+            rgba(255,255,255,.018)
         );
 
-    box-shadow:
-        0 30px 90px rgba(0,0,0,.32),
-        inset 0 1px 0 rgba(255,255,255,.055);
+    backdrop-filter: blur(18px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     transition:
-        transform .35s cubic-bezier(.2,.8,.2,1),
+        transform .35s ease,
         border-color .35s ease,
+        background .35s ease,
         box-shadow .35s ease;
 }
 
 .app-card:hover {
-    transform:
-        translateY(-7px);
+    transform: translateY(-8px);
 
-    border-color:
-        rgba(151,137,255,.25);
-
-    box-shadow:
-        0 40px 105px rgba(0,0,0,.40),
-        0 0 60px rgba(106,87,255,.055);
-}
-
-.app-visual {
-    height: 255px;
-
-    position: relative;
-
-    overflow: hidden;
-
-    background:
-        radial-gradient(
-            circle at 50% 50%,
-            rgba(111,91,255,.075),
-            transparent 65%
-        );
-
-    border-bottom:
-        1px solid rgba(255,255,255,.07);
-}
-
-
-/* =========================================================
-   COSMIFLOW — AI
-========================================================= */
-
-.flow-ai {
-    position: absolute;
-
-    width: 225px;
-    height: 195px;
-
-    left: 50%;
-    top: 50%;
-
-    transform:
-        translate(-50%,-50%);
-
-    padding: 15px;
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    border-radius: 16px;
-
-    background:
-        rgba(8,9,18,.76);
-
-    box-shadow:
-        0 25px 65px rgba(0,0,0,.45);
-}
-
-.ai-top {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 14px;
-}
-
-.ai-brand {
-    font-family:
-        "Space Grotesk", sans-serif;
-
-    font-weight: 700;
-
-    font-size: 10px;
-
-    letter-spacing: -.02em;
-}
-
-.ai-status {
-    width: 6px;
-    height: 6px;
-
-    border-radius: 50%;
-
-    background:
-        #8d7cff;
-
-    box-shadow:
-        0 0 12px #8d7cff;
-}
-
-.ai-prompt {
-    padding:
-        10px 11px;
-
-    min-height: 42px;
-
-    border:
-        1px solid rgba(255,255,255,.055);
-
-    border-radius: 9px;
-
-    background:
-        rgba(255,255,255,.028);
-
-    color:
-        rgba(218,220,241,.45);
-
-    font-size: 7px;
-
-    line-height: 1.5;
-}
-
-.ai-response {
-    margin-top: 10px;
-
-    padding:
-        10px;
-
-    border-radius: 9px;
-
-    background:
-        rgba(118,99,255,.065);
-
-    border:
-        1px solid rgba(130,110,255,.10);
-}
-
-.ai-response-title {
-    width: 44px;
-    height: 5px;
-
-    border-radius: 3px;
-
-    background:
-        rgba(255,255,255,.18);
-
-    margin-bottom: 8px;
-}
-
-.ai-response-line {
-    height: 4px;
-
-    border-radius: 2px;
-
-    background:
-        rgba(255,255,255,.075);
-
-    margin-bottom: 6px;
-}
-
-.ai-response-line.mid {
-    width: 82%;
-}
-
-.ai-response-line.short {
-    width: 58%;
-}
-
-.ai-send {
-    position: absolute;
-
-    bottom: 13px;
-    right: 14px;
-
-    width: 27px;
-    height: 27px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 8px;
+    border-color: var(--border-bright);
 
     background:
         linear-gradient(
-            135deg,
-            #8b78ff,
-            #5e77ff
+            145deg,
+            rgba(255,255,255,.085),
+            rgba(255,255,255,.025)
         );
-
-    color: white;
-
-    font-size: 10px;
-}
-
-
-/* =========================================================
-   COSMICHAT — WHATSAPP STYLE
-========================================================= */
-
-.chat-phone {
-    position: absolute;
-
-    width: 195px;
-    height: 220px;
-
-    left: 50%;
-    top: 50%;
-
-    transform:
-        translate(-50%,-50%);
-
-    overflow: hidden;
-
-    border:
-        1px solid rgba(255,255,255,.09);
-
-    border-radius: 17px;
-
-    background:
-        #080b12;
 
     box-shadow:
-        0 25px 70px rgba(0,0,0,.48);
+        0 25px 70px rgba(0,0,0,.25);
 }
 
-.chat-header {
-    height: 42px;
+.app-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.app-icon {
+    width: 50px;
+    height: 50px;
 
     display: flex;
-
     align-items: center;
+    justify-content: center;
 
-    gap: 9px;
+    border:
+        1px solid
+        rgba(255,255,255,.13);
 
-    padding:
-        0 12px;
-
-    border-bottom:
-        1px solid rgba(255,255,255,.055);
-
-    background:
-        rgba(255,255,255,.025);
-}
-
-.chat-avatar {
-    width: 22px;
-    height: 22px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle at 35% 30%,
-            #efefff,
-            #6d67ad 55%,
-            #29253d
-        );
-}
-
-.chat-user {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 2px;
-}
-
-.chat-user strong {
-    font-size: 7px;
-}
-
-.chat-user small {
-    color:
-        rgba(173,183,199,.38);
-
-    font-size: 5px;
-}
-
-.chat-body {
-    padding:
-        11px 9px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 6px;
-}
-
-.message {
-    max-width: 73%;
-
-    padding:
-        6px 8px;
-
-    border-radius: 9px;
-
-    color:
-        rgba(231,233,245,.57);
-
-    font-size: 6px;
-
-    line-height: 1.45;
+    border-radius: 15px;
 
     background:
         rgba(255,255,255,.045);
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: .95rem;
+
+    font-weight: 700;
 }
 
-.message.me {
-    align-self: flex-end;
+.app-arrow {
+    color: #aeb8cd;
 
-    background:
-        rgba(94,118,255,.19);
+    font-size: 1.15rem;
 
-    border:
-        1px solid rgba(105,127,255,.10);
+    transition:
+        transform .3s ease;
 }
 
-.chat-compose {
-    position: absolute;
-
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-
-    height: 25px;
-
-    border:
-        1px solid rgba(255,255,255,.06);
-
-    border-radius: 8px;
-
-    background:
-        rgba(255,255,255,.035);
-
-    color:
-        rgba(255,255,255,.20);
-
-    font-size: 6px;
-
-    display: flex;
-
-    align-items: center;
-
-    padding-left: 9px;
-}
-
-
-/* =========================================================
-   MAIL
-========================================================= */
-
-.mail-ui {
-    position: absolute;
-
-    inset: 30px;
-
-    display: grid;
-
-    grid-template-columns:
-        64px 1fr;
-
-    gap: 9px;
-}
-
-.mail-sidebar {
-    padding: 10px 8px;
-
-    border:
-        1px solid rgba(255,255,255,.055);
-
-    border-radius: 11px;
-
-    background:
-        rgba(255,255,255,.025);
-}
-
-.mail-sidebar span {
-    display: block;
-
-    width: 100%;
-    height: 5px;
-
-    border-radius: 3px;
-
-    background:
-        rgba(255,255,255,.07);
-
-    margin-bottom: 10px;
-}
-
-.mail-list {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 7px;
-}
-
-.mail-row {
-    height: 39px;
-
-    padding: 8px 10px;
-
-    border:
-        1px solid rgba(255,255,255,.05);
-
-    border-radius: 8px;
-
-    background:
-        rgba(255,255,255,.025);
-}
-
-.mail-row.active {
-    background:
-        rgba(111,92,255,.075);
-
-    border-color:
-        rgba(133,113,255,.14);
-}
-
-.mail-line {
-    width: 58%;
-    height: 4px;
-
-    border-radius: 3px;
-
-    background:
-        rgba(255,255,255,.11);
-
-    margin-bottom: 6px;
-}
-
-.mail-line.small {
-    width: 77%;
-
-    background:
-        rgba(255,255,255,.05);
-}
-
-
-/* =========================================================
-   MEET
-========================================================= */
-
-.meet-ui {
-    position: absolute;
-
-    inset: 29px;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap: 8px;
-}
-
-.meet-tile {
-    position: relative;
-
-    overflow: hidden;
-
-    border-radius: 11px;
-
-    border:
-        1px solid rgba(255,255,255,.055);
-
-    background:
-        radial-gradient(
-            circle at 50% 30%,
-            rgba(117,101,255,.16),
-            rgba(255,255,255,.025) 65%
-        );
-}
-
-.meet-head {
-    position: absolute;
-
-    width: 27px;
-    height: 27px;
-
-    left: 50%;
-    top: 34%;
-
+.app-card:hover .app-arrow {
     transform:
-        translate(-50%,-50%);
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle at 35% 30%,
-            #efefff,
-            #7770ad 55%,
-            #25233a
-        );
+        translate(3px, -3px);
 }
 
-.meet-body {
-    position: absolute;
+.app-name {
+    margin-top: 35px;
 
-    width: 60px;
-    height: 31px;
+    font-family: "Space Grotesk", sans-serif;
 
-    left: 50%;
-    top: 64%;
-
-    transform:
-        translateX(-50%);
-
-    border-radius:
-        25px 25px 7px 7px;
-
-    background:
-        rgba(103,94,180,.40);
-}
-
-
-/* =========================================================
-   DRIVE
-========================================================= */
-
-.drive-ui {
-    position: absolute;
-
-    inset: 29px;
-
-    display: grid;
-
-    grid-template-columns:
-        64px 1fr;
-
-    gap: 9px;
-}
-
-.drive-sidebar {
-    padding: 10px 8px;
-
-    border:
-        1px solid rgba(255,255,255,.055);
-
-    border-radius: 11px;
-
-    background:
-        rgba(255,255,255,.025);
-}
-
-.drive-sidebar span {
-    display: block;
-
-    height: 5px;
-
-    margin-bottom: 11px;
-
-    border-radius: 3px;
-
-    background:
-        rgba(255,255,255,.07);
-}
-
-.drive-files {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap: 8px;
-}
-
-.drive-file {
-    height: 70px;
-
-    padding: 10px;
-
-    border:
-        1px solid rgba(255,255,255,.055);
-
-    border-radius: 9px;
-
-    background:
-        rgba(255,255,255,.025);
-}
-
-.drive-icon {
-    width: 20px;
-    height: 24px;
-
-    border-radius: 4px;
-
-    border:
-        1px solid rgba(132,112,255,.19);
-
-    background:
-        rgba(112,92,255,.08);
-
-    margin-bottom: 9px;
-}
-
-.drive-line {
-    width: 70%;
-    height: 4px;
-
-    border-radius: 3px;
-
-    background:
-        rgba(255,255,255,.065);
-}
-
-
-/* =========================================================
-   NOTES
-========================================================= */
-
-.notes-ui {
-    position: absolute;
-
-    inset: 29px;
-
-    display: grid;
-
-    grid-template-columns:
-        72px 1fr;
-
-    gap: 9px;
-}
-
-.notes-list {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 7px;
-}
-
-.note {
-    height: 42px;
-
-    padding: 9px;
-
-    border:
-        1px solid rgba(255,255,255,.05);
-
-    border-radius: 8px;
-
-    background:
-        rgba(255,255,255,.025);
-}
-
-.note.active {
-    background:
-        rgba(112,92,255,.08);
-
-    border-color:
-        rgba(135,115,255,.14);
-}
-
-.note-line {
-    width: 70%;
-    height: 4px;
-
-    border-radius: 3px;
-
-    background:
-        rgba(255,255,255,.09);
-
-    margin-bottom: 6px;
-}
-
-.note-line.short {
-    width: 45%;
-}
-
-.note-editor {
-    padding: 17px;
-
-    border:
-        1px solid rgba(255,255,255,.055);
-
-    border-radius: 11px;
-
-    background:
-        rgba(255,255,255,.025);
-}
-
-.note-title-line {
-    width: 63%;
-    height: 8px;
-
-    border-radius: 3px;
-
-    background:
-        rgba(255,255,255,.12);
-
-    margin-bottom: 18px;
-}
-
-.note-text {
-    width: 100%;
-    height: 4px;
-
-    border-radius: 3px;
-
-    background:
-        rgba(255,255,255,.06);
-
-    margin-bottom: 8px;
-}
-
-.note-text.mid {
-    width: 84%;
-}
-
-.note-text.short {
-    width: 57%;
-}
-
-
-/* =========================================================
-   CARD INFO
-========================================================= */
-
-.card-info {
-    padding:
-        22px 22px;
-}
-
-.card-top {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-}
-
-.card-name {
-    font-family:
-        "Space Grotesk", sans-serif;
-
-    font-size: 19px;
+    font-size: 1.3rem;
 
     font-weight: 600;
 
     letter-spacing: -.035em;
 }
 
-.card-arrow {
-    width: 33px;
-    height: 33px;
+.app-description {
+    margin-top: 9px;
+
+    max-width: 300px;
+
+    color: var(--muted);
+
+    font-size: .83rem;
+
+    line-height: 1.7;
+}
+
+.carousel-controls {
+    margin-top: 25px;
 
     display: flex;
+    justify-content: flex-end;
 
+    gap: 9px;
+}
+
+.carousel-button {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
     align-items: center;
     justify-content: center;
 
     border:
-        1px solid rgba(255,255,255,.075);
-
-    border-radius: 50%;
-
-    color:
-        rgba(255,255,255,.58);
-
-    transition:
-        .25s ease;
-}
-
-.app-card:hover .card-arrow {
-    transform:
-        translate(2px,-2px);
-
-    color: white;
-
-    background:
-        rgba(255,255,255,.08);
-}
-
-.card-description {
-    margin-top: 10px;
-
-    color:
-        rgba(190,194,216,.48);
-
-    font-size: 12px;
-
-    line-height: 1.65;
-}
-
-.card-type {
-    display: block;
-
-    margin-top: 15px;
-
-    font-family:
-        "DM Mono", monospace;
-
-    color:
-        rgba(157,163,191,.32);
-
-    font-size: 8px;
-
-    letter-spacing: .17em;
-
-    text-transform: uppercase;
-}
-
-
-/* =========================================================
-   CAROUSEL CONTROLS
-========================================================= */
-
-.carousel-controls {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-}
-
-.carousel-count {
-    font-family:
-        "DM Mono", monospace;
-
-    color:
-        rgba(173,178,204,.28);
-
-    font-size: 9px;
-
-    letter-spacing: .15em;
-}
-
-.carousel-buttons {
-    display: flex;
-
-    gap: 8px;
-}
-
-.carousel-button {
-    width: 49px;
-    height: 49px;
-
-    border:
-        1px solid rgba(255,255,255,.10);
+        1px solid
+        var(--border);
 
     border-radius: 50%;
 
     background:
-        rgba(255,255,255,.04);
+        rgba(255,255,255,.035);
 
     color: white;
+
+    font-size: 1rem;
 
     cursor: pointer;
 
-    font-size: 18px;
-
     transition:
-        transform .2s ease,
-        background .2s ease,
-        border-color .2s ease;
+        background .25s ease,
+        border-color .25s ease,
+        transform .25s ease;
 }
 
 .carousel-button:hover {
-    transform:
-        translateY(-3px);
-
     background:
-        rgba(255,255,255,.09);
+        rgba(255,255,255,.085);
 
     border-color:
-        rgba(255,255,255,.20);
-}
+        rgba(255,255,255,.22);
 
-.carousel-button:active {
-    transform:
-        scale(.91);
+    transform: translateY(-2px);
 }
 
 
 /* =========================================================
    GET STARTED
-========================================================= */
+   ========================================================= */
 
-.start-grid {
+.instruction-grid {
+    margin-top: 60px;
+
     display: grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        repeat(2, 1fr);
 
     gap: 18px;
 }
 
-.start-card {
-    position: relative;
-
-    min-height: 415px;
-
+.instruction-card {
     padding: 36px;
 
-    overflow: hidden;
-
     border:
-        1px solid rgba(255,255,255,.075);
+        1px solid
+        var(--border);
 
-    border-radius: 25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.050),
-            rgba(255,255,255,.018)
-        );
-}
-
-.start-index {
-    font-family:
-        "DM Mono", monospace;
-
-    color:
-        rgba(255,255,255,.20);
-
-    font-size: 9px;
-
-    letter-spacing: .18em;
-}
-
-.start-card h3 {
-    margin-top: 24px;
-
-    font-family:
-        "Syne", sans-serif;
-
-    font-size: 28px;
-
-    letter-spacing: -.055em;
-}
-
-.steps {
-    display: grid;
-
-    gap: 12px;
-
-    margin-top: 24px;
-}
-
-.step {
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    color:
-        rgba(193,197,218,.53);
-
-    font-size: 13px;
-}
-
-.step-number {
-    flex: 0 0 26px;
-
-    width: 26px;
-    height: 26px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border:
-        1px solid rgba(255,255,255,.075);
-
-    border-radius: 8px;
+    border-radius: 24px;
 
     background:
         rgba(255,255,255,.035);
+}
 
-    font-family:
-        "DM Mono", monospace;
+.instruction-card h3 {
+    font-family: "Space Grotesk", sans-serif;
 
-    font-size: 8px;
+    font-size: 1.2rem;
 
-    color:
-        rgba(255,255,255,.65);
+    letter-spacing: -.025em;
+
+    margin-bottom: 25px;
+}
+
+.instruction-card ol {
+    padding-left: 21px;
+
+    color: var(--muted);
+}
+
+.instruction-card li {
+    padding: 7px 0;
+
+    line-height: 1.55;
+}
+
+.instruction-card li::marker {
+    color: #c7d0e2;
+
+    font-family: "DM Mono", monospace;
 }
 
 
 /* =========================================================
-   FOUNDER — MUCH BIGGER
-========================================================= */
+   FOUNDER
+   ========================================================= */
 
-.founder-section {
-    position: relative;
-}
+.founder-layout {
+    margin-top: 60px;
 
-.founder-main {
-    position: relative;
-
-    overflow: hidden;
-
-    padding:
-        65px;
-
-    border:
-        1px solid rgba(255,255,255,.085);
-
-    border-radius: 30px;
-
-    background:
-        radial-gradient(
-            circle at 15% 50%,
-            rgba(105,86,255,.11),
-            transparent 32%
-        ),
-        radial-gradient(
-            circle at 90% 0%,
-            rgba(80,100,255,.07),
-            transparent 30%
-        ),
-        rgba(255,255,255,.025);
-
-    box-shadow:
-        0 35px 100px rgba(0,0,0,.25);
-}
-
-.founder-main::before {
-    content: "";
-
-    position: absolute;
-
-    width: 500px;
-    height: 500px;
-
-    right: -280px;
-    bottom: -330px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(128,105,255,.12),
-            transparent 68%
-        );
-
-    filter: blur(25px);
-}
-
-.founder-top {
     display: grid;
 
     grid-template-columns:
         .72fr 1.28fr;
 
-    gap: 65px;
+    gap: 90px;
 
-    align-items: center;
-}
-
-.founder-label {
-    font-family:
-        "DM Mono", monospace;
-
-    font-size: 9px;
-
-    letter-spacing: .19em;
-
-    color:
-        rgba(190,195,218,.29);
-
-    text-transform: uppercase;
+    align-items: start;
 }
 
 .founder-name {
-    margin-top: 18px;
-
-    font-family:
-        "Syne", sans-serif;
+    font-family: "Space Grotesk", sans-serif;
 
     font-size:
-        clamp(48px,6vw,78px);
+        clamp(3rem, 6vw, 5.6rem);
 
-    line-height: .87;
+    line-height: .86;
 
-    letter-spacing: -.075em;
+    letter-spacing: -.07em;
+
+    font-weight: 600;
 }
 
 .founder-role {
-    margin-top: 17px;
+    margin-top: 22px;
 
-    color:
-        rgba(190,195,218,.38);
+    color: #a3aec3;
 
-    font-family:
-        "DM Mono", monospace;
+    font-family: "DM Mono", monospace;
 
-    font-size: 9px;
+    font-size: .72rem;
 
-    letter-spacing: .16em;
-
-    text-transform: uppercase;
+    letter-spacing: .06em;
 }
 
-.founder-copy {
-    color:
-        rgba(195,199,221,.54);
+.founder-bio {
+    color: #a4adbf;
 
-    font-size: 14px;
+    font-size: 1rem;
 
-    line-height: 1.9;
+    line-height: 2;
+
+    max-width: 680px;
 }
 
-.founder-copy + .founder-copy {
-    margin-top: 19px;
-}
+.founder-bio strong {
+    color: #e9edf7;
 
-.founder-stats {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    margin-top: 60px;
-
-    border-top:
-        1px solid rgba(255,255,255,.07);
-
-    padding-top: 30px;
-}
-
-.founder-stat {
-    padding-right: 25px;
-
-    border-right:
-        1px solid rgba(255,255,255,.06);
-}
-
-.founder-stat:last-child {
-    border-right: 0;
-
-    padding-left: 25px;
-}
-
-.founder-stat:nth-child(2) {
-    padding-left: 25px;
-}
-
-.stat-number {
-    font-family:
-        "Syne", sans-serif;
-
-    font-size: 31px;
-
-    font-weight: 800;
-
-    letter-spacing: -.06em;
-}
-
-.stat-label {
-    margin-top: 5px;
-
-    font-family:
-        "DM Mono", monospace;
-
-    font-size: 8px;
-
-    letter-spacing: .13em;
-
-    color:
-        rgba(180,185,210,.32);
-
-    text-transform: uppercase;
+    font-weight: 600;
 }
 
 
 /* =========================================================
    TIMELINE
-========================================================= */
+   ========================================================= */
 
 .timeline {
-    position: relative;
-    padding-bottom: 10px;
-}
+    margin-top: 60px;
 
-.timeline-line {
-    position: absolute;
-
-    left: 50%;
-    top: 0;
-    bottom: 65px;
-
-    width: 1px;
-
-    transform:
-        translateX(-50%);
-
-    background:
-        linear-gradient(
-            to bottom,
-            transparent,
-            rgba(255,255,255,.13) 7%,
-            rgba(255,255,255,.13) 91%,
-            rgba(137,119,255,.30)
-        );
+    border-top:
+        1px solid
+        var(--border);
 }
 
 .timeline-item {
-    min-height: 180px;
-
     display: grid;
 
     grid-template-columns:
-        1fr 70px 1fr;
+        180px 1fr;
 
-    align-items: center;
+    gap: 45px;
 
-    position: relative;
-}
+    padding: 32px 0;
 
-.timeline-content {
-    grid-row: 1;
-}
-
-.timeline-item:nth-child(odd)
-.timeline-content {
-    grid-column: 1;
-
-    text-align: right;
-
-    padding-right: 40px;
-}
-
-.timeline-item:nth-child(even)
-.timeline-content {
-    grid-column: 3;
-
-    text-align: left;
-
-    padding-left: 40px;
-}
-
-.timeline-marker {
-    grid-column: 2;
-    grid-row: 1;
-
-    justify-self: center;
-
-    width: 13px;
-    height: 13px;
-
-    border-radius: 50%;
-
-    background:
-        #e7e4ff;
-
-    box-shadow:
-        0 0 0 7px rgba(127,107,255,.05),
-        0 0 27px rgba(127,107,255,.55);
-
-    z-index: 2;
+    border-bottom:
+        1px solid
+        var(--border);
 }
 
 .timeline-date {
-    font-family:
-        "DM Mono", monospace;
+    color: #7f899e;
 
-    font-size: 9px;
+    font-family: "DM Mono", monospace;
 
-    letter-spacing: .17em;
+    font-size: .68rem;
 
-    text-transform: uppercase;
-
-    color:
-        rgba(161,167,195,.31);
+    letter-spacing: .05em;
 }
 
-.timeline-title {
-    margin-top: 8px;
+.timeline-content h3 {
+    font-family: "Space Grotesk", sans-serif;
 
-    font-family:
-        "Space Grotesk", sans-serif;
+    font-size: 1.25rem;
 
-    font-size: 25px;
+    letter-spacing: -.025em;
 
-    letter-spacing: -.045em;
+    margin-bottom: 8px;
 }
 
-.timeline-text {
-    max-width: 470px;
+.timeline-content p {
+    color: var(--muted);
 
-    margin-top: 9px;
-
-    color:
-        rgba(185,190,213,.48);
-
-    font-size: 13px;
+    font-size: .88rem;
 
     line-height: 1.75;
+
+    max-width: 650px;
 }
 
 
 /* =========================================================
-   TIMELINE FINISH
-========================================================= */
+   END SECTION
+   ========================================================= */
 
-.timeline-finish {
-    position: relative;
-
-    margin-top: 30px;
+.end-section {
+    padding:
+        160px 0
+        170px;
 
     text-align: center;
-
-    padding-top: 35px;
 }
 
-.timeline-finish::before {
-    content: "";
-
-    position: absolute;
-
-    left: 50%;
-    top: 0;
-
-    width: 1px;
-    height: 35px;
-
-    transform:
-        translateX(-50%);
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(137,119,255,.40),
-            transparent
-        );
-}
-
-.finish-orb {
-    width: 11px;
-    height: 11px;
-
-    margin: 0 auto 23px;
-
-    border-radius: 50%;
-
-    background:
-        #9b8cff;
-
-    box-shadow:
-        0 0 0 8px rgba(126,105,255,.045),
-        0 0 30px rgba(126,105,255,.65);
-}
-
-.finish-label {
-    font-family:
-        "DM Mono", monospace;
-
-    font-size: 8px;
-
-    letter-spacing: .22em;
-
-    color:
-        rgba(171,176,204,.29);
-
-    text-transform: uppercase;
-}
-
-.finish-title {
-    margin-top: 12px;
-
-    font-family:
-        "Syne", sans-serif;
+.end-logo {
+    font-family: "Space Grotesk", sans-serif;
 
     font-size:
-        clamp(31px,4vw,48px);
+        clamp(4rem, 10vw, 8.5rem);
 
-    letter-spacing: -.06em;
+    font-weight: 700;
+
+    line-height: .85;
+
+    letter-spacing: -.085em;
 }
 
-.finish-copy {
-    width:
-        min(520px,100%);
+.end-logo-tau {
+    font-family:
+        "Times New Roman",
+        Georgia,
+        serif;
 
-    margin:
-        13px auto 0;
+    font-weight: 400;
 
-    color:
-        rgba(183,188,211,.42);
-
-    font-size: 12px;
-
-    line-height: 1.75;
+    letter-spacing: -.025em;
 }
 
-.finish-glow {
-    width: 220px;
-    height: 70px;
+.end-tagline {
+    margin-top: 30px;
 
-    margin: 25px auto 0;
+    color: #aeb7c9;
 
-    border-radius: 50%;
+    font-size:
+        clamp(1rem, 2vw, 1.35rem);
 
-    background:
-        radial-gradient(
-            ellipse,
-            rgba(124,103,255,.14),
-            transparent 70%
-        );
-
-    filter: blur(12px);
+    letter-spacing: -.015em;
 }
 
 
 /* =========================================================
    FOOTER
-========================================================= */
+   ========================================================= */
 
-footer {
-    width:
-        min(1180px,calc(100% - 40px));
-
-    margin: 0 auto;
-
+.footer {
     padding:
-        55px 0;
+        35px 0
+        45px;
 
     border-top:
-        1px solid rgba(255,255,255,.07);
+        1px solid
+        var(--border);
 
     display: flex;
 
+    align-items: center;
+
     justify-content: space-between;
 
-    color:
-        rgba(161,167,192,.28);
+    color: #70798d;
 
-    font-family:
-        "DM Mono", monospace;
-
-    font-size: 9px;
-
-    letter-spacing: .08em;
+    font-size: .73rem;
 }
 
 .footer-brand {
-    font-family:
-        "Syne", sans-serif;
+    color: #fff;
 
-    color:
-        rgba(255,255,255,.48);
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 1rem;
 
     font-weight: 700;
+
+    letter-spacing: -.04em;
 }
 
+.footer-tau {
+    font-family:
+        "Times New Roman",
+        Georgia,
+        serif;
 
-/* =========================================================
-   REVEAL
-========================================================= */
-
-.reveal {
-    opacity: 0;
-
-    transform:
-        translateY(28px);
-
-    transition:
-        opacity .85s ease,
-        transform 1s cubic-bezier(.2,.8,.2,1);
-}
-
-.reveal.visible {
-    opacity: 1;
-
-    transform:
-        translateY(0);
+    font-weight: 400;
 }
 
 
 /* =========================================================
    RESPONSIVE
-========================================================= */
+   ========================================================= */
 
 @media (max-width: 900px) {
 
-    .section-header {
+    .nav-links {
+        display: none;
+    }
+
+    .app-card {
+        flex-basis: calc(
+            (100% - 18px) / 2
+        );
+    }
+
+    .founder-layout {
         grid-template-columns: 1fr;
-        gap: 25px;
-    }
 
-    .start-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .founder-main {
-        padding: 45px 30px;
-    }
-
-    .founder-top {
-        grid-template-columns: 1fr;
-        gap: 35px;
-    }
-
-    .founder-stats {
-        grid-template-columns: 1fr;
-        gap: 22px;
-    }
-
-    .founder-stat,
-    .founder-stat:nth-child(2),
-    .founder-stat:last-child {
-        padding:
-            0 0 20px;
-
-        border-right: 0;
-
-        border-bottom:
-            1px solid rgba(255,255,255,.06);
-    }
-
-    .founder-stat:last-child {
-        border-bottom: 0;
-    }
-
-    .timeline-line {
-        left: 7px;
-        transform: none;
-    }
-
-    .timeline-item {
-        display: block;
-
-        min-height: 0;
-
-        padding:
-            0 0 48px 35px;
-    }
-
-    .timeline-marker {
-        position: absolute;
-
-        left: 1px;
-        top: 3px;
-    }
-
-    .timeline-item:nth-child(odd)
-    .timeline-content,
-
-    .timeline-item:nth-child(even)
-    .timeline-content {
-        padding: 0;
-
-        text-align: left;
-    }
-
-    .timeline-text {
-        max-width: 600px;
-    }
-
-    .timeline-finish {
-        text-align: left;
-
-        margin-left: 35px;
-    }
-
-    .timeline-finish::before {
-        left: -28px;
-    }
-
-    .finish-orb {
-        margin-left: -34px;
+        gap: 45px;
     }
 
 }
 
-
 @media (max-width: 650px) {
 
+    .container {
+        width:
+            calc(100% - 32px);
+    }
+
     .hero {
+        min-height: 82vh;
+
         padding:
-            65px 18px;
+            70px 0
+            110px;
     }
 
     .hero-title {
         font-size:
-            clamp(45px,13vw,80px);
-    }
-
-    .hero-title span {
-        white-space: nowrap;
-    }
-
-    .hero-copy {
-        font-size: 13px;
+            clamp(4.3rem, 22vw, 7rem);
     }
 
     .section {
         padding:
-            105px 0;
+            100px 0;
     }
 
     .app-card {
-        flex-basis: 285px;
-        width: 285px;
-        height: 425px;
+        flex-basis: 100%;
+
+        min-height: 255px;
     }
 
-    .app-visual {
-        height: 240px;
+    .instruction-grid {
+        grid-template-columns: 1fr;
     }
 
-    .carousel-controls {
-        justify-content: flex-end;
+    .instruction-card {
+        padding: 28px;
     }
 
-    .carousel-count {
-        display: none;
+    .timeline-item {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
     }
 
-    footer {
+    .footer {
         flex-direction: column;
-        gap: 15px;
-    }
 
-}
+        align-items: flex-start;
 
-
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-        scroll-behavior: auto !important;
+        gap: 14px;
     }
 
 }
@@ -2163,1678 +1152,935 @@ footer {
 </head>
 
 
-<body>
+<body class="no-scroll">
 
 
-<div class="background">
+<!-- =======================================================
+     INTRO
+     ======================================================= -->
 
-    <div class="stars"></div>
+<div id="intro">
 
-    <div class="ambient one"></div>
-    <div class="ambient two"></div>
-    <div class="ambient three"></div>
+    <div class="intro-logo">
+
+        <span class="intro-side">S</span>
+
+        <span class="intro-tau">τ</span>
+
+        <span class="intro-side">AU</span>
+
+    </div>
 
 </div>
 
+
+<!-- COSMIC BACKGROUND -->
+
+<div class="cosmos"></div>
 <div class="grain"></div>
 
-<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- =======================================================
+     PAGE
+     ======================================================= -->
+
+<div class="page">
 
 
-<!-- =========================================================
-     HERO
-========================================================= -->
+    <!-- NAVIGATION -->
 
-<main id="top">
+    <div class="container">
 
-<section class="hero">
+        <nav class="nav">
 
-    <div class="hero-inner">
+            <a href="#" class="brand">
+                S<span class="brand-tau">τ</span>AU
+            </a>
 
-        <div class="brand">
-            COSMIWAY LABS
-        </div>
+            <div class="nav-links">
 
-        <div class="divider"></div>
-
-        <h1 class="hero-title">
-
-            <span class="explore">
-                EXPLORE
-            </span>
-
-            <span class="cosmos">
-                THE COSMOS
-            </span>
-
-        </h1>
-
-        <p class="hero-copy">
-            A growing collection of digital tools,
-            built one project at a time and brought
-            together in one place.
-        </p>
-
-        <div class="hero-meta">
-
-            <span>TOOLS</span>
-            <i></i>
-            <span>PROJECTS</span>
-            <i></i>
-            <span>2026</span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     TOOLS
-========================================================= -->
-
-<section class="section reveal" id="tools">
-
-    <div class="section-header">
-
-        <div>
-
-            <div class="eyebrow">
-                The collection
-            </div>
-
-            <h2 class="section-title">
-                Tools<br>
-                in orbit.
-            </h2>
-
-        </div>
-
-        <p class="section-copy">
-            Explore the current Cosmiway collection.
-            Every project has its own purpose, interface
-            and experience.
-        </p>
-
-    </div>
-
-
-    <div class="carousel-window">
-
-        <div class="carousel-track" id="carouselTrack">
-
-
-            <!-- COSMIFLOW -->
-
-            <article class="app-card">
-
-                <a
-                    href="https://cosmiway-labs.github.io/cosmiflow/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <div class="app-visual">
-
-                        <div class="flow-ai">
-
-                            <div class="ai-top">
-
-                                <div class="ai-brand">
-                                    COSMIFLOW
-                                </div>
-
-                                <div class="ai-status"></div>
-
-                            </div>
-
-                            <div class="ai-prompt">
-                                Ask CosmiFlow anything...
-                            </div>
-
-                            <div class="ai-response">
-
-                                <div class="ai-response-title"></div>
-
-                                <div class="ai-response-line"></div>
-                                <div class="ai-response-line mid"></div>
-                                <div class="ai-response-line"></div>
-                                <div class="ai-response-line short"></div>
-
-                            </div>
-
-                            <div class="ai-send">
-                                ↗
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="card-info">
-
-                        <div class="card-top">
-
-                            <div class="card-name">
-                                CosmiFlow
-                            </div>
-
-                            <div class="card-arrow">
-                                ↗
-                            </div>
-
-                        </div>
-
-                        <p class="card-description">
-                            An AI-powered space for asking,
-                            creating and working through ideas.
-                        </p>
-
-                        <span class="card-type">
-                            Artificial Intelligence
-                        </span>
-
-                    </div>
-
+                <a href="#tools">
+                    Tools
                 </a>
 
-            </article>
-
-
-            <!-- COSMIC LOGIN -->
-
-            <article class="app-card">
-
-                <a
-                    href="https://cosmiway-labs.github.io/cosmic-login/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <div class="app-visual">
-
-                        <div class="flow-ai">
-
-                            <div class="ai-top">
-
-                                <div class="ai-brand">
-                                    COSMIC LOGIN
-                                </div>
-
-                                <div class="ai-status"></div>
-
-                            </div>
-
-                            <div class="ai-prompt">
-                                Email ID
-                            </div>
-
-                            <div class="ai-prompt" style="margin-top:8px;">
-                                Password
-                            </div>
-
-                            <div
-                                class="ai-response"
-                                style="
-                                    height:36px;
-                                    margin-top:10px;
-                                    background:rgba(118,99,255,.11);
-                                "
-                            >
-                                <div class="ai-response-title"></div>
-                            </div>
-
-                            <div class="ai-send">
-                                →
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="card-info">
-
-                        <div class="card-top">
-
-                            <div class="card-name">
-                                Cosmic Login
-                            </div>
-
-                            <div class="card-arrow">
-                                ↗
-                            </div>
-
-                        </div>
-
-                        <p class="card-description">
-                            The account gateway for creating an ID
-                            and signing into the ecosystem.
-                        </p>
-
-                        <span class="card-type">
-                            Identity
-                        </span>
-
-                    </div>
-
+                <a href="#start">
+                    Get Started
                 </a>
 
-            </article>
-
-
-            <!-- COSMICHAT -->
-
-            <article class="app-card">
-
-                <a
-                    href="https://cosmiway-labs.github.io/cosmichat/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <div class="app-visual">
-
-                        <div class="chat-phone">
-
-                            <div class="chat-header">
-
-                                <div class="chat-avatar"></div>
-
-                                <div class="chat-user">
-
-                                    <strong>
-                                        Alex
-                                    </strong>
-
-                                    <small>
-                                        online
-                                    </small>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="chat-body">
-
-                                <div class="message">
-                                    hey, you there?
-                                </div>
-
-                                <div class="message me">
-                                    yeah 😭
-                                </div>
-
-                                <div class="message">
-                                    what are you working on?
-                                </div>
-
-                                <div class="message me">
-                                    Cosmiway lol
-                                </div>
-
-                            </div>
-
-
-                            <div class="chat-compose">
-                                Message...
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="card-info">
-
-                        <div class="card-top">
-
-                            <div class="card-name">
-                                CosmiChat
-                            </div>
-
-                            <div class="card-arrow">
-                                ↗
-                            </div>
-
-                        </div>
-
-                        <p class="card-description">
-                            A messaging experience inspired by
-                            the familiar simplicity of modern chat apps.
-                        </p>
-
-                        <span class="card-type">
-                            Messaging
-                        </span>
-
-                    </div>
-
-                </a>
-
-            </article>
-
-
-            <!-- COSMIMAIL -->
-
-            <article class="app-card">
-
-                <a
-                    href="https://cosmiway-labs.github.io/cosmimail/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <div class="app-visual">
-
-                        <div class="mail-ui">
-
-                            <div class="mail-sidebar">
-
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-
-                            </div>
-
-                            <div class="mail-list">
-
-                                <div class="mail-row active">
-                                    <div class="mail-line"></div>
-                                    <div class="mail-line small"></div>
-                                </div>
-
-                                <div class="mail-row">
-                                    <div class="mail-line"></div>
-                                    <div class="mail-line small"></div>
-                                </div>
-
-                                <div class="mail-row">
-                                    <div class="mail-line"></div>
-                                    <div class="mail-line small"></div>
-                                </div>
-
-                                <div class="mail-row">
-                                    <div class="mail-line"></div>
-                                    <div class="mail-line small"></div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="card-info">
-
-                        <div class="card-top">
-
-                            <div class="card-name">
-                                CosmiMail
-                            </div>
-
-                            <div class="card-arrow">
-                                ↗
-                            </div>
-
-                        </div>
-
-                        <p class="card-description">
-                            A dedicated mail experience for
-                            keeping communication organized.
-                        </p>
-
-                        <span class="card-type">
-                            Email
-                        </span>
-
-                    </div>
-
-                </a>
-
-            </article>
-
-
-            <!-- COSMIMEET -->
-
-            <article class="app-card">
-
-                <a
-                    href="https://cosmiway-labs.github.io/cosmimeet/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <div class="app-visual">
-
-                        <div class="meet-ui">
-
-                            <div class="meet-tile">
-                                <div class="meet-head"></div>
-                                <div class="meet-body"></div>
-                            </div>
-
-                            <div class="meet-tile">
-                                <div class="meet-head"></div>
-                                <div class="meet-body"></div>
-                            </div>
-
-                            <div class="meet-tile">
-                                <div class="meet-head"></div>
-                                <div class="meet-body"></div>
-                            </div>
-
-                            <div class="meet-tile">
-                                <div class="meet-head"></div>
-                                <div class="meet-body"></div>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="card-info">
-
-                        <div class="card-top">
-
-                            <div class="card-name">
-                                CosmiMeet
-                            </div>
-
-                            <div class="card-arrow">
-                                ↗
-                            </div>
-
-                        </div>
-
-                        <p class="card-description">
-                            A space for bringing people together
-                            through online meetings.
-                        </p>
-
-                        <span class="card-type">
-                            Meetings
-                        </span>
-
-                    </div>
-
-                </a>
-
-            </article>
-
-
-            <!-- COSMIDRIVE -->
-
-            <article class="app-card">
-
-                <a
-                    href="https://cosmiway-labs.github.io/cosmidrive/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <div class="app-visual">
-
-                        <div class="drive-ui">
-
-                            <div class="drive-sidebar">
-
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-
-                            </div>
-
-                            <div class="drive-files">
-
-                                <div class="drive-file">
-                                    <div class="drive-icon"></div>
-                                    <div class="drive-line"></div>
-                                </div>
-
-                                <div class="drive-file">
-                                    <div class="drive-icon"></div>
-                                    <div class="drive-line"></div>
-                                </div>
-
-                                <div class="drive-file">
-                                    <div class="drive-icon"></div>
-                                    <div class="drive-line"></div>
-                                </div>
-
-                                <div class="drive-file">
-                                    <div class="drive-icon"></div>
-                                    <div class="drive-line"></div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="card-info">
-
-                        <div class="card-top">
-
-                            <div class="card-name">
-                                CosmiDrive
-                            </div>
-
-                            <div class="card-arrow">
-                                ↗
-                            </div>
-
-                        </div>
-
-                        <p class="card-description">
-                            A digital space for keeping files
-                            and resources together.
-                        </p>
-
-                        <span class="card-type">
-                            Storage
-                        </span>
-
-                    </div>
-
-                </a>
-
-            </article>
-
-
-            <!-- COSMINOTES -->
-
-            <article class="app-card">
-
-                <a
-                    href="https://cosmiway-labs.github.io/cosminotes/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <div class="app-visual">
-
-                        <div class="notes-ui">
-
-                            <div class="notes-list">
-
-                                <div class="note active">
-                                    <div class="note-line"></div>
-                                    <div class="note-line short"></div>
-                                </div>
-
-                                <div class="note">
-                                    <div class="note-line"></div>
-                                    <div class="note-line short"></div>
-                                </div>
-
-                                <div class="note">
-                                    <div class="note-line"></div>
-                                    <div class="note-line short"></div>
-                                </div>
-
-                                <div class="note">
-                                    <div class="note-line"></div>
-                                    <div class="note-line short"></div>
-                                </div>
-
-                            </div>
-
-                            <div class="note-editor">
-
-                                <div class="note-title-line"></div>
-
-                                <div class="note-text"></div>
-                                <div class="note-text mid"></div>
-                                <div class="note-text"></div>
-                                <div class="note-text short"></div>
-                                <div class="note-text mid"></div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="card-info">
-
-                        <div class="card-top">
-
-                            <div class="card-name">
-                                CosmiNotes
-                            </div>
-
-                            <div class="card-arrow">
-                                ↗
-                            </div>
-
-                        </div>
-
-                        <p class="card-description">
-                            A focused place for capturing ideas,
-                            writing and keeping notes.
-                        </p>
-
-                        <span class="card-type">
-                            Notes
-                        </span>
-
-                    </div>
-
-                </a>
-
-            </article>
-
-
-        </div>
-
-    </div>
-
-
-    <div class="carousel-controls">
-
-        <div class="carousel-count">
-            <span id="currentNumber">01</span>
-            &nbsp;/&nbsp;
-            07
-        </div>
-
-        <div class="carousel-buttons">
-
-            <button
-                class="carousel-button"
-                id="prevButton"
-                aria-label="Previous project"
-            >
-                ←
-            </button>
-
-            <button
-                class="carousel-button"
-                id="nextButton"
-                aria-label="Next project"
-            >
-                →
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     GET STARTED
-========================================================= -->
-
-<section class="section reveal" id="start">
-
-    <div class="section-header">
-
-        <div>
-
-            <div class="eyebrow">
-                Getting started
-            </div>
-
-            <h2 class="section-title">
-                Start<br>
-                here.
-            </h2>
-
-        </div>
-
-        <p class="section-copy">
-            New to Cosmiway? Begin with Cosmic Login,
-            create your account and then return to the
-            portal to explore the tools.
-        </p>
-
-    </div>
-
-
-    <div class="start-grid">
-
-        <div class="start-card">
-
-            <div class="start-index">
-                01 / CREATE
-            </div>
-
-            <h3>
-                Create your Cosmic ID
-            </h3>
-
-            <div class="steps">
-
-                <div class="step">
-                    <span class="step-number">01</span>
-                    Go to Cosmic Login.
-                </div>
-
-                <div class="step">
-                    <span class="step-number">02</span>
-                    Click Create ID.
-                </div>
-
-                <div class="step">
-                    <span class="step-number">03</span>
-                    Enter your email.
-                </div>
-
-                <div class="step">
-                    <span class="step-number">04</span>
-                    Create your password.
-                </div>
-
-                <div class="step">
-                    <span class="step-number">05</span>
-                    Enter your username.
-                </div>
-
-                <div class="step">
-                    <span class="step-number">06</span>
-                    Click Create.
-                </div>
-
-                <div class="step">
-                    <span class="step-number">07</span>
-                    Return to the portal and explore.
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="start-card">
-
-            <div class="start-index">
-                02 / SIGN IN
-            </div>
-
-            <h3>
-                Already have an ID?
-            </h3>
-
-            <div class="steps">
-
-                <div class="step">
-                    <span class="step-number">01</span>
-                    Open Cosmic Login.
-                </div>
-
-                <div class="step">
-                    <span class="step-number">02</span>
-                    Enter your email ID.
-                </div>
-
-                <div class="step">
-                    <span class="step-number">03</span>
-                    Enter your password.
-                </div>
-
-                <div class="step">
-                    <span class="step-number">04</span>
-                    Sign in.
-                </div>
-
-                <div class="step">
-                    <span class="step-number">05</span>
-                    You're ready to explore.
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     FOUNDER
-========================================================= -->
-
-<section
-    class="section reveal founder-section"
-    id="founder"
->
-
-    <div class="section-header">
-
-        <div>
-
-            <div class="eyebrow">
-                About the founder
-            </div>
-
-            <h2 class="section-title">
-                The person<br>
-                behind it.
-            </h2>
-
-        </div>
-
-        <p class="section-copy">
-            Cosmiway isn't a collection that appeared out of
-            nowhere. It is the result of one person continually
-            turning ideas into things that can actually be used.
-        </p>
-
-    </div>
-
-
-    <div class="founder-main">
-
-        <div class="founder-top">
-
-            <div>
-
-                <div class="founder-label">
+                <a href="#founder">
                     Founder
-                </div>
+                </a>
 
-                <h3 class="founder-name">
-                    Shaunak<br>
-                    Okhde
-                </h3>
-
-                <div class="founder-role">
-                    Founder · Builder · Architect
-                </div>
+                <a href="#timeline">
+                    Timeline
+                </a>
 
             </div>
 
-
-            <div>
-
-                <p class="founder-copy">
-                    Shaunak Okhde is the founder and builder
-                    behind Cosmiway Labs. The ecosystem grew
-                    from the idea of creating useful digital
-                    tools and giving each of them its own
-                    purpose and identity.
-                </p>
-
-                <p class="founder-copy">
-                    Instead of treating every project as a
-                    completely separate thing, Cosmiway brings
-                    them together into one larger universe.
-                    AI, communication, accounts, mail,
-                    meetings, storage and notes can all become
-                    parts of that growing collection.
-                </p>
-
-                <p class="founder-copy">
-                    The projects are built iteratively.
-                    An idea becomes a prototype, the prototype
-                    becomes a real tool, and the tools gradually
-                    become an ecosystem.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="founder-stats">
-
-            <div class="founder-stat">
-
-                <div class="stat-number">
-                    01
-                </div>
-
-                <div class="stat-label">
-                    Founder
-                </div>
-
-            </div>
-
-
-            <div class="founder-stat">
-
-                <div class="stat-number">
-                    07+
-                </div>
-
-                <div class="stat-label">
-                    Projects in the collection
-                </div>
-
-            </div>
-
-
-            <div class="founder-stat">
-
-                <div class="stat-number">
-                    2026
-                </div>
-
-                <div class="stat-label">
-                    Current chapter
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     TIMELINE
-========================================================= -->
-
-<section
-    class="section reveal"
-    id="timeline"
->
-
-    <div class="section-header">
-
-        <div>
-
-            <div class="eyebrow">
-                The journey
-            </div>
-
-            <h2 class="section-title">
-                Building<br>
-                the universe.
-            </h2>
-
-        </div>
-
-        <p class="section-copy">
-            The Cosmiway story is still being written.
-            Every project adds another piece to the
-            larger ecosystem.
-        </p>
+        </nav>
 
     </div>
 
 
-    <div class="timeline">
+    <!-- ===================================================
+         HERO
+         =================================================== -->
 
-        <div class="timeline-line"></div>
+    <section class="hero">
 
+        <div class="hero-glow"></div>
 
-        <div class="timeline-item">
+        <div class="hero-content">
 
-            <div class="timeline-content">
-
-                <div class="timeline-date">
-                    January 2026
-                </div>
-
-                <h3 class="timeline-title">
-                    The Spark
-                </h3>
-
-                <p class="timeline-text">
-                    The idea behind Cosmiway begins taking shape.
-                </p>
-
+            <div class="hero-eyebrow">
+                SτAU
             </div>
 
-            <div class="timeline-marker"></div>
+            <h1 class="hero-title">
+                S<span class="hero-title-tau">τ</span>AU
+            </h1>
 
-        </div>
-
-
-        <div class="timeline-item">
-
-            <div class="timeline-marker"></div>
-
-            <div class="timeline-content">
-
-                <div class="timeline-date">
-                    February 2026
-                </div>
-
-                <h3 class="timeline-title">
-                    Starscape
-                </h3>
-
-                <p class="timeline-text">
-                    The visual identity and wider direction
-                    of the ecosystem begin developing.
-                </p>
-
+            <div class="hero-tagline">
+                Making the Impossible
             </div>
 
-        </div>
-
-
-        <div class="timeline-item">
-
-            <div class="timeline-content">
-
-                <div class="timeline-date">
-                    March 2026
-                </div>
-
-                <h3 class="timeline-title">
-                    Cosmiway Evolution
-                </h3>
-
-                <p class="timeline-text">
-                    Individual projects begin becoming part
-                    of a broader ecosystem.
-                </p>
-
-            </div>
-
-            <div class="timeline-marker"></div>
-
-        </div>
-
-
-        <div class="timeline-item">
-
-            <div class="timeline-marker"></div>
-
-            <div class="timeline-content">
-
-                <div class="timeline-date">
-                    April 2026
-                </div>
-
-                <h3 class="timeline-title">
-                    More ideas become tools
-                </h3>
-
-                <p class="timeline-text">
-                    New concepts begin turning into actual
-                    digital experiences.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="timeline-item">
-
-            <div class="timeline-content">
-
-                <div class="timeline-date">
-                    May 2026
-                </div>
-
-                <h3 class="timeline-title">
-                    The collection grows
-                </h3>
-
-                <p class="timeline-text">
-                    More projects expand the range of things
-                    available inside the Cosmiway ecosystem.
-                </p>
-
-            </div>
-
-            <div class="timeline-marker"></div>
-
-        </div>
-
-
-        <div class="timeline-item">
-
-            <div class="timeline-marker"></div>
-
-            <div class="timeline-content">
-
-                <div class="timeline-date">
-                    June 2026
-                </div>
-
-                <h3 class="timeline-title">
-                    Connecting the pieces
-                </h3>
-
-                <p class="timeline-text">
-                    The projects begin coming together around
-                    a more unified experience.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="timeline-item">
-
-            <div class="timeline-content">
-
-                <div class="timeline-date">
-                    July 2026
-                </div>
-
-                <h3 class="timeline-title">
-                    The portal takes shape
-                </h3>
-
-                <p class="timeline-text">
-                    The growing collection gets a central
-                    place to discover and access its tools.
-                </p>
-
-            </div>
-
-            <div class="timeline-marker"></div>
-
-        </div>
-
-
-        <div class="timeline-item">
-
-            <div class="timeline-marker"></div>
-
-            <div class="timeline-content">
-
-                <div class="timeline-date">
-                    August 2026
-                </div>
-
-                <h3 class="timeline-title">
-                    The Cosmos Expands
-                </h3>
-
-                <p class="timeline-text">
-                    Cosmiway continues evolving as more tools,
-                    ideas and experiences become part of the
-                    growing universe.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- PROPER END -->
-
-        <div class="timeline-finish">
-
-            <div class="finish-orb"></div>
-
-            <div class="finish-label">
-                Current chapter
-            </div>
-
-            <h3 class="finish-title">
-                To be continued.
-            </h3>
-
-            <p class="finish-copy">
-                August 2026 isn't the end of the story.
-                It's simply where the timeline currently stops.
-                The next part is still being built.
+            <p class="hero-copy">
+                Software, ideas and experiments built from curiosity
+                and turned into things that actually exist.
             </p>
 
-            <div class="finish-glow"></div>
+        </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         TOOLS
+         =================================================== -->
+
+    <section class="section" id="tools">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <div class="section-label">
+                    The ecosystem
+                </div>
+
+                <h2 class="section-title">
+                    A universe<br>
+                    of tools.
+                </h2>
+
+            </div>
+
+
+            <div class="apps-area">
+
+                <div class="apps-track" id="appsTrack">
+
+
+                    <!-- SτAU FLOW -->
+
+                    <a
+                        class="app-card"
+                        href="https://stau-official.github.io/cosmiflow/"
+                    >
+
+                        <div>
+
+                            <div class="app-top">
+
+                                <div class="app-icon">
+                                    F
+                                </div>
+
+                                <div class="app-arrow">
+                                    ↗
+                                </div>
+
+                            </div>
+
+                            <h3 class="app-name">
+                                SτAU Flow
+                            </h3>
+
+                            <p class="app-description">
+                                An AI workspace for turning prompts,
+                                ideas and tools into results.
+                            </p>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- SτAU ID -->
+
+                    <a
+                        class="app-card"
+                        href="https://stau-official.github.io/cosmic-login/"
+                    >
+
+                        <div>
+
+                            <div class="app-top">
+
+                                <div class="app-icon">
+                                    ID
+                                </div>
+
+                                <div class="app-arrow">
+                                    ↗
+                                </div>
+
+                            </div>
+
+                            <h3 class="app-name">
+                                SτAU ID
+                            </h3>
+
+                            <p class="app-description">
+                                One identity for the entire SτAU
+                                ecosystem.
+                            </p>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- SτAU CHAT -->
+
+                    <a
+                        class="app-card"
+                        href="https://stau-official.github.io/cosmichat/"
+                    >
+
+                        <div>
+
+                            <div class="app-top">
+
+                                <div class="app-icon">
+                                    C
+                                </div>
+
+                                <div class="app-arrow">
+                                    ↗
+                                </div>
+
+                            </div>
+
+                            <h3 class="app-name">
+                                SτAU Chat
+                            </h3>
+
+                            <p class="app-description">
+                                Simple, direct messaging for
+                                staying connected.
+                            </p>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- SτAU MAIL -->
+
+                    <a
+                        class="app-card"
+                        href="https://stau-official.github.io/cosmimail/"
+                    >
+
+                        <div>
+
+                            <div class="app-top">
+
+                                <div class="app-icon">
+                                    M
+                                </div>
+
+                                <div class="app-arrow">
+                                    ↗
+                                </div>
+
+                            </div>
+
+                            <h3 class="app-name">
+                                SτAU Mail
+                            </h3>
+
+                            <p class="app-description">
+                                Email, built into the SτAU
+                                ecosystem.
+                            </p>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- SτAU MEET -->
+
+                    <a
+                        class="app-card"
+                        href="https://stau-official.github.io/cosmimeet/"
+                    >
+
+                        <div>
+
+                            <div class="app-top">
+
+                                <div class="app-icon">
+                                    ME
+                                </div>
+
+                                <div class="app-arrow">
+                                    ↗
+                                </div>
+
+                            </div>
+
+                            <h3 class="app-name">
+                                SτAU Meet
+                            </h3>
+
+                            <p class="app-description">
+                                Bring people together,
+                                wherever they are.
+                            </p>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- SτAU DRIVE -->
+
+                    <a
+                        class="app-card"
+                        href="https://stau-official.github.io/cosmidrive/"
+                    >
+
+                        <div>
+
+                            <div class="app-top">
+
+                                <div class="app-icon">
+                                    D
+                                </div>
+
+                                <div class="app-arrow">
+                                    ↗
+                                </div>
+
+                            </div>
+
+                            <h3 class="app-name">
+                                SτAU Drive
+                            </h3>
+
+                            <p class="app-description">
+                                Keep your files accessible
+                                across the ecosystem.
+                            </p>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- SτAU NOTES -->
+
+                    <a
+                        class="app-card"
+                        href="https://stau-official.github.io/cosminotes/"
+                    >
+
+                        <div>
+
+                            <div class="app-top">
+
+                                <div class="app-icon">
+                                    N
+                                </div>
+
+                                <div class="app-arrow">
+                                    ↗
+                                </div>
+
+                            </div>
+
+                            <h3 class="app-name">
+                                SτAU Notes
+                            </h3>
+
+                            <p class="app-description">
+                                Capture thoughts, ideas and
+                                everything in between.
+                            </p>
+
+                        </div>
+
+                    </a>
+
+
+                </div>
+
+
+                <div class="carousel-controls">
+
+                    <button
+                        class="carousel-button"
+                        id="previous"
+                        aria-label="Previous apps"
+                    >
+                        ←
+                    </button>
+
+                    <button
+                        class="carousel-button"
+                        id="next"
+                        aria-label="Next apps"
+                    >
+                        →
+                    </button>
+
+                </div>
+
+            </div>
 
         </div>
 
+    </section>
+
+
+    <!-- ===================================================
+         GET STARTED
+         =================================================== -->
+
+    <section class="section" id="start">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <div class="section-label">
+                    Getting started
+                </div>
+
+                <h2 class="section-title">
+                    Start exploring.
+                </h2>
+
+            </div>
+
+
+            <div class="instruction-grid">
+
+
+                <div class="instruction-card">
+
+                    <h3>
+                        First time here?
+                    </h3>
+
+                    <ol>
+
+                        <li>
+                            Go to SτAU ID.
+                        </li>
+
+                        <li>
+                            Click <strong>Create ID</strong>.
+                        </li>
+
+                        <li>
+                            Enter your email.
+                        </li>
+
+                        <li>
+                            Create a password.
+                        </li>
+
+                        <li>
+                            Choose your username.
+                        </li>
+
+                        <li>
+                            Click <strong>Create</strong>.
+                        </li>
+
+                        <li>
+                            Return to the portal and explore
+                            the tools.
+                        </li>
+
+                    </ol>
+
+                </div>
+
+
+                <div class="instruction-card">
+
+                    <h3>
+                        Already have an ID?
+                    </h3>
+
+                    <ol>
+
+                        <li>
+                            Enter your email ID.
+                        </li>
+
+                        <li>
+                            Enter your password.
+                        </li>
+
+                        <li>
+                            Sign in.
+                        </li>
+
+                        <li>
+                            You're ready to go.
+                        </li>
+
+                    </ol>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         FOUNDER
+         =================================================== -->
+
+    <section class="section" id="founder">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <div class="section-label">
+                    The person behind it
+                </div>
+
+            </div>
+
+
+            <div class="founder-layout">
+
+
+                <div>
+
+                    <div class="founder-name">
+                        Shaunak<br>
+                        Okhde
+                    </div>
+
+                    <div class="founder-role">
+                        Founder · Builder · Architect
+                    </div>
+
+                </div>
+
+
+                <div class="founder-bio">
+
+                    <p>
+                        <strong>Shaunak Okhde</strong> is a
+                        solo developer and builder who likes
+                        turning ideas into working things.
+                    </p>
+
+                    <br>
+
+                    <p>
+                        His work goes beyond SτAU itself:
+                        he spends his time building software,
+                        experimenting with technology,
+                        exploring ideas and creating projects
+                        across different areas of interest.
+                    </p>
+
+                    <br>
+
+                    <p>
+                        He approaches projects as both a
+                        <strong>builder and an architect</strong> —
+                        figuring out how something should work,
+                        then actually putting it together.
+                        SτAU is one expression of that process,
+                        rather than the entirety of what he does.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         TIMELINE
+         =================================================== -->
+
+    <section class="section" id="timeline">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <div class="section-label">
+                    The journey
+                </div>
+
+                <h2 class="section-title">
+                    How it<br>
+                    began.
+                </h2>
+
+            </div>
+
+
+            <div class="timeline">
+
+
+                <div class="timeline-item">
+
+                    <div class="timeline-date">
+                        JAN 2026
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            The Spark
+                        </h3>
+
+                        <p>
+                            The first steps toward building
+                            the ecosystem.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="timeline-item">
+
+                    <div class="timeline-date">
+                        FEB 2026
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Starscape
+                        </h3>
+
+                        <p>
+                            The vision begins taking shape.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="timeline-item">
+
+                    <div class="timeline-date">
+                        MAR 2026
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <h3>
+                            Cosmiway Evolution
+                        </h3>
+
+                        <p>
+                            The ecosystem continues evolving,
+                            eventually leading toward SτAU.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         FINAL BRAND MOMENT
+         =================================================== -->
+
+    <section class="end-section">
+
+        <div class="container">
+
+            <div class="end-logo">
+                S<span class="end-logo-tau">τ</span>AU
+            </div>
+
+            <div class="end-tagline">
+                Making the Impossible.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         FOOTER
+         =================================================== -->
+
+    <div class="container">
+
+        <footer class="footer">
+
+            <div class="footer-brand">
+                S<span class="footer-tau">τ</span>AU
+            </div>
+
+            <div>
+                Making the Impossible.
+            </div>
+
+        </footer>
+
     </div>
 
-</section>
 
-</main>
-
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
-
-<footer>
-
-    <div class="footer-brand">
-        COSMIWAY LABS
-    </div>
-
-    <div>
-        © 2026 · Explore the Cosmos
-    </div>
-
-</footer>
+</div>
 
 
 <script>
 
 /* =========================================================
-   CURSOR
-========================================================= */
+   INTRO SEQUENCE
+   ========================================================= */
 
-const cursor =
-    document.getElementById("cursorGlow");
+const intro = document.getElementById("intro");
 
-let mouseX =
-    window.innerWidth / 2;
+setTimeout(() => {
 
-let mouseY =
-    window.innerHeight / 2;
+    document.body.classList.remove("no-scroll");
 
-let currentX =
-    mouseX;
+    document.body.classList.add("revealed");
 
-let currentY =
-    mouseY;
+}, 4850);
 
-window.addEventListener(
-    "mousemove",
-    event => {
 
-        mouseX =
-            event.clientX;
+setTimeout(() => {
 
-        mouseY =
-            event.clientY;
+    intro.classList.add("finished");
 
-    }
-);
-
-function cursorLoop() {
-
-    currentX +=
-        (mouseX - currentX) * .075;
-
-    currentY +=
-        (mouseY - currentY) * .075;
-
-    cursor.style.left =
-        currentX + "px";
-
-    cursor.style.top =
-        currentY + "px";
-
-    requestAnimationFrame(
-        cursorLoop
-    );
-}
-
-cursorLoop();
+}, 5100);
 
 
 /* =========================================================
-   CAROUSEL
-========================================================= */
+   APP CAROUSEL
+   ========================================================= */
 
 const track =
-    document.getElementById(
-        "carouselTrack"
-    );
-
-const nextButton =
-    document.getElementById(
-        "nextButton"
-    );
-
-const previousButton =
-    document.getElementById(
-        "prevButton"
-    );
-
-const currentNumber =
-    document.getElementById(
-        "currentNumber"
-    );
-
-const originals =
-    Array.from(
-        track.children
-    );
-
-const TOTAL =
-    originals.length;
-
-
-/*
-   Clone three cards on each side.
-*/
-
-const leftClones =
-    originals
-        .slice(-3)
-        .map(card =>
-            card.cloneNode(true)
-        );
-
-leftClones
-    .reverse()
-    .forEach(card => {
-
-        track.insertBefore(
-            card,
-            track.firstChild
-        );
-
-    });
-
-
-const rightClones =
-    originals
-        .slice(0,3)
-        .map(card =>
-            card.cloneNode(true)
-        );
-
-rightClones.forEach(
-    card =>
-        track.appendChild(card)
-);
-
+    document.getElementById("appsTrack");
 
 const cards =
-    Array.from(
-        track.children
-    );
+    Array.from(track.children);
+
+const nextButton =
+    document.getElementById("next");
+
+const previousButton =
+    document.getElementById("previous");
+
+let currentIndex = 0;
 
 
-let current =
-    3;
+function getVisibleCards() {
 
-let moving =
-    false;
-
-let timer =
-    null;
-
-
-function cardWidth() {
-
-    return cards[0]
-        .getBoundingClientRect()
-        .width;
-
-}
-
-
-function stepWidth() {
-
-    return cardWidth() + 20;
-
-}
-
-
-function positionFor(index) {
-
-    const viewport =
-        track.parentElement;
-
-    const viewportWidth =
-        viewport.clientWidth;
-
-    const width =
-        cardWidth();
-
-    /*
-       Keep three cards as the main visible group.
-    */
-
-    const threeCardWidth =
-        width * 3 + 40;
-
-    const groupOffset =
-        Math.max(
-            0,
-            (viewportWidth - threeCardWidth) / 2
-        );
-
-    return (
-        groupOffset -
-        (index - 1) * stepWidth()
-    );
-
-}
-
-
-function render(instant = false) {
-
-    track.style.transition =
-        instant
-            ? "none"
-            :
-            "transform 680ms cubic-bezier(.16,.86,.24,1)";
-
-    track.style.transform =
-        `translate3d(${positionFor(current)}px,0,0)`;
-
-
-    const real =
-        (
-            (current - 3) % TOTAL
-            + TOTAL
-        ) % TOTAL;
-
-
-    currentNumber.textContent =
-        String(real + 1)
-            .padStart(2,"0");
-
-}
-
-
-function move(direction) {
-
-    if (moving) {
-        return;
+    if (window.innerWidth <= 650) {
+        return 1;
     }
 
-    moving = true;
+    if (window.innerWidth <= 900) {
+        return 2;
+    }
 
-    current += direction;
-
-    render(false);
-
-    setTimeout(
-        () => {
-
-            if (
-                current >=
-                TOTAL + 3
-            ) {
-
-                current = 3;
-
-                render(true);
-
-            }
-
-            if (
-                current < 3
-            ) {
-
-                current =
-                    TOTAL + 2;
-
-                render(true);
-
-            }
-
-            moving = false;
-
-        },
-        710
-    );
-
+    return 3;
 }
 
 
-/* =========================================================
-   CONTROLS
-========================================================= */
+function moveCarousel() {
+
+    const visible =
+        getVisibleCards();
+
+    const maxIndex =
+        Math.max(
+            0,
+            cards.length - visible
+        );
+
+    if (currentIndex > maxIndex) {
+        currentIndex = 0;
+    }
+
+    if (currentIndex < 0) {
+        currentIndex = maxIndex;
+    }
+
+
+    const cardWidth =
+        cards[0].getBoundingClientRect().width;
+
+    const gap = 18;
+
+    const distance =
+        currentIndex *
+        (cardWidth + gap);
+
+    track.style.transform =
+        `translateX(-${distance}px)`;
+}
+
+
+/* NEXT */
 
 nextButton.addEventListener(
     "click",
     () => {
 
-        stopAuto();
+        currentIndex++;
 
-        move(1);
+        moveCarousel();
 
-        startAuto();
+        restartAutoCarousel();
 
     }
 );
+
+
+/* PREVIOUS */
 
 previousButton.addEventListener(
     "click",
     () => {
 
-        stopAuto();
+        currentIndex--;
 
-        move(-1);
+        moveCarousel();
 
-        startAuto();
+        restartAutoCarousel();
 
     }
 );
 
 
 /* =========================================================
-   AUTO PLAY
-========================================================= */
+   AUTO CAROUSEL
+   ========================================================= */
 
-function startAuto() {
+let carouselTimer;
 
-    stopAuto();
 
-    timer =
+function startAutoCarousel() {
+
+    carouselTimer =
         setInterval(
             () => {
 
-                if (!moving) {
-                    move(1);
-                }
+                currentIndex++;
+
+                moveCarousel();
 
             },
-            2800
+            3480
         );
-
 }
 
-function stopAuto() {
 
-    if (timer) {
+function restartAutoCarousel() {
 
-        clearInterval(timer);
-
-        timer = null;
-
-    }
-
-}
-
-const carousel =
-    document.querySelector(
-        ".carousel-window"
+    clearInterval(
+        carouselTimer
     );
 
-carousel.addEventListener(
-    "mouseenter",
-    stopAuto
-);
+    startAutoCarousel();
+}
 
-carousel.addEventListener(
-    "mouseleave",
-    startAuto
-);
-
-
-/* =========================================================
-   RESIZE
-========================================================= */
 
 window.addEventListener(
     "resize",
-    () => {
-
-        render(true);
-
-    }
+    moveCarousel
 );
 
 
-/* =========================================================
-   REVEALS
-========================================================= */
-
-const reveals =
-    document.querySelectorAll(
-        ".reveal"
-    );
-
-const observer =
-    new IntersectionObserver(
-        entries => {
-
-            entries.forEach(
-                entry => {
-
-                    if (
-                        entry.isIntersecting
-                    ) {
-
-                        entry.target
-                            .classList
-                            .add("visible");
-
-                        observer
-                            .unobserve(
-                                entry.target
-                            );
-
-                    }
-
-                }
-            );
-
-        },
-        {
-            threshold: .10
-        }
-    );
-
-
-reveals.forEach(
-    element =>
-        observer.observe(element)
-);
+startAutoCarousel();
 
 
 /* =========================================================
-   INITIALIZE
-========================================================= */
+   PAUSE CAROUSEL WHEN HOVERING
+   ========================================================= */
 
-window.addEventListener(
-    "load",
+const appsArea =
+    document.querySelector(".apps-area");
+
+
+appsArea.addEventListener(
+    "mouseenter",
     () => {
 
-        render(true);
-
-        setTimeout(
-            startAuto,
-            1000
+        clearInterval(
+            carouselTimer
         );
 
     }
 );
+
+
+appsArea.addEventListener(
+    "mouseleave",
+    () => {
+
+        startAutoCarousel();
+
+    }
+);
+
+
+/* =========================================================
+   REDUCE MOTION SUPPORT
+   ========================================================= */
+
+if (
+    window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches
+) {
+
+    document.documentElement.style
+        .scrollBehavior = "auto";
+
+}
 
 </script>
 
